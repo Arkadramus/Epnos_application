@@ -28,7 +28,7 @@
                       <asp:Button ID="btn_Recherche" runat="server" class="searchButton">
                               
                      </asp:Button>
-                        <asp:Button  class="btn" runat="server" Text="Retrouver un rapport" ID="btn_RetrouveRapport" Style="margin-left:22%; width:10%;  "/>
+                        <asp:Button  class="btn" runat="server" Text="Retrouver un rapport" ID="btn_RetrouveRapport" Style="margin-left:19%; width:10%;  "/>
                         <asp:Button  class="btn" runat="server" Text="Ouvrir" ID="btn_Ouvrir" Style="margin-left:1%;  width:10%;"/>
                    </div>  
                 </div>           
