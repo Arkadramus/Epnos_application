@@ -82,4 +82,74 @@ div.Barre_Option {
     float: right;
 }
 
+div.Liste_Info {
+    height: 90vh;
+    background-color: white;
+    width: 66%;
+    margin-right: 2%;
+    margin-left: 2%;
+    float: right;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+
+.search {
+    width: 100%;
+    position: relative;
+    display: flex;
+}
+
+.searchTerm {
+    width: 100%;
+    border: 1px solid white;
+    padding: 7px;
+    height: 20px;
+    border-radius: 5px 0 0 5px;
+    color: #9DBFAF;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+    .searchTerm:focus {
+        color: #00456f;
+    }
+
+.searchButton {
+    width: 40px;
+    height: 36px;
+    border: 1px solid #00456f;
+    background: #00456f;
+    text-align: center;
+    color: white;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+/*Resize the wrap to see the search bar change!*/
+.wrap {
+    width: 100%;
+    position: absolute;
+    margin-top:1%;
+    margin-left: 1%;
+}
+
+.btn {
+    padding: 6px 0 6px 0;
+    font: bold 13px Arial;
+    background: #00456f;
+    color: #fff;
+    border-radius: 2px;
+    width: 100px;
+    border: none;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+}
+
+
+
+
 
