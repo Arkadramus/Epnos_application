@@ -12,19 +12,14 @@
         $(function () {
             g = new Dygraph(
                 document.getElementById("graph"),
-                "Date,Temperature\n" +
-                "2008-05-07,75\n" +
-                "2008-05-08,70\n" +
-                "2008-05-09,80\n");
+                "C:\Users\Alexis_portable\Documents\Projet S10\Epnos_application\Test_edf.csv");
         })
     </script>
 </head>
 <body>
     <form id="form1" runat="server">
-        <asp:Button runat="server" ID="btn1" Text="clique" />
-        <asp:Panel runat="server" Height="1000px" Width="1000px">
-            <div id="graph"></div>
-        </asp:Panel>
+        <asp:Button runat="server" id="bnt1" Text="EDFRead" OnClick="Unnamed_Click" />
+        <div id="graph" style="height: 400px; width: 400px"></div>
     </form>
 </body>
 </html>
