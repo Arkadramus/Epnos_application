@@ -27,7 +27,6 @@ namespace Epnos_application
                 var listEdfSignal = edfFile.Signals;
                 if (listEdfSignal[ind] != null)
                 {
-                    //File.Create("/test_generator.csv");
                     var duration = edfHeader.DurationOfDataRecord.Value;
                     var samples = listEdfSignal[ind].Samples;
                     var csv = new StringBuilder();
