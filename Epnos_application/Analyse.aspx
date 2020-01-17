@@ -12,13 +12,16 @@
         $(function () {
             g = new Dygraph(
                 document.getElementById("graph"),
-                "C:\Users\Alexis_portable\Documents\Projet S10\Epnos_application\Test_edf.csv");
+                "EDF/Test_edf.csv");
         })
     </script>
 </head>
 <body>
     <form id="form1" runat="server">
-        <asp:Button runat="server" id="bnt1" Text="EDFRead" OnClick="Unnamed_Click" />
+        <asp:Button runat="server" id="bnt1" Text="EDFRead1" OnCommand="Unnamed_Click" CommandArgument="1"/>
+        <asp:Button runat="server" id="bnt2" Text="EDFRead2" OnCommand="Unnamed_Click" CommandArgument="2"/>
+        <asp:Button runat="server" id="bnt3" Text="EDFRead3" OnCommand="Unnamed_Click" CommandArgument="3"/>
+        <asp:Button runat="server" id="bnt4" Text="EDFRead4" OnCommand="Unnamed_Click" CommandArgument="4"/>
         <div id="graph" style="height: 400px; width: 400px"></div>
     </form>
 </body>

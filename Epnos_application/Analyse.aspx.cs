@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,36 +17,38 @@ namespace Epnos_application
 
         }
 
-        private void ReadEdf()
+        private void ReadEdf(int ind)
         {
             try
             {
-                string pathName = "C:\\Users\\Alexis_portable\\Documents\\Projet S10\\Epnos_application\\Epnos_application\\EDF\\VUHA_PSG_EDF.edf";
+                string pathName = "C:\\Users\\Alexis_portable\\Downloads\\VUHA_PSG_EDF.edf";
                 var edfFile = new EDFFile(pathName);
                 var edfHeader = edfFile.Header;
                 var listEdfSignal = edfFile.Signals;
-                if (listEdfSignal[1] != null)
+                if (listEdfSignal[ind] != null)
                 {
                     //File.Create("/test_generator.csv");
                     var duration = edfHeader.DurationOfDataRecord.Value;
-                    var samples = listEdfSignal[1].Samples;
-                    string res = "Time,Signal\n";
+                    var samples = listEdfSignal[ind].Samples;
+                    var csv = new StringBuilder();
+                    csv.Append("Time,Signal\n");
                     var i = 0;
                     foreach (short sample in samples)
                     {
-                        res += i.ToString() + "," + sample.ToString() + "\n";
+                        csv.Append(i.ToString() + "," + sample.ToString()+"\n");
                         i += duration;
                     }
-                    File.WriteAllText("C:\\Users\\Alexis_portable\\Documents\\Projet S10\\Epnos_application\\Test_edf.csv", res);
+                    csv.Append("\n");
+                    File.WriteAllText("C:\\Users\\Alexis_portable\\Documents\\Projet S10\\Epnos_application\\Epnos_application\\EDF\\Test_edf.csv", csv.ToString());
                 }
 
             }
             catch (Exception e) { }
         }
 
-        protected void Unnamed_Click(object sender, EventArgs e)
+        protected void Unnamed_Click(object sender, CommandEventArgs e)
         {
-            ReadEdf();
+            ReadEdf(int.Parse((string)e.CommandArgument));
         }
     }
 }
