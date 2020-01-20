@@ -12,8 +12,71 @@
     <script>
         $(function () {
             g = new Dygraph(
-                document.getElementById("graph"),
-                "EDF/Test_edf.csv");
+                document.getElementById("Snoring"),
+                "EDF/Snoring.csv");
+        })
+    </script>
+    <script>
+        $(function () {
+            g = new Dygraph(
+                document.getElementById("E2-M1"),
+                "EDF/E2-M1.csv");
+        })
+    </script>
+    <script>
+        $(function () {
+            g = new Dygraph(
+                document.getElementById("E1-M1"),
+                "EDF/E1-M1.csv");
+        })
+    </script>
+    <script>
+        $(function () {
+            g = new Dygraph(
+                document.getElementById("C3-M2"),
+                "EDF/C3-M2.csv");
+        })
+    </script>
+    <script>
+        $(function () {
+            g = new Dygraph(
+                document.getElementById("F3-M2"),
+                "EDF/F3-M2.csv");
+        })
+    </script>
+    <script>
+        $(function () {
+            g = new Dygraph(
+                document.getElementById("O1-M2"),
+                "EDF/O1-M2.csv");
+        })
+    </script>
+    <script>
+        $(function () {
+            g = new Dygraph(
+                document.getElementById("1-F"),
+                "EDF/1-F.csv");
+        })
+    </script>
+    <script>
+        $(function () {
+            g = new Dygraph(
+                document.getElementById("1-2"),
+                "EDF/1-2.csv");
+        })
+    </script>
+    <script>
+        $(function () {
+            g = new Dygraph(
+                document.getElementById("ECG"),
+                "EDF/ECG.csv");
+        })
+    </script>
+    <script>
+        $(function () {
+            g = new Dygraph(
+                document.getElementById("Heart rate"),
+                "EDF/HeartRate.csv");
         })
     </script>
 </head>
@@ -37,9 +100,86 @@
                 </div>
             </div>
             <div class="Div_Graphe">
-                <asp:Button runat="server" ID="bnt1" Text="EDFRead" OnClick="Unnamed_Click" />
-                <div id="graph" style="height: 400px; width: 400px"></div>
-                <%-- Division où il y aura la liste des graphes --%>
+                <div>
+                    <div style="width: 50px">
+                        <asp:Label runat="server" Text="Snoring"></asp:Label>
+                    </div>
+                    <div style="width: 1682.44px;">
+                        <div id="Snoring" style="height: 100px; "></div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <asp:Label runat="server" Text="E2-M1"></asp:Label>
+                    </div>
+                    <div>
+                        <div id="E2-M1" style="height: 75px; width: 100%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <asp:Label runat="server" Text="E1-M1"></asp:Label>
+                    </div>
+                    <div>
+                        <div id="E1-M1" style="height: 75px; width: 100%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <asp:Label runat="server" Text="C3-M2"></asp:Label>
+                    </div>
+                    <div>
+                        <div id="C3-M2" style="height: 75px; width: 100%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <asp:Label runat="server" Text="F3-M2"></asp:Label>
+                    </div>
+                    <div>
+                        <div id="F3-M2" style="height: 75px; width: 100%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <asp:Label runat="server" Text="O1-M2"></asp:Label>
+                    </div>
+                    <div>
+                        <div id="O1-M2" style="height: 75px; width: 100%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <asp:Label runat="server" Text="1-F"></asp:Label>
+                    </div>
+                    <div>
+                        <div id="1-F" style="height: 75px; width: 100%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <asp:Label runat="server" Text="1-2"></asp:Label>
+                    </div>
+                    <div>
+                        <div id="1-2" style="height: 75px; width: 100%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <asp:Label runat="server" Text="ECG"></asp:Label>
+                    </div>
+                    <div>
+                        <div id="ECG" style="height: 75px; width: 100%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <asp:Label runat="server" Text="Heart rate"></asp:Label>
+                    </div>
+                    <div>
+                        <div id="Heart rate" style="height: 75px; width: 100%"></div>
+                    </div>
+                </div>
             </div>
 
         </section>
