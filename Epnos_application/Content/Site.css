@@ -93,6 +93,20 @@ div.Liste_Info {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
+div.labelRepeater {
+    height: 10%;
+    width: 5%;
+    float: left;
+    text-align:center;
+    color:black;
+}
+
+div.graphRepeater {
+    height: 10%;
+    width: 95%;
+    float: right;
+}
+
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
 

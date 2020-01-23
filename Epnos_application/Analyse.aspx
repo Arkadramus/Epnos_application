@@ -75,7 +75,7 @@
     <script>
         $(function () {
             g = new Dygraph(
-                document.getElementById("Heart rate"),
+                document.getElementById("HeartRate"),
                 "EDF/HeartRate.csv");
         })
     </script>
@@ -96,90 +96,24 @@
                     <asp:Button class="btn" runat="server" Text="Sauvegarder" ID="btn_Save" Style="margin-left: 1%;" />
                     <asp:Button class="btn" runat="server" Text="Capturer l'écran" ID="btn_CaptEcran" Style="margin-left: 1%;" />
                     <asp:Button class="btn" runat="server" Text="Voir les captures" ID="btn_VoirCapt" Style="margin-left: 1%;" />
+                    <asp:Button class="btn" runat="server" Text="Neurologie" ID="btnNeuro" Style="margin-left: 1%; vertical-align:bottom; float:right;" />
+                    <asp:Button class="btn" runat="server" Text="Sonore" ID="btnSono" Style="margin-left: 1%; vertical-align:bottom; float:right;" />
 
                 </div>
             </div>
             <div class="Div_Graphe">
-                <div>
-                    <div style="width: 50px">
-                        <asp:Label runat="server" Text="Snoring"></asp:Label>
-                    </div>
-                    <div style="width: 1682.44px;">
-                        <div id="Snoring" style="height: 100px; "></div>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <asp:Label runat="server" Text="E2-M1"></asp:Label>
-                    </div>
-                    <div>
-                        <div id="E2-M1" style="height: 75px; width: 100%"></div>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <asp:Label runat="server" Text="E1-M1"></asp:Label>
-                    </div>
-                    <div>
-                        <div id="E1-M1" style="height: 75px; width: 100%"></div>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <asp:Label runat="server" Text="C3-M2"></asp:Label>
-                    </div>
-                    <div>
-                        <div id="C3-M2" style="height: 75px; width: 100%"></div>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <asp:Label runat="server" Text="F3-M2"></asp:Label>
-                    </div>
-                    <div>
-                        <div id="F3-M2" style="height: 75px; width: 100%"></div>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <asp:Label runat="server" Text="O1-M2"></asp:Label>
-                    </div>
-                    <div>
-                        <div id="O1-M2" style="height: 75px; width: 100%"></div>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <asp:Label runat="server" Text="1-F"></asp:Label>
-                    </div>
-                    <div>
-                        <div id="1-F" style="height: 75px; width: 100%"></div>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <asp:Label runat="server" Text="1-2"></asp:Label>
-                    </div>
-                    <div>
-                        <div id="1-2" style="height: 75px; width: 100%"></div>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <asp:Label runat="server" Text="ECG"></asp:Label>
-                    </div>
-                    <div>
-                        <div id="ECG" style="height: 75px; width: 100%"></div>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <asp:Label runat="server" Text="Heart rate"></asp:Label>
-                    </div>
-                    <div>
-                        <div id="Heart rate" style="height: 75px; width: 100%"></div>
-                    </div>
-                </div>
+                <asp:Repeater ID="rptNeuro" runat="server">
+                    <ItemTemplate>
+                            <td>
+                                <div class="labelRepeater">
+                                    <asp:LinkButton runat="server" Text='<%# DataBinder.Eval(Container.DataItem,"Nom")%>'></asp:LinkButton>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="graphRepeater" id='<%# DataBinder.Eval(Container.DataItem,"divID")%>'></div>
+                            </td>
+                    </ItemTemplate>
+                </asp:Repeater>
             </div>
 
         </section>
