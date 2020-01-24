@@ -91,6 +91,7 @@ div.Liste_Info {
     float: right;
     border-radius: 20px 20px 0 0;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    display: inline-block;
 }
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
@@ -117,8 +118,8 @@ div.Liste_Info {
     }
 
 .searchButton {
-    width: 40px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
     border: 1px solid #00456f;
     background: #00456f;
     text-align: center;
@@ -175,6 +176,18 @@ div.Div_Info {
     border-radius: 20px;
     float:left;
 }
+
+.Tab_Info{
+    width:97%;
+    margin-top:2%;
+    margin-left:2%;
+    margin-right:1%;
+    text-align: center;
+    line-height:5vh;
+    border-collapse:collapse;
+}
+
+
 
 
 

@@ -15,14 +15,15 @@ namespace Epnos_application
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            // Récupération du path du fichier que l'on souhaite ouvrir 
+            String SelectedFile = Request.QueryString["path"];
         }
 
         private void ReadEdf()
         {
             try
             {
-                string pathName = "C:\\Users\\Alexis_portable\\Documents\\Projet S10\\Epnos_application\\Epnos_application\\EDF\\VUHA_PSG_EDF.edf";
+                string pathName = "C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\VUHA_PSG_EDF.edf";
                 var edfFile = new EDFFile(pathName);
                 var edfHeader = edfFile.Header;
                 var listEdfSignal = edfFile.Signals;
