@@ -94,6 +94,20 @@ div.Liste_Info {
     display: inline-block;
 }
 
+div.labelRepeater {
+    height: 10%;
+    width: 5%;
+    float: left;
+    text-align:center;
+    color:black;
+}
+
+div.graphRepeater {
+    height: 10%;
+    width: 95%;
+    float: right;
+}
+
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
 
