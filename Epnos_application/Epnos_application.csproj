@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -187,6 +188,7 @@
     <Content Include="Account\Web.config" />
     <Content Include="EDF\temperatures.csv" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="img\alpaga.jpg" />
     <Content Include="img\navbar-logo.png" />
     <Content Include="img\setting.png" />
     <Content Include="Scripts\bootstrap.js" />
