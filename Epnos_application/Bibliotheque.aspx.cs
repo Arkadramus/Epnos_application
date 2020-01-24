@@ -4,10 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using LibEDF_DotNet;
 using System.IO;
 using System.Web.UI.HtmlControls;
 using System.Collections;
+
+using EDF = SharpLib.EuropeanDataFormat;
 
 namespace Epnos_application
 {
@@ -33,18 +34,18 @@ namespace Epnos_application
             
                 ArrayList values = new ArrayList();
 
-                List<string> dirs = new List<string>(Directory.EnumerateFiles("C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Edf"));
+                List<string> dirs = new List<string>(Directory.EnumerateFiles("C:\\Users\\Alexis_portable\\Documents\\Projet S10\\EDF file"));
                 hiddenField_paths.Value = "";
                 foreach (var file in dirs)
                 {
                     hiddenField_paths.Value = hiddenField_paths.Value + " "+ file ;
-                    var edfFile = new EDFFile(file);
+                    var edfFile = new EDF.File(file);
                     var edfHeader = edfFile.Header;
                     var idPatient = edfHeader.PatientID;
-                    var dateRecord = edfHeader.StartDate;
-                    var timeRecord = edfHeader.StartTime;
-                    var durationRecord = edfHeader.DurationOfDataRecord;
-                    var numberOfDataRecord = edfHeader.NumberOfDataRecords;
+                    var dateRecord = edfHeader.RecordingStartDate;
+                    var timeRecord = edfHeader.RecordingStartTime;
+                    var durationRecord = edfHeader.RecordDurationInSeconds;
+                    var numberOfDataRecord = edfHeader.RecordCount;
 
                     values.Add(new PositionData(idPatient.Value, dateRecord.Value + " | " + timeRecord.Value, (durationRecord.Value * numberOfDataRecord.Value / 3600).ToString(), "", "", ""));
 
@@ -138,13 +139,13 @@ namespace Epnos_application
             foreach (var file in dirs)
             {
                 hiddenField_paths.Value = hiddenField_paths.Value + " " + file;
-                var edfFile = new EDFFile(file);
+                var edfFile = new EDF.File(file);
                 var edfHeader = edfFile.Header;
                 var idPatient = edfHeader.PatientID;
-                var dateRecord = edfHeader.StartDate;
-                var timeRecord = edfHeader.StartTime;
-                var durationRecord = edfHeader.DurationOfDataRecord;
-                var numberOfDataRecord = edfHeader.NumberOfDataRecords;
+                var dateRecord = edfHeader.RecordingStartDate;
+                var timeRecord = edfHeader.RecordingStartTime;
+                var durationRecord = edfHeader.RecordDurationInSeconds;
+                var numberOfDataRecord = edfHeader.RecordCount;
 
                 values.Add(new PositionData(idPatient.Value, dateRecord.Value + " | " + timeRecord.Value, (durationRecord.Value * numberOfDataRecord.Value / 3600).ToString(), "", "", ""));
 
