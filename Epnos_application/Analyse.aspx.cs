@@ -21,6 +21,7 @@ namespace Epnos_application
     {
         private readonly string PATH_CSV = "C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Epnos_application\\Epnos_application\\EDF";
         private readonly int NB_SAMPLE = 2500;
+
         private EDF.File edfFile;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -29,25 +30,10 @@ namespace Epnos_application
             String SelectedFile = Request.QueryString["path"];
             if (!IsPostBack)
             {
-                var values = new ArrayList();
-
-                values.Add(new PositionData("Snoring"));
-                values.Add(new PositionData("E2-M1"));
-                values.Add(new PositionData("E1-M1"));
-                values.Add(new PositionData("C3-M2"));
-                values.Add(new PositionData("F3-M2"));
-                values.Add(new PositionData("O1-M2"));
-                values.Add(new PositionData("1-F"));
-                values.Add(new PositionData("1-2"));
-                values.Add(new PositionData("ECG"));
-                values.Add(new PositionData("HeartRate"));
-
-                rptNeuro.DataSource = values;
-                rptNeuro.DataBind();
-
                 InitSignal();
 
-            }        
+            }
+
         }
 
         struct PositionData
@@ -64,7 +50,6 @@ namespace Epnos_application
                 this.nom = nom;
                 this.divID = nom;
             }
-
 
             public PositionData(string nom, string divID)
             {
@@ -92,22 +77,69 @@ namespace Epnos_application
         {
             try
             {
-                string pathName = "C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Edf\\VUHA_PSG_EDF.edf";
 
-                edfFile = new EDF.File(pathName);
+                //string pathName = "C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Edf\\VUHA_PSG_EDF.edf";
+                //edfFile = new EDF.File(pathName);
 
-                ReadSignal("Snoring");
-                ReadSignal("E2-M1");
-                ReadSignal("E1", "M1");
-                ReadSignal("C3-M2");
-                ReadSignal("F3-M2");
-                ReadSignal("O1-M2");
-                ReadSignal("1-F");
-                ReadSignal("1-2");
-                ReadSignal("ECG");
-                ReadSignal("HeartRate");
+                //ReadSignal("Snoring");
+                //ReadSignal("E2-M1");
+                //ReadSignal("E1", "M1");
+                //ReadSignal("C3-M2");
+                //ReadSignal("F3-M2");
+                //ReadSignal("O1-M2");
+                //ReadSignal("1-F");
+                //ReadSignal("1-2");
+                //ReadSignal("ECG");
+                //ReadSignal("HeartRate");
+
+                //ReadSignal("AudioVolumeDB");
+                //ReadSignal("Snoring");
+                //ReadSignal("AirFlow");
+                //ReadSignal("RIPFlow");
+                //ReadSignal("spO2B-B");
+                //ReadSignal("InductanceThora");
+                //ReadSignal("InductanceAbdom");
+                //ReadSignal("K");
             }
             catch (Exception e) { }
+        }
+
+        private void SetRepeater(int index = 1)
+        {
+            var valueNeuro = new ArrayList();
+            switch (index)
+            {
+                default:
+                case 1:
+                    valueNeuro.Add(new PositionData("Snoring"));
+                    valueNeuro.Add(new PositionData("E2-M1"));
+                    valueNeuro.Add(new PositionData("E1-M1"));
+                    valueNeuro.Add(new PositionData("C3-M2"));
+                    valueNeuro.Add(new PositionData("F3-M2"));
+                    valueNeuro.Add(new PositionData("O1-M2"));
+                    valueNeuro.Add(new PositionData("1-F"));
+                    valueNeuro.Add(new PositionData("1-2"));
+                    valueNeuro.Add(new PositionData("ECG"));
+                    valueNeuro.Add(new PositionData("HeartRate"));
+
+                    rptNeuro.DataSource = valueNeuro;
+                    rptNeuro.DataBind();
+                    break;
+
+                case 2:
+                    valueNeuro.Add(new PositionData("AudioVolumeDB"));
+                    valueNeuro.Add(new PositionData("Snoring"));
+                    valueNeuro.Add(new PositionData("AirFlow"));
+                    valueNeuro.Add(new PositionData("RIPFlow"));
+                    valueNeuro.Add(new PositionData("spO2B-B"));
+                    valueNeuro.Add(new PositionData("InductanceThora"));
+                    valueNeuro.Add(new PositionData("InductanceAbdom"));
+                    valueNeuro.Add(new PositionData("K"));
+
+                    rptNeuro.DataSource = valueNeuro;
+                    rptNeuro.DataBind();
+                    break;
+            }
         }
 
         private void ReadSignal(string labelSignal1, string labelSignal2 = null)
@@ -136,7 +168,7 @@ namespace Epnos_application
 
                             //for (int i = 0; i < length; i++)
                             for (int i = 0; i < NB_SAMPLE; i++)
-                                csv.Append((i * durationMS).ToString() + "ms," + (samples1[i] - samples2[i]).ToString() + "\n");
+                                csv.Append((i * durationMS).ToString() + "," + (samples1[i] - samples2[i]).ToString() + "\n");
 
                             csv.Append("\n");
                             File.WriteAllText(PATH_CSV + labelSignal1 + "-" + labelSignal2 + ".csv", csv.ToString());
@@ -158,12 +190,12 @@ namespace Epnos_application
                         if (samples.Count > NB_SAMPLE)//Pour le heartRate qui est limité à 110000 samples
                         {
                             for (int i = 0; i < NB_SAMPLE; i++)
-                                csv.Append((i * durationMS).ToString() + "ms," + samples[i].ToString() + "\n");
+                                csv.Append((i * durationMS).ToString() + "," + samples[i].ToString() + "\n");
                         }
                         else
                         {
                             for (int i = 0; i < samples.Count; i++)
-                                csv.Append((i * durationMS).ToString() + "ms," + samples[i].ToString() + "\n");
+                                csv.Append((i * durationMS).ToString() + "," + samples[i].ToString() + "\n");
                         }
                         csv.Append("\n");
                         File.WriteAllText(PATH_CSV + labelSignal1 + ".csv", csv.ToString());
@@ -191,9 +223,11 @@ namespace Epnos_application
 
         protected void btnNeuro_Click(object sender, EventArgs e)
         {
+            SetRepeater(1);
+            ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "text", "Neuro()", true);
             btnNeuro.BackColor = Color.White;
             btnNeuro.ForeColor = ColorTranslator.FromHtml("#00456f");
-            btnSono.BackColor = ColorTranslator.FromHtml("#00456f"); 
+            btnSono.BackColor = ColorTranslator.FromHtml("#00456f");
             btnSono.ForeColor = Color.White;
         }
 
@@ -203,6 +237,10 @@ namespace Epnos_application
             btnNeuro.ForeColor = Color.White;
             btnSono.BackColor = Color.White;
             btnSono.ForeColor = ColorTranslator.FromHtml("#00456f");
+
+            SetRepeater(2);
+            ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "text", "Sono()", true);
+
         }
     }
 }
