@@ -19,8 +19,8 @@ namespace Epnos_application
 {
     public partial class Analyse : System.Web.UI.Page
     {
-        private readonly string PATH_CSV = "C:\\Users\\Alexis_portable\\Documents\\Projet S10\\Epnos_application\\Epnos_application\\EDF\\";
-        private readonly int NB_SAMPLE = 250000;
+        private readonly string PATH_CSV = "C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Epnos_application\\Epnos_application\\EDF";
+        private readonly int NB_SAMPLE = 2500;
         private EDF.File edfFile;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -69,7 +69,7 @@ namespace Epnos_application
             public PositionData(string nom, string divID)
             {
                 this.nom ="";
-                string pathName = "C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\VUHA_PSG_EDF.edf";
+                string pathName = "C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Edf\\VUHA_PSG_EDF.edf";
                 var edfFile = new EDF.File(pathName);
                 var edfHeader = edfFile.Header;
                 var listEdfSignal = edfFile.Signals;
@@ -92,7 +92,8 @@ namespace Epnos_application
         {
             try
             {
-                string pathName = "C:\\Users\\Alexis_portable\\Downloads\\VUHA_PSG_EDF.edf";
+                string pathName = "C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Edf\\VUHA_PSG_EDF.edf";
+
                 edfFile = new EDF.File(pathName);
 
                 ReadSignal("Snoring");
@@ -186,6 +187,22 @@ namespace Epnos_application
         protected void btn_VoirCapt_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(@"C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Epnos_application\\Epnos_application\\Server\\screen");
+        }
+
+        protected void btnNeuro_Click(object sender, EventArgs e)
+        {
+            btnNeuro.BackColor = Color.White;
+            btnNeuro.ForeColor = ColorTranslator.FromHtml("#00456f");
+            btnSono.BackColor = ColorTranslator.FromHtml("#00456f"); 
+            btnSono.ForeColor = Color.White;
+        }
+
+        protected void btnSono_Click(object sender, EventArgs e)
+        {
+            btnNeuro.BackColor = ColorTranslator.FromHtml("#00456f");
+            btnNeuro.ForeColor = Color.White;
+            btnSono.BackColor = Color.White;
+            btnSono.ForeColor = ColorTranslator.FromHtml("#00456f");
         }
     }
 }

@@ -9,6 +9,7 @@
     <title></title>
     <script src="Scripts/dygraph.js"></script>
     <script src="Scripts/jquery-1.10.2.js"></script>
+ 
     <script>
         $(function () {
             g01 = new Dygraph(
@@ -54,19 +55,20 @@
                 <div class="Div_Info">
                     <%-- Division où il y aura les informations du patients --%>
                 </div>
-                <div style="width: 65%; float: right; margin-top: 1%;">
+                 <div style=" margin-right: 3%; width: 20%; float: right; padding-top:13.5vh;  height:17vh;">
+                    <asp:Button class="btn_neuro" runat="server" Text="Neurologie" ID="btnNeuro" Style="margin-bottom:0%; float: right;" onclick="btnNeuro_Click"/>
+                    <asp:Button class="btn_sono" runat="server" Text="Sonore" ID="btnSono" Style=" float: right;" OnClick="btnSono_Click" />
+                </div>
+                <div style="width: 42%; float: right; padding-top:1%;  height:17vh;">
                     <%-- Division où il y aura les boutons pour chaque fonctionnalité --%>
                     <asp:Button class="btn" runat="server" Text="Générer un rapport" ID="btn_GenereRapport" Style="margin-left: 0%;" />
                     <asp:Button class="btn" runat="server" Text="Sauvegarder" ID="btn_Save" Style="margin-left: 1%;" />
                     <asp:Button class="btn" runat="server" Text="Capturer l'écran" ID="btn_CaptEcran" Style="margin-left: 1%;" OnClick="btn_CaptEcran_Click" />
                     <asp:Button class="btn" runat="server" Text="Voir les captures" ID="btn_VoirCapt" Style="margin-left: 1%;" OnClick="btn_VoirCapt_Click" />
-                    <asp:Button class="btn" runat="server" Text="Neurologie" ID="btnNeuro" Style="margin-left: 1%; vertical-align: bottom; float: right;" />
-                    <asp:Button class="btn" runat="server" Text="Sonore" ID="btnSono" Style="margin-left: 1%; vertical-align: bottom; float: right;" />
-
-
-                </div>
+                 </div>
+                
             </div>
-            <div class="Div_Graphe">
+            <div class="Div_Graphe" Style="padding-top:2%">
                 <asp:Repeater ID="rptNeuro" runat="server">
                     <ItemTemplate>
                         <td>
