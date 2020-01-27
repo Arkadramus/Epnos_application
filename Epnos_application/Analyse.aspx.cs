@@ -13,15 +13,12 @@ using System.Web.UI.HtmlControls;
 using EDF = SharpLib.EuropeanDataFormat;
 
 
-
-//using LibEDF_DotNet;
-
 namespace Epnos_application
 {
     public partial class Analyse : System.Web.UI.Page
     {
         private readonly string PATH_CSV = "C:\\Users\\Alexis_portable\\Documents\\Projet S10\\Epnos_application\\Epnos_application\\EDF\\";
-        private readonly int NB_SAMPLE = 10000;
+        private readonly int NB_SAMPLE = 5000;
         private EDF.File edfFile;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -67,28 +64,28 @@ namespace Epnos_application
         {
             try
             {
-                string pathName = "C:\\Users\\Alexis_portable\\Downloads\\VUHA_PSG_EDF.edf";
-                edfFile = new EDF.File(pathName);
+                //string pathName = "C:\\Users\\Alexis_portable\\Downloads\\VUHA_PSG_EDF.edf";
+                //edfFile = new EDF.File(pathName);
 
-                ReadSignal("Snoring");
-                ReadSignal("E2-M1");
-                ReadSignal("E1", "M1");
-                ReadSignal("C3-M2");
-                ReadSignal("F3-M2");
-                ReadSignal("O1-M2");
-                ReadSignal("1-F");
-                ReadSignal("1-2");
-                ReadSignal("ECG");
-                ReadSignal("HeartRate");
+                //ReadSignal("Snoring");
+                //ReadSignal("E2-M1");
+                //ReadSignal("E1", "M1");
+                //ReadSignal("C3-M2");
+                //ReadSignal("F3-M2");
+                //ReadSignal("O1-M2");
+                //ReadSignal("1-F");
+                //ReadSignal("1-2");
+                //ReadSignal("ECG");
+                //ReadSignal("HeartRate");
 
-                ReadSignal("AudioVolumeDB");
-                ReadSignal("Snoring");
-                ReadSignal("AirFlow");
-                ReadSignal("RIPFlow");
-                ReadSignal("spO2B-B");
-                ReadSignal("InductanceThora");
-                ReadSignal("InductanceAbdom");
-                ReadSignal("K");
+                //ReadSignal("AudioVolumeDB");
+                //ReadSignal("Snoring");
+                //ReadSignal("AirFlow");
+                //ReadSignal("RIPFlow");
+                //ReadSignal("spO2B-B");
+                //ReadSignal("InductanceThora");
+                //ReadSignal("InductanceAbdom");
+                //ReadSignal("K");
             }
             catch (Exception e) { }
         }

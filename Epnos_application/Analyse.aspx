@@ -13,62 +13,385 @@
         function Sono() {
             s01 = new Dygraph(
                 document.getElementById("AudioVolumeDB"),
-                "EDF/AudioVolumeDB.csv");
+                "EDF/AudioVolumeDB.csv", {
+                    zoomCallback: function (minDate, maxDate, yRanges) {
+                        this.updateOptions({
+                            dateWindow: null,
+                            valueRange: null,
+
+                            underlayCallback: function (canvas, area, g) {
+                                var bottom_left = g.toDomCoords(minDate, -20);
+                                var top_right = g.toDomCoords(maxDate, +20);
+
+                                var left = bottom_left[0];
+                                var right = top_right[0];
+
+                                canvas.fillStyle = "rgba(0, 255, 0, 1.0)";
+                                canvas.fillRect(left, area.y, right - left, area.h);
+                            }
+                        });
+                    },
+                });
             s02 = new Dygraph(
                 document.getElementById("Snoring"),
-                "EDF/Snoring.csv");
+                "EDF/Snoring.csv", {
+                    zoomCallback: function (minDate, maxDate, yRanges) {
+                        this.updateOptions({
+                            dateWindow: null,
+                            valueRange: null,
+
+                            underlayCallback: function (canvas, area, g) {
+                                var bottom_left = g.toDomCoords(minDate, -20);
+                                var top_right = g.toDomCoords(maxDate, +20);
+
+                                var left = bottom_left[0];
+                                var right = top_right[0];
+
+                                canvas.fillStyle = "rgba(0, 255, 0, 1.0)";
+                                canvas.fillRect(left, area.y, right - left, area.h);
+                            }
+                        });
+                    },
+                });
             s03 = new Dygraph(
                 document.getElementById("AirFlow"),
-                "EDF/AirFlow.csv");
+                "EDF/AirFlow.csv", {
+                    zoomCallback: function (minDate, maxDate, yRanges) {
+                        this.updateOptions({
+                            dateWindow: null,
+                            valueRange: null,
+
+                            underlayCallback: function (canvas, area, g) {
+                                var bottom_left = g.toDomCoords(minDate, -20);
+                                var top_right = g.toDomCoords(maxDate, +20);
+
+                                var left = bottom_left[0];
+                                var right = top_right[0];
+
+                                canvas.fillStyle = "rgba(0, 255, 0, 1.0)";
+                                canvas.fillRect(left, area.y, right - left, area.h);
+                            }
+                        });
+                    },
+                });
             s04 = new Dygraph(
                 document.getElementById("RIPFlow"),
-                "EDF/RIPFlow.csv");
+                "EDF/RIPFlow.csv", {
+                    zoomCallback: function (minDate, maxDate, yRanges) {
+                        this.updateOptions({
+                            dateWindow: null,
+                            valueRange: null,
+
+                            underlayCallback: function (canvas, area, g) {
+                                var bottom_left = g.toDomCoords(minDate, -20);
+                                var top_right = g.toDomCoords(maxDate, +20);
+
+                                var left = bottom_left[0];
+                                var right = top_right[0];
+
+                                canvas.fillStyle = "rgba(0, 255, 0, 1.0)";
+                                canvas.fillRect(left, area.y, right - left, area.h);
+                            }
+                        });
+                    },
+                });
             s05 = new Dygraph(
                 document.getElementById("spO2B-B"),
-                "EDF/spO2B-B.csv");
+                "EDF/spO2B-B.csv", {
+                    zoomCallback: function (minDate, maxDate, yRanges) {
+                        this.updateOptions({
+                            dateWindow: null,
+                            valueRange: null,
+
+                            underlayCallback: function (canvas, area, g) {
+                                var bottom_left = g.toDomCoords(minDate, -20);
+                                var top_right = g.toDomCoords(maxDate, +20);
+
+                                var left = bottom_left[0];
+                                var right = top_right[0];
+
+                                canvas.fillStyle = "rgba(0, 255, 0, 1.0)";
+                                canvas.fillRect(left, area.y, right - left, area.h);
+                            }
+                        });
+                    },
+                });
             s06 = new Dygraph(
                 document.getElementById("InductanceThora"),
-                "EDF/InductanceThora.csv");
+                "EDF/InductanceThora.csv", {
+                    zoomCallback: function (minDate, maxDate, yRanges) {
+                        this.updateOptions({
+                            dateWindow: null,
+                            valueRange: null,
+
+                            underlayCallback: function (canvas, area, g) {
+                                var bottom_left = g.toDomCoords(minDate, -20);
+                                var top_right = g.toDomCoords(maxDate, +20);
+
+                                var left = bottom_left[0];
+                                var right = top_right[0];
+
+                                canvas.fillStyle = "rgba(0, 255, 0, 1.0)";
+                                canvas.fillRect(left, area.y, right - left, area.h);
+                            }
+                        });
+                    },
+                });
             s07 = new Dygraph(
                 document.getElementById("InductanceAbdom"),
-                "EDF/InductanceAbdom.csv");
+                "EDF/InductanceAbdom.csv", {
+                    zoomCallback: function (minDate, maxDate, yRanges) {
+                        this.updateOptions({
+                            dateWindow: null,
+                            valueRange: null,
+
+                            underlayCallback: function (canvas, area, g) {
+                                var bottom_left = g.toDomCoords(minDate, -20);
+                                var top_right = g.toDomCoords(maxDate, +20);
+
+                                var left = bottom_left[0];
+                                var right = top_right[0];
+
+                                canvas.fillStyle = "rgba(0, 255, 0, 1.0)";
+                                canvas.fillRect(left, area.y, right - left, area.h);
+                            }
+                        });
+                    },
+                });
             s08 = new Dygraph(
                 document.getElementById("K"),
-                "EDF/K.csv")
+                "EDF/K.csv", {
+                    zoomCallback: function (minDate, maxDate, yRanges) {
+                        this.updateOptions({
+                            dateWindow: null,
+                            valueRange: null,
+
+                            underlayCallback: function (canvas, area, g) {
+                                var bottom_left = g.toDomCoords(minDate, -20);
+                                var top_right = g.toDomCoords(maxDate, +20);
+
+                                var left = bottom_left[0];
+                                var right = top_right[0];
+
+                                canvas.fillStyle = "rgba(0, 255, 0, 1.0)";
+                                canvas.fillRect(left, area.y, right - left, area.h);
+                            }
+                        });
+                    },
+                });
         }
-    </script>
-    <script type="text/javascript">
+
         function Neuro() {
             g01 = new Dygraph(
                 document.getElementById("Snoring"),
-                "EDF/Snoring.csv");
+                "EDF/Snoring.csv", {
+                    zoomCallback: function (minDate, maxDate, yRanges) {
+                        this.updateOptions({
+                            dateWindow: null,
+                            valueRange: null,
+
+                            underlayCallback: function (canvas, area, g) {
+                                var bottom_left = g.toDomCoords(minDate, -20);
+                                var top_right = g.toDomCoords(maxDate, +20);
+
+                                var left = bottom_left[0];
+                                var right = top_right[0];
+
+                                canvas.fillStyle = "rgba(0, 255, 0, 1.0)";
+                                canvas.fillRect(left, area.y, right - left, area.h);
+                            }
+                        });
+                    },
+                });
             g02 = new Dygraph(
                 document.getElementById("E2-M1"),
-                "EDF/E2-M1.csv");
+                "EDF/E2-M1.csv", {
+                    zoomCallback: function (minDate, maxDate, yRanges) {
+                        this.updateOptions({
+                            dateWindow: null,
+                            valueRange: null,
+
+                            underlayCallback: function (canvas, area, g) {
+                                var bottom_left = g.toDomCoords(minDate, -20);
+                                var top_right = g.toDomCoords(maxDate, +20);
+
+                                var left = bottom_left[0];
+                                var right = top_right[0];
+
+                                canvas.fillStyle = "rgba(0, 255, 0, 1.0)";
+                                canvas.fillRect(left, area.y, right - left, area.h);
+                            }
+                        });
+                    },
+                });
             g03 = new Dygraph(
                 document.getElementById("E1-M1"),
-                "EDF/E1-M1.csv");
+                "EDF/E1-M1.csv", {
+                    zoomCallback: function (minDate, maxDate, yRanges) {
+                        this.updateOptions({
+                            dateWindow: null,
+                            valueRange: null,
+
+                            underlayCallback: function (canvas, area, g) {
+                                var bottom_left = g.toDomCoords(minDate, -20);
+                                var top_right = g.toDomCoords(maxDate, +20);
+
+                                var left = bottom_left[0];
+                                var right = top_right[0];
+
+                                canvas.fillStyle = "rgba(0, 255, 0, 1.0)";
+                                canvas.fillRect(left, area.y, right - left, area.h);
+                            }
+                        });
+                    },
+                });
             g04 = new Dygraph(
                 document.getElementById("C3-M2"),
-                "EDF/C3-M2.csv");
+                "EDF/C3-M2.csv", {
+                    zoomCallback: function (minDate, maxDate, yRanges) {
+                        this.updateOptions({
+                            dateWindow: null,
+                            valueRange: null,
+
+                            underlayCallback: function (canvas, area, g) {
+                                var bottom_left = g.toDomCoords(minDate, -20);
+                                var top_right = g.toDomCoords(maxDate, +20);
+
+                                var left = bottom_left[0];
+                                var right = top_right[0];
+
+                                canvas.fillStyle = "rgba(0, 255, 0, 1.0)";
+                                canvas.fillRect(left, area.y, right - left, area.h);
+                            }
+                        });
+                    },
+                });
             g05 = new Dygraph(
                 document.getElementById("F3-M2"),
-                "EDF/F3-M2.csv");
+                "EDF/F3-M2.csv", {
+                    zoomCallback: function (minDate, maxDate, yRanges) {
+                        this.updateOptions({
+                            dateWindow: null,
+                            valueRange: null,
+
+                            underlayCallback: function (canvas, area, g) {
+                                var bottom_left = g.toDomCoords(minDate, -20);
+                                var top_right = g.toDomCoords(maxDate, +20);
+
+                                var left = bottom_left[0];
+                                var right = top_right[0];
+
+                                canvas.fillStyle = "rgba(0, 255, 0, 1.0)";
+                                canvas.fillRect(left, area.y, right - left, area.h);
+                            }
+                        });
+                    },
+                });
             g06 = new Dygraph(
                 document.getElementById("O1-M2"),
-                "EDF/O1-M2.csv");
+                "EDF/O1-M2.csv", {
+                    zoomCallback: function (minDate, maxDate, yRanges) {
+                        this.updateOptions({
+                            dateWindow: null,
+                            valueRange: null,
+
+                            underlayCallback: function (canvas, area, g) {
+                                var bottom_left = g.toDomCoords(minDate, -20);
+                                var top_right = g.toDomCoords(maxDate, +20);
+
+                                var left = bottom_left[0];
+                                var right = top_right[0];
+
+                                canvas.fillStyle = "rgba(0, 255, 0, 1.0)";
+                                canvas.fillRect(left, area.y, right - left, area.h);
+                            }
+                        });
+                    },
+                });
             g07 = new Dygraph(
                 document.getElementById("1-F"),
-                "EDF/1-F.csv");
+                "EDF/1-F.csv", {
+                    zoomCallback: function (minDate, maxDate, yRanges) {
+                        this.updateOptions({
+                            dateWindow: null,
+                            valueRange: null,
+
+                            underlayCallback: function (canvas, area, g) {
+                                var bottom_left = g.toDomCoords(minDate, -20);
+                                var top_right = g.toDomCoords(maxDate, +20);
+
+                                var left = bottom_left[0];
+                                var right = top_right[0];
+
+                                canvas.fillStyle = "rgba(0, 255, 0, 1.0)";
+                                canvas.fillRect(left, area.y, right - left, area.h);
+                            }
+                        });
+                    },
+                });
             g08 = new Dygraph(
                 document.getElementById("1-2"),
-                "EDF/1-2.csv");
+                "EDF/1-2.csv", {
+                    zoomCallback: function (minDate, maxDate, yRanges) {
+                        this.updateOptions({
+                            dateWindow: null,
+                            valueRange: null,
+
+                            underlayCallback: function (canvas, area, g) {
+                                var bottom_left = g.toDomCoords(minDate, -20);
+                                var top_right = g.toDomCoords(maxDate, +20);
+
+                                var left = bottom_left[0];
+                                var right = top_right[0];
+
+                                canvas.fillStyle = "rgba(0, 255, 0, 1.0)";
+                                canvas.fillRect(left, area.y, right - left, area.h);
+                            }
+                        });
+                    },
+                });
             g09 = new Dygraph(
                 document.getElementById("ECG"),
-                "EDF/ECG.csv");
+                "EDF/ECG.csv", {
+                    zoomCallback: function (minDate, maxDate, yRanges) {
+                        this.updateOptions({
+                            dateWindow: null,
+                            valueRange: null,
+
+                            underlayCallback: function (canvas, area, g) {
+                                var bottom_left = g.toDomCoords(minDate, -20);
+                                var top_right = g.toDomCoords(maxDate, +20);
+
+                                var left = bottom_left[0];
+                                var right = top_right[0];
+
+                                canvas.fillStyle = "rgba(0, 255, 0, 1.0)";
+                                canvas.fillRect(left, area.y, right - left, area.h);
+                            }
+                        });
+                    },
+                });
             g10 = new Dygraph(
                 document.getElementById("HeartRate"),
-                "EDF/HeartRate.csv");
+                "EDF/HeartRate.csv", {
+                    zoomCallback: function (minDate, maxDate, yRanges) {
+                        this.updateOptions({
+                            dateWindow: null,
+                            valueRange: null,
+
+                            underlayCallback: function (canvas, area, g) {
+                                var bottom_left = g.toDomCoords(minDate, -20);
+                                var top_right = g.toDomCoords(maxDate, +20);
+
+                                var left = bottom_left[0];
+                                var right = top_right[0];
+
+                                canvas.fillStyle = "rgba(0, 255, 0, 1.0)";
+                                canvas.fillRect(left, area.y, right - left, area.h);
+                            }
+                        });
+                    },
+                });
         }
     </script>
 </head>
@@ -81,6 +404,7 @@
             <div class="Head_option">
                 <div class="Div_Info">
                     <img src="img/alpaga.jpg" height="150" width="200" />
+                    <asp:Label runat="server" Text="Pedro" Font-Size="12px"></asp:Label>
                     <%-- Division où il y aura les informations du patients --%>
                 </div>
                 <div style="width: 65%; float: right; margin-top: 1%;">
@@ -95,7 +419,7 @@
                 </div>
             </div>
             <div class="Div_Graphe">
-                 <asp:Repeater ID="rptNeuro" runat="server">
+                <asp:Repeater ID="rptNeuro" runat="server">
                     <ItemTemplate>
                         <td>
                             <div class="labelRepeater">
