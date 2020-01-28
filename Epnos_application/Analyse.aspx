@@ -11,17 +11,19 @@
     <script src="Scripts/jquery-1.10.2.js"></script>
     <script type="text/javascript">
         function Sono() {
+            var tabminTab = [];
+            var tabmaxTab = [];
             s01 = new Dygraph(
                 document.getElementById("AudioVolumeDB"),
                 "EDF/AudioVolumeDB.csv", {
-                    zoomCallback: function (minDate, maxDate, yRanges) {
+                    zoomCallback: function (minTime, maxTime, yRanges) {
                         this.updateOptions({
                             dateWindow: null,
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                                var bottom_left = g.toDomCoords(minDate, -20);
-                                var top_right = g.toDomCoords(maxDate, +20);
+                                var bottom_left = g.toDomCoords(minTime, -20);
+                                var top_right = g.toDomCoords(maxTime, +20);
 
                                 var left = bottom_left[0];
                                 var right = top_right[0];
@@ -35,14 +37,14 @@
             s02 = new Dygraph(
                 document.getElementById("Snoring"),
                 "EDF/Snoring.csv", {
-                    zoomCallback: function (minDate, maxDate, yRanges) {
+                    zoomCallback: function (minTime, maxTime, yRanges) {
                         this.updateOptions({
                             dateWindow: null,
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                                var bottom_left = g.toDomCoords(minDate, -20);
-                                var top_right = g.toDomCoords(maxDate, +20);
+                                var bottom_left = g.toDomCoords(minTime, -20);
+                                var top_right = g.toDomCoords(maxTime, +20);
 
                                 var left = bottom_left[0];
                                 var right = top_right[0];
@@ -56,14 +58,14 @@
             s03 = new Dygraph(
                 document.getElementById("AirFlow"),
                 "EDF/AirFlow.csv", {
-                    zoomCallback: function (minDate, maxDate, yRanges) {
+                    zoomCallback: function (minTime, maxTime, yRanges) {
                         this.updateOptions({
                             dateWindow: null,
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                                var bottom_left = g.toDomCoords(minDate, -20);
-                                var top_right = g.toDomCoords(maxDate, +20);
+                                var bottom_left = g.toDomCoords(minTime, -20);
+                                var top_right = g.toDomCoords(maxTime, +20);
 
                                 var left = bottom_left[0];
                                 var right = top_right[0];
@@ -77,14 +79,14 @@
             s04 = new Dygraph(
                 document.getElementById("RIPFlow"),
                 "EDF/RIPFlow.csv", {
-                    zoomCallback: function (minDate, maxDate, yRanges) {
+                    zoomCallback: function (minTime, maxTime, yRanges) {
                         this.updateOptions({
                             dateWindow: null,
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                                var bottom_left = g.toDomCoords(minDate, -20);
-                                var top_right = g.toDomCoords(maxDate, +20);
+                                var bottom_left = g.toDomCoords(minTime, -20);
+                                var top_right = g.toDomCoords(maxTime, +20);
 
                                 var left = bottom_left[0];
                                 var right = top_right[0];
@@ -98,14 +100,14 @@
             s05 = new Dygraph(
                 document.getElementById("spO2B-B"),
                 "EDF/spO2B-B.csv", {
-                    zoomCallback: function (minDate, maxDate, yRanges) {
+                    zoomCallback: function (minTime, maxTime, yRanges) {
                         this.updateOptions({
                             dateWindow: null,
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                                var bottom_left = g.toDomCoords(minDate, -20);
-                                var top_right = g.toDomCoords(maxDate, +20);
+                                var bottom_left = g.toDomCoords(minTime, -20);
+                                var top_right = g.toDomCoords(maxTime, +20);
 
                                 var left = bottom_left[0];
                                 var right = top_right[0];
@@ -119,14 +121,14 @@
             s06 = new Dygraph(
                 document.getElementById("InductanceThora"),
                 "EDF/InductanceThora.csv", {
-                    zoomCallback: function (minDate, maxDate, yRanges) {
+                    zoomCallback: function (minTime, maxTime, yRanges) {
                         this.updateOptions({
                             dateWindow: null,
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                                var bottom_left = g.toDomCoords(minDate, -20);
-                                var top_right = g.toDomCoords(maxDate, +20);
+                                var bottom_left = g.toDomCoords(minTime, -20);
+                                var top_right = g.toDomCoords(maxTime, +20);
 
                                 var left = bottom_left[0];
                                 var right = top_right[0];
@@ -140,14 +142,14 @@
             s07 = new Dygraph(
                 document.getElementById("InductanceAbdom"),
                 "EDF/InductanceAbdom.csv", {
-                    zoomCallback: function (minDate, maxDate, yRanges) {
+                    zoomCallback: function (minTime, maxTime, yRanges) {
                         this.updateOptions({
                             dateWindow: null,
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                                var bottom_left = g.toDomCoords(minDate, -20);
-                                var top_right = g.toDomCoords(maxDate, +20);
+                                var bottom_left = g.toDomCoords(minTime, -20);
+                                var top_right = g.toDomCoords(maxTime, +20);
 
                                 var left = bottom_left[0];
                                 var right = top_right[0];
@@ -161,14 +163,14 @@
             s08 = new Dygraph(
                 document.getElementById("K"),
                 "EDF/K.csv", {
-                    zoomCallback: function (minDate, maxDate, yRanges) {
+                    zoomCallback: function (minTime, maxTime, yRanges) {
                         this.updateOptions({
                             dateWindow: null,
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                                var bottom_left = g.toDomCoords(minDate, -20);
-                                var top_right = g.toDomCoords(maxDate, +20);
+                                var bottom_left = g.toDomCoords(minTime, -20);
+                                var top_right = g.toDomCoords(maxTime, +20);
 
                                 var left = bottom_left[0];
                                 var right = top_right[0];
@@ -185,14 +187,14 @@
             g01 = new Dygraph(
                 document.getElementById("Snoring"),
                 "EDF/Snoring.csv", {
-                    zoomCallback: function (minDate, maxDate, yRanges) {
+                    zoomCallback: function (minTime, maxTime, yRanges) {
                         this.updateOptions({
                             dateWindow: null,
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                                var bottom_left = g.toDomCoords(minDate, -20);
-                                var top_right = g.toDomCoords(maxDate, +20);
+                                var bottom_left = g.toDomCoords(minTime, -20);
+                                var top_right = g.toDomCoords(maxTime, +20);
 
                                 var left = bottom_left[0];
                                 var right = top_right[0];
@@ -206,14 +208,14 @@
             g02 = new Dygraph(
                 document.getElementById("E2-M1"),
                 "EDF/E2-M1.csv", {
-                    zoomCallback: function (minDate, maxDate, yRanges) {
+                    zoomCallback: function (minTime, maxTime, yRanges) {
                         this.updateOptions({
                             dateWindow: null,
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                                var bottom_left = g.toDomCoords(minDate, -20);
-                                var top_right = g.toDomCoords(maxDate, +20);
+                                var bottom_left = g.toDomCoords(minTime, -20);
+                                var top_right = g.toDomCoords(maxTime, +20);
 
                                 var left = bottom_left[0];
                                 var right = top_right[0];
@@ -227,14 +229,14 @@
             g03 = new Dygraph(
                 document.getElementById("E1-M1"),
                 "EDF/E1-M1.csv", {
-                    zoomCallback: function (minDate, maxDate, yRanges) {
+                    zoomCallback: function (minTime, maxTime, yRanges) {
                         this.updateOptions({
                             dateWindow: null,
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                                var bottom_left = g.toDomCoords(minDate, -20);
-                                var top_right = g.toDomCoords(maxDate, +20);
+                                var bottom_left = g.toDomCoords(minTime, -20);
+                                var top_right = g.toDomCoords(maxTime, +20);
 
                                 var left = bottom_left[0];
                                 var right = top_right[0];
@@ -248,14 +250,14 @@
             g04 = new Dygraph(
                 document.getElementById("C3-M2"),
                 "EDF/C3-M2.csv", {
-                    zoomCallback: function (minDate, maxDate, yRanges) {
+                    zoomCallback: function (minTime, maxTime, yRanges) {
                         this.updateOptions({
                             dateWindow: null,
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                                var bottom_left = g.toDomCoords(minDate, -20);
-                                var top_right = g.toDomCoords(maxDate, +20);
+                                var bottom_left = g.toDomCoords(minTime, -20);
+                                var top_right = g.toDomCoords(maxTime, +20);
 
                                 var left = bottom_left[0];
                                 var right = top_right[0];
@@ -269,14 +271,14 @@
             g05 = new Dygraph(
                 document.getElementById("F3-M2"),
                 "EDF/F3-M2.csv", {
-                    zoomCallback: function (minDate, maxDate, yRanges) {
+                    zoomCallback: function (minTime, maxTime, yRanges) {
                         this.updateOptions({
                             dateWindow: null,
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                                var bottom_left = g.toDomCoords(minDate, -20);
-                                var top_right = g.toDomCoords(maxDate, +20);
+                                var bottom_left = g.toDomCoords(minTime, -20);
+                                var top_right = g.toDomCoords(maxTime, +20);
 
                                 var left = bottom_left[0];
                                 var right = top_right[0];
@@ -290,14 +292,14 @@
             g06 = new Dygraph(
                 document.getElementById("O1-M2"),
                 "EDF/O1-M2.csv", {
-                    zoomCallback: function (minDate, maxDate, yRanges) {
+                    zoomCallback: function (minTime, maxTime, yRanges) {
                         this.updateOptions({
                             dateWindow: null,
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                                var bottom_left = g.toDomCoords(minDate, -20);
-                                var top_right = g.toDomCoords(maxDate, +20);
+                                var bottom_left = g.toDomCoords(minTime, -20);
+                                var top_right = g.toDomCoords(maxTime, +20);
 
                                 var left = bottom_left[0];
                                 var right = top_right[0];
@@ -311,14 +313,14 @@
             g07 = new Dygraph(
                 document.getElementById("1-F"),
                 "EDF/1-F.csv", {
-                    zoomCallback: function (minDate, maxDate, yRanges) {
+                    zoomCallback: function (minTime, maxTime, yRanges) {
                         this.updateOptions({
                             dateWindow: null,
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                                var bottom_left = g.toDomCoords(minDate, -20);
-                                var top_right = g.toDomCoords(maxDate, +20);
+                                var bottom_left = g.toDomCoords(minTime, -20);
+                                var top_right = g.toDomCoords(maxTime, +20);
 
                                 var left = bottom_left[0];
                                 var right = top_right[0];
@@ -332,14 +334,14 @@
             g08 = new Dygraph(
                 document.getElementById("1-2"),
                 "EDF/1-2.csv", {
-                    zoomCallback: function (minDate, maxDate, yRanges) {
+                    zoomCallback: function (minTime, maxTime, yRanges) {
                         this.updateOptions({
                             dateWindow: null,
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                                var bottom_left = g.toDomCoords(minDate, -20);
-                                var top_right = g.toDomCoords(maxDate, +20);
+                                var bottom_left = g.toDomCoords(minTime, -20);
+                                var top_right = g.toDomCoords(maxTime, +20);
 
                                 var left = bottom_left[0];
                                 var right = top_right[0];
@@ -353,14 +355,14 @@
             g09 = new Dygraph(
                 document.getElementById("ECG"),
                 "EDF/ECG.csv", {
-                    zoomCallback: function (minDate, maxDate, yRanges) {
+                    zoomCallback: function (minTime, maxTime, yRanges) {
                         this.updateOptions({
                             dateWindow: null,
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                                var bottom_left = g.toDomCoords(minDate, -20);
-                                var top_right = g.toDomCoords(maxDate, +20);
+                                var bottom_left = g.toDomCoords(minTime, -20);
+                                var top_right = g.toDomCoords(maxTime, +20);
 
                                 var left = bottom_left[0];
                                 var right = top_right[0];
@@ -374,14 +376,14 @@
             g10 = new Dygraph(
                 document.getElementById("HeartRate"),
                 "EDF/HeartRate.csv", {
-                    zoomCallback: function (minDate, maxDate, yRanges) {
+                    zoomCallback: function (minTime, maxTime, yRanges) {
                         this.updateOptions({
                             dateWindow: null,
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                                var bottom_left = g.toDomCoords(minDate, -20);
-                                var top_right = g.toDomCoords(maxDate, +20);
+                                var bottom_left = g.toDomCoords(minTime, -20);
+                                var top_right = g.toDomCoords(maxTime, +20);
 
                                 var left = bottom_left[0];
                                 var right = top_right[0];
@@ -403,8 +405,8 @@
         <section class="Fond_page">
             <div class="Head_option">
                 <div class="Div_Info">
-                    <img src="img/alpaga.jpg" height="150" width="200" />
-                    <asp:Label runat="server" Text="Pedro" Font-Size="12px"></asp:Label>
+                    <asp:Image runat="server" ID="imgPedro" ImageUrl="img/alpaga.jpg" height="150px" width="275px" Visible="false"/>
+                    <asp:Label runat="server" ID="lblPedro" Text="Pedro" Font-Size="25px" Visible="false"></asp:Label>
                     <%-- Division où il y aura les informations du patients --%>
                 </div>
                 <div style="width: 65%; float: right; margin-top: 1%;">
@@ -431,10 +433,7 @@
                         </td>
                     </ItemTemplate>
                 </asp:Repeater>
-
-
             </div>
-
         </section>
     </form>
 </body>
