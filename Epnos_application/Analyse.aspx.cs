@@ -203,5 +203,11 @@ namespace Epnos_application
             SetRepeater(2);
             ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "text", "Sono()", true);
         }
+
+        protected void imgPedro_Click(object sender, ImageClickEventArgs e)
+        {
+            //Response.Write(String.Format("window.open('{0}','_blank')", ResolveUrl("https://www.youtube.com/watch?v=FSKZ4IowkYU")));
+            Response.Write("<script> window.open('" + "https://www.youtube.com/watch?v=FSKZ4IowkYU" + "','_blank'); </script>");
+        }
     }
 }
