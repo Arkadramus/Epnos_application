@@ -68,27 +68,27 @@ namespace Epnos_application
         {
             try
             {
-                edfFile = new EDF.File(Parametres.pathEDF);
+                //edfFile = new EDF.File(Parametres.pathEDF);
 
-                ReadSignal("Snoring");
-                ReadSignal("E2-M1");
-                ReadSignal("E1", "M1");
-                ReadSignal("C3-M2");
-                ReadSignal("F3-M2");
-                ReadSignal("O1-M2");
-                ReadSignal("1-F");
-                ReadSignal("1-2");
-                ReadSignal("ECG");
-                ReadSignal("HeartRate");
+                //ReadSignal("Snoring");
+                //ReadSignal("E2-M1");
+                //ReadSignal("E1", "M1");
+                //ReadSignal("C3-M2");
+                //ReadSignal("F3-M2");
+                //ReadSignal("O1-M2");
+                //ReadSignal("1-F");
+                //ReadSignal("1-2");
+                //ReadSignal("ECG");
+                //ReadSignal("HeartRate");
 
-                ReadSignal("AudioVolumeDB");
-                ReadSignal("Snoring");
-                ReadSignal("AirFlow");
-                ReadSignal("RIPFlow");
-                ReadSignal("spO2B-B");
-                ReadSignal("InductanceThora");
-                ReadSignal("InductanceAbdom");
-                ReadSignal("K");
+                //ReadSignal("AudioVolumeDB");
+                //ReadSignal("Snoring");
+                //ReadSignal("AirFlow");
+                //ReadSignal("RIPFlow");
+                //ReadSignal("spO2B-B");
+                //ReadSignal("InductanceThora");
+                //ReadSignal("InductanceAbdom");
+                //ReadSignal("K");
             }
             catch (Exception e) { }
         }
