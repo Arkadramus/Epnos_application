@@ -16,8 +16,6 @@
                 console.log(tabmaxTab[i]);
                 var bottom_left = g.toDomCoords(tabminTab[i], -20);
                 var top_right = g.toDomCoords(tabmaxTab[i], +20);
-                console.log(bottom_left);
-                console.log(top_right);
 
                 var left = bottom_left[0];
                 var right = top_right[0];
@@ -26,6 +24,14 @@
                 canvas.fillRect(left, area.y, right - left, area.h);
             }
         }
+        function setRange() {
+            s1.updateOptions({
+                showRangeSelector: true,
+                rangeSelectorHeight: 20,
+                dateWindow: [0, 1000],
+            })
+
+        }
 
         function Sono() {
             var tabminS1 = [];
@@ -33,6 +39,7 @@
             s1 = new Dygraph(
                 document.getElementById("AudioVolumeDB"),
                 "EDF/AudioVolumeDB.csv", {
+                    showRangeSelector: false,
                     zoomCallback: function (minTime, maxTime, yRanges) {
                         this.updateOptions({
                             dateWindow: null,
@@ -49,24 +56,25 @@
                 });
             var tabminS2 = [];
             var tabmaxS2 = [];
-            s2 = new Dygraph(
-                document.getElementById("Snoring"),
-                "EDF/Snoring.csv", {
-                    zoomCallback: function (minTime, maxTime, yRanges) {
-                        this.updateOptions({
-                            dateWindow: null,
-                            valueRange: null,
+            //s2 = new Dygraph(
+            //    document.getElementById("Snoring"),
+            //    "EDF/Snoring.csv", {
+            //        valueRange: [0, 1000],
+            //        zoomCallback: function (minTime, maxTime, yRanges) {
+            //            this.updateOptions({
+            //                dateWindow: null,
+            //                valueRange: null,
 
-                            underlayCallback: function (canvas, area, g) {
-                               if (tabminS2[tabminS2.length - 1] != minTime) {
-                                    tabminS2.push(minTime);
-                                    tabmaxS2.push(maxTime);
-                                    highlight(canvas, area, g, tabminS2, tabmaxS2)
-                                }
-                            }
-                        });
-                    },
-                });
+            //                underlayCallback: function (canvas, area, g) {
+            //                    if (tabminS2[tabminS2.length - 1] != minTime) {
+            //                        tabminS2.push(minTime);
+            //                        tabmaxS2.push(maxTime);
+            //                        highlight(canvas, area, g, tabminS2, tabmaxS2)
+            //                    }
+            //                }
+            //            });
+            //        },
+            //    });
             var tabminS3 = [];
             var tabmaxS3 = [];
             s3 = new Dygraph(
@@ -78,7 +86,7 @@
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                              if (tabminS3[tabminS3.length - 1] != minTime) {
+                                if (tabminS3[tabminS3.length - 1] != minTime) {
                                     tabminS3.push(minTime);
                                     tabmaxS3.push(maxTime);
                                     highlight(canvas, area, g, tabminS3, tabmaxS3)
@@ -98,7 +106,7 @@
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                               if (tabminS4[tabminS4.length - 1] != minTime) {
+                                if (tabminS4[tabminS4.length - 1] != minTime) {
                                     tabminS4.push(minTime);
                                     tabmaxS4.push(maxTime);
                                     highlight(canvas, area, g, tabminS4, tabmaxS4)
@@ -118,7 +126,7 @@
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                               if (tabminS5[tabminS5.length - 1] != minTime) {
+                                if (tabminS5[tabminS5.length - 1] != minTime) {
                                     tabminS5.push(minTime);
                                     tabmaxS5.push(maxTime);
                                     highlight(canvas, area, g, tabminS5, tabmaxS5)
@@ -127,7 +135,7 @@
                         });
                     },
                 });
-            var tabminS6= [];
+            var tabminS6 = [];
             var tabmaxS6 = [];
             s6 = new Dygraph(
                 document.getElementById("InductanceThora"),
@@ -138,7 +146,7 @@
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                               if (tabminS6[tabminS1.length - 1] != minTime) {
+                                if (tabminS6[tabminS6.length - 1] != minTime) {
                                     tabminS6.push(minTime);
                                     tabmaxS6.push(maxTime);
                                     highlight(canvas, area, g, tabminS6, tabmaxS6)
@@ -158,7 +166,7 @@
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                               if (tabminS7[tabminS7.length - 1] != minTime) {
+                                if (tabminS7[tabminS7.length - 1] != minTime) {
                                     tabminS7.push(minTime);
                                     tabmaxS7.push(maxTime);
                                     highlight(canvas, area, g, tabminS7, tabmaxS7)
@@ -281,7 +289,7 @@
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                              if (tabminN05[tabminN05.length - 1] != minTime) {
+                                if (tabminN05[tabminN05.length - 1] != minTime) {
                                     tabminN05.push(minTime);
                                     tabmaxN05.push(maxTime);
                                     highlight(canvas, area, g, tabminN05, tabmaxN05)
@@ -301,7 +309,7 @@
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                               if (tabminN06[tabminN06.length - 1] != minTime) {
+                                if (tabminN06[tabminN06.length - 1] != minTime) {
                                     tabminN06.push(minTime);
                                     tabmaxN06.push(maxTime);
                                     highlight(canvas, area, g, tabminN06, tabmaxN06)
@@ -341,7 +349,7 @@
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                              if (tabminN08[tabminN08.length - 1] != minTime) {
+                                if (tabminN08[tabminN08.length - 1] != minTime) {
                                     tabminN08.push(minTime);
                                     tabmaxN08.push(maxTime);
                                     highlight(canvas, area, g, tabminN08, tabmaxN08)
@@ -361,7 +369,7 @@
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                              if (tabminN09[tabminN09.length - 1] != minTime) {
+                                if (tabminN09[tabminN09.length - 1] != minTime) {
                                     tabminN09.push(minTime);
                                     tabmaxN09.push(maxTime);
                                     highlight(canvas, area, g, tabminN09, tabmaxN09)
@@ -381,7 +389,7 @@
                             valueRange: null,
 
                             underlayCallback: function (canvas, area, g) {
-                               if (tabminN10[tabminN10.length - 1] != minTime) {
+                                if (tabminN10[tabminN10.length - 1] != minTime) {
                                     tabminN10.push(minTime);
                                     tabmaxN10.push(maxTime);
                                     highlight(canvas, area, g, tabminN10, tabmaxN10)
@@ -407,6 +415,7 @@
                 </div>
                 <div style="width: 65%; float: right; margin-top: 1%;">
                     <%-- Division où il y aura les boutons pour chaque fonctionnalité --%>
+                    <asp:Button class="btn" runat="server" Text="Générer un rapport" ID="btn_test" OnClientClick="setRange()" Style="margin-left: 0%;" />
                     <asp:Button class="btn" runat="server" Text="Générer un rapport" ID="btn_GenereRapport" Style="margin-left: 0%;" />
                     <asp:Button class="btn" runat="server" Text="Sauvegarder" ID="btn_Save" Style="margin-left: 1%;" />
                     <asp:Button class="btn" runat="server" Text="Capturer l'écran" ID="btn_CaptEcran" Style="margin-left: 1%;" />

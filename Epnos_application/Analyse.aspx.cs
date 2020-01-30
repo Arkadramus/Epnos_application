@@ -68,7 +68,7 @@ namespace Epnos_application
         {
             try
             {
-                //edfFile = new EDF.File(Parametres.pathEDF);
+                 edfFile = new EDF.File(Parametres.pathEDF);
 
                 //ReadSignal("Snoring");
                 //ReadSignal("E2-M1");
@@ -82,14 +82,13 @@ namespace Epnos_application
                 //ReadSignal("HeartRate");
 
                 //ReadSignal("AudioVolumeDB");
-                //ReadSignal("Snoring");
                 //ReadSignal("AirFlow");
                 //ReadSignal("RIPFlow");
                 //ReadSignal("spO2B-B");
                 //ReadSignal("InductanceThora");
                 //ReadSignal("InductanceAbdom");
                 //ReadSignal("K");
-            }
+                }
             catch (Exception e) { }
         }
 
@@ -202,11 +201,11 @@ namespace Epnos_application
         {
             SetRepeater(2);
             ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "text", "Sono()", true);
+            ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "text", "setRange()", true);
         }
 
         protected void imgPedro_Click(object sender, ImageClickEventArgs e)
         {
-            //Response.Write(String.Format("window.open('{0}','_blank')", ResolveUrl("https://www.youtube.com/watch?v=FSKZ4IowkYU")));
             Response.Write("<script> window.open('" + "https://www.youtube.com/watch?v=FSKZ4IowkYU" + "','_blank'); </script>");
         }
     }
