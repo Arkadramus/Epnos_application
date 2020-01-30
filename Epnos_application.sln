@@ -1,22 +1,41 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epnos_application", "Epnos_application\Epnos_application.csproj", "{AFCBFE93-ABB9-4871-B47B-10BDB491EF52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpLibEuropeanDataFormat", "..\SharpLibEuropeanDataFormat\Project\Lib\SharpLibEuropeanDataFormat.csproj", "{7E8B16EB-EB43-4A0F-B4AA-D00BFE41EBE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{AFCBFE93-ABB9-4871-B47B-10BDB491EF52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AFCBFE93-ABB9-4871-B47B-10BDB491EF52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFCBFE93-ABB9-4871-B47B-10BDB491EF52}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AFCBFE93-ABB9-4871-B47B-10BDB491EF52}.Debug|x86.Build.0 = Debug|Any CPU
 		{AFCBFE93-ABB9-4871-B47B-10BDB491EF52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFCBFE93-ABB9-4871-B47B-10BDB491EF52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFCBFE93-ABB9-4871-B47B-10BDB491EF52}.Release|x86.ActiveCfg = Release|Any CPU
+		{AFCBFE93-ABB9-4871-B47B-10BDB491EF52}.Release|x86.Build.0 = Release|Any CPU
+		{7E8B16EB-EB43-4A0F-B4AA-D00BFE41EBE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E8B16EB-EB43-4A0F-B4AA-D00BFE41EBE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E8B16EB-EB43-4A0F-B4AA-D00BFE41EBE2}.Debug|x86.ActiveCfg = Debug|x86
+		{7E8B16EB-EB43-4A0F-B4AA-D00BFE41EBE2}.Debug|x86.Build.0 = Debug|x86
+		{7E8B16EB-EB43-4A0F-B4AA-D00BFE41EBE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E8B16EB-EB43-4A0F-B4AA-D00BFE41EBE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E8B16EB-EB43-4A0F-B4AA-D00BFE41EBE2}.Release|x86.ActiveCfg = Release|x86
+		{7E8B16EB-EB43-4A0F-B4AA-D00BFE41EBE2}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7D75FA6A-CFC0-4FB5-83E9-D5F3C3DF1F5F}
 	EndGlobalSection
 EndGlobal

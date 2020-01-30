@@ -53,5 +53,13 @@ namespace Epnos_application
                 return int.Parse(Read("NbSample", "Analyse"));
             }
         }
+
+        public static int BoucleLoad
+        {
+            get
+            {
+                return int.Parse(Read("boucleLoad", "EDF"));
+            }
+        }
     }
 }
