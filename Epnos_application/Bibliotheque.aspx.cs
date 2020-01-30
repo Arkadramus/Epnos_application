@@ -24,7 +24,7 @@ namespace Epnos_application
         {
             if (!IsPostBack)
             {
-                Fill_Table();
+                //Fill_Table();
             }
 
         }
@@ -122,7 +122,7 @@ namespace Epnos_application
         /// <param name="e"></param>
         protected void btn_Recherche_Click(object sender, ImageClickEventArgs e)
         {
-            Fill_Table();
+            //Fill_Table();
 
             String searchText = input_Search.Value;
             ArrayList values = new ArrayList();
@@ -163,6 +163,8 @@ namespace Epnos_application
             }
 
         }
+
+        
     }
 
     /// <summary>

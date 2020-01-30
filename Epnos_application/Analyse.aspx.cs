@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Collections;
 using System.Web.UI.HtmlControls;
 
+
 using EDF = SharpLib.EuropeanDataFormat;
 
 
@@ -31,8 +32,9 @@ namespace Epnos_application
             if (!IsPostBack)
             {
                 InitSignal();
-
+                
             }
+            
 
         }
 
@@ -40,6 +42,7 @@ namespace Epnos_application
         {
             private string nom;
             private string divID;
+     
 
             /// <summary>
             /// Le nom passé en paramètre sera donnée au label et à l'id de la div
@@ -49,6 +52,10 @@ namespace Epnos_application
             {
                 this.nom = nom;
                 this.divID = nom;
+               
+       
+
+                
             }
 
             public PositionData(string nom, string divID)
@@ -61,6 +68,8 @@ namespace Epnos_application
                 if (listEdfSignal[1] != null)
                 this.nom = nom;
                 this.divID = divID;
+               
+               
             }
 
             public string Nom
@@ -71,6 +80,8 @@ namespace Epnos_application
                 }
             }
             public string DivID { get { return divID; } }
+
+          
         }
 
         private void InitSignal()
@@ -241,6 +252,38 @@ namespace Epnos_application
             SetRepeater(2);
             ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "text", "Sono()", true);
 
+        }
+
+        protected void btn_test_Click(object sender, EventArgs e)
+        {
+           
+           
+        }
+
+        protected void rptNeuro_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+     
+            foreach (RepeaterItem item2 in rptNeuro.Items)
+            {
+                ImageButton linkbutton = (ImageButton)item2.FindControl("img_Paint");
+                lbl_pedro.Text = rptNeuro.Items[e.Item.ItemIndex].ItemIndex.ToString();
+                
+            }
+            if (btnNeuro.BackColor == Color.White)
+            {
+                SetRepeater(1);
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "text", "Neuro()", true);
+            }
+            else
+            {
+                SetRepeater(2);
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "text", "Sono()", true);
+            }
+        }
+
+        protected void btnTest_Click(object sender, EventArgs e)
+        {
+            divtr.visible = "true";
         }
     }
 }

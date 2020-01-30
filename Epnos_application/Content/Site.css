@@ -153,7 +153,7 @@ div.graphRepeater {
     margin-left: 1%;
 }
 
-.btn {
+.btns {
     padding: 6px 0 6px 0;
     font: bold 13px Arial;
     background: #00456f;
@@ -207,10 +207,10 @@ div.Div_Graphe {
 }
 
 div.Div_Info {
-    margin-left: 3%;
+    margin-left: 0%;
     margin-bottom: 1%;
     height:15vh;
-    width:30%;
+    width:40%;
     background-color: white;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     border-radius: 20px;
@@ -229,6 +229,19 @@ div.Div_Info {
 
 
 
+.Popup_Paint {
+    color: #00456f;
+    font: bold 13px Arial;
+}
 
 
-
+.Color_btn {
+    padding: 6px 0 6px 0;
+    font: bold 13px Arial;
+    border-radius: 5px;
+    width: 20px;
+    height: 15px;
+    border: none;
+    cursor: pointer;
+    vertical-align:central;
+}

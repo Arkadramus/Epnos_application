@@ -10,7 +10,7 @@
 namespace Epnos_application {
     
     
-    public partial class Analyse {
+    public partial class Popup_paint {
         
         /// <summary>
         /// Contrôle form1.
@@ -22,84 +22,102 @@ namespace Epnos_application {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// Contrôle lbl_pedro.
+        /// Contrôle btnColorRouge.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_pedro;
+        protected global::System.Web.UI.WebControls.Button btnColorRouge;
         
         /// <summary>
-        /// Contrôle btnTest.
+        /// Contrôle btnColorOrange.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnTest;
+        protected global::System.Web.UI.WebControls.Button btnColorOrange;
         
         /// <summary>
-        /// Contrôle btnNeuro.
+        /// Contrôle btnColorJaune.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNeuro;
+        protected global::System.Web.UI.WebControls.Button btnColorJaune;
         
         /// <summary>
-        /// Contrôle btnSono.
+        /// Contrôle btnColorVert.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSono;
+        protected global::System.Web.UI.WebControls.Button btnColorVert;
         
         /// <summary>
-        /// Contrôle btn_GenereRapport.
+        /// Contrôle btnColorCyan.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_GenereRapport;
+        protected global::System.Web.UI.WebControls.Button btnColorCyan;
         
         /// <summary>
-        /// Contrôle btn_Save.
+        /// Contrôle btnColorBleu.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_Save;
+        protected global::System.Web.UI.WebControls.Button btnColorBleu;
         
         /// <summary>
-        /// Contrôle btn_CaptEcran.
+        /// Contrôle btnColorViolet.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_CaptEcran;
+        protected global::System.Web.UI.WebControls.Button btnColorViolet;
         
         /// <summary>
-        /// Contrôle btn_VoirCapt.
+        /// Contrôle btnColorRose.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_VoirCapt;
+        protected global::System.Web.UI.WebControls.Button btnColorRose;
         
         /// <summary>
-        /// Contrôle rptNeuro.
+        /// Contrôle btnColorMarron.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptNeuro;
+        protected global::System.Web.UI.WebControls.Button btnColorMarron;
+        
+        /// <summary>
+        /// Contrôle btnColorNoir.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnColorNoir;
+        
+        /// <summary>
+        /// Contrôle hiddenField_Couleur.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hiddenField_Couleur;
     }
 }
