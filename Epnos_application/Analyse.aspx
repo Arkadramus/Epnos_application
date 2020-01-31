@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Analyse.aspx.cs" Inherits="Epnos_application.Analyse" %>
+﻿4<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Analyse.aspx.cs" Inherits="Epnos_application.Analyse" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <!DOCTYPE html>
@@ -464,7 +464,17 @@
                                 <asp:LinkButton ID="linkButton_Name" runat="server" Text='<%# DataBinder.Eval(Container.DataItem,"Nom")%>'></asp:LinkButton>
                            
 	                            <asp:ImageButton ID="img_Paint" runat="server" ImageUrl="img/paint.png"  OnClientClick="popupBasique('Popup_paint.aspx')" Height="20" Width="20" />
-	                            
+	                            <asp:Menu runat="server" ImageUrl="img/paint.png" >
+                                    <Items>
+                                        <asp:MenuItem text="rouge">
+                                        <asp:MenuItem text="orange">
+                                        <asp:MenuItem text="jaune">
+                                        <asp:MenuItem text="vert"></asp:MenuItem>
+
+
+
+                                    </Items>
+	                            </asp:Menu>
                                  
                             </div>
                         </td>

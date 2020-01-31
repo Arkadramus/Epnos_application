@@ -283,7 +283,7 @@ namespace Epnos_application
 
         protected void btnTest_Click(object sender, EventArgs e)
         {
-            divtr.visible = "true";
+          
         }
     }
 }
