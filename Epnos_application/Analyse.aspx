@@ -30,7 +30,6 @@
                 rangeSelectorHeight: 20,
                 dateWindow: [0, 1000],
             })
-
         }
 
         function Sono() {
@@ -77,124 +76,124 @@
             //    });
             var tabminS3 = [];
             var tabmaxS3 = [];
-            s3 = new Dygraph(
-                document.getElementById("AirFlow"),
-                "EDF/AirFlow.csv", {
-                    zoomCallback: function (minTime, maxTime, yRanges) {
-                        this.updateOptions({
-                            dateWindow: null,
-                            valueRange: null,
+            //s3 = new Dygraph(
+            //    document.getElementById("AirFlow"),
+            //    "EDF/AirFlow.csv", {
+            //        zoomCallback: function (minTime, maxTime, yRanges) {
+            //            this.updateOptions({
+            //                dateWindow: null,
+            //                valueRange: null,
 
-                            underlayCallback: function (canvas, area, g) {
-                                if (tabminS3[tabminS3.length - 1] != minTime) {
-                                    tabminS3.push(minTime);
-                                    tabmaxS3.push(maxTime);
-                                    highlight(canvas, area, g, tabminS3, tabmaxS3)
-                                }
-                            }
-                        });
-                    },
-                });
-            var tabminS4 = [];
-            var tabmaxS4 = [];
-            s4 = new Dygraph(
-                document.getElementById("RIPFlow"),
-                "EDF/RIPFlow.csv", {
-                    zoomCallback: function (minTime, maxTime, yRanges) {
-                        this.updateOptions({
-                            dateWindow: null,
-                            valueRange: null,
+            //                underlayCallback: function (canvas, area, g) {
+            //                    if (tabminS3[tabminS3.length - 1] != minTime) {
+            //                        tabminS3.push(minTime);
+            //                        tabmaxS3.push(maxTime);
+            //                        highlight(canvas, area, g, tabminS3, tabmaxS3)
+            //                    }
+            //                }
+            //            });
+            //        },
+            //    });
+            //var tabminS4 = [];
+            //var tabmaxS4 = [];
+            //s4 = new Dygraph(
+            //    document.getElementById("RIPFlow"),
+            //    "EDF/RIPFlow.csv", {
+            //        zoomCallback: function (minTime, maxTime, yRanges) {
+            //            this.updateOptions({
+            //                dateWindow: null,
+            //                valueRange: null,
 
-                            underlayCallback: function (canvas, area, g) {
-                                if (tabminS4[tabminS4.length - 1] != minTime) {
-                                    tabminS4.push(minTime);
-                                    tabmaxS4.push(maxTime);
-                                    highlight(canvas, area, g, tabminS4, tabmaxS4)
-                                }
-                            }
-                        });
-                    },
-                });
-            var tabminS5 = [];
-            var tabmaxS5 = [];
-            s5 = new Dygraph(
-                document.getElementById("spO2B-B"),
-                "EDF/spO2B-B.csv", {
-                    zoomCallback: function (minTime, maxTime, yRanges) {
-                        this.updateOptions({
-                            dateWindow: null,
-                            valueRange: null,
+            //                underlayCallback: function (canvas, area, g) {
+            //                    if (tabminS4[tabminS4.length - 1] != minTime) {
+            //                        tabminS4.push(minTime);
+            //                        tabmaxS4.push(maxTime);
+            //                        highlight(canvas, area, g, tabminS4, tabmaxS4)
+            //                    }
+            //                }
+            //            });
+            //        },
+            //    });
+            //var tabminS5 = [];
+            //var tabmaxS5 = [];
+            //s5 = new Dygraph(
+            //    document.getElementById("spO2B-B"),
+            //    "EDF/spO2B-B.csv", {
+            //        zoomCallback: function (minTime, maxTime, yRanges) {
+            //            this.updateOptions({
+            //                dateWindow: null,
+            //                valueRange: null,
 
-                            underlayCallback: function (canvas, area, g) {
-                                if (tabminS5[tabminS5.length - 1] != minTime) {
-                                    tabminS5.push(minTime);
-                                    tabmaxS5.push(maxTime);
-                                    highlight(canvas, area, g, tabminS5, tabmaxS5)
-                                }
-                            }
-                        });
-                    },
-                });
-            var tabminS6 = [];
-            var tabmaxS6 = [];
-            s6 = new Dygraph(
-                document.getElementById("InductanceThora"),
-                "EDF/InductanceThora.csv", {
-                    zoomCallback: function (minTime, maxTime, yRanges) {
-                        this.updateOptions({
-                            dateWindow: null,
-                            valueRange: null,
+            //                underlayCallback: function (canvas, area, g) {
+            //                    if (tabminS5[tabminS5.length - 1] != minTime) {
+            //                        tabminS5.push(minTime);
+            //                        tabmaxS5.push(maxTime);
+            //                        highlight(canvas, area, g, tabminS5, tabmaxS5)
+            //                    }
+            //                }
+            //            });
+            //        },
+            //    });
+            //var tabminS6 = [];
+            //var tabmaxS6 = [];
+            //s6 = new Dygraph(
+            //    document.getElementById("InductanceThora"),
+            //    "EDF/InductanceThora.csv", {
+            //        zoomCallback: function (minTime, maxTime, yRanges) {
+            //            this.updateOptions({
+            //                dateWindow: null,
+            //                valueRange: null,
 
-                            underlayCallback: function (canvas, area, g) {
-                                if (tabminS6[tabminS6.length - 1] != minTime) {
-                                    tabminS6.push(minTime);
-                                    tabmaxS6.push(maxTime);
-                                    highlight(canvas, area, g, tabminS6, tabmaxS6)
-                                }
-                            }
-                        });
-                    },
-                });
-            var tabminS7 = [];
-            var tabmaxS7 = [];
-            s7 = new Dygraph(
-                document.getElementById("InductanceAbdom"),
-                "EDF/InductanceAbdom.csv", {
-                    zoomCallback: function (minTime, maxTime, yRanges) {
-                        this.updateOptions({
-                            dateWindow: null,
-                            valueRange: null,
+            //                underlayCallback: function (canvas, area, g) {
+            //                    if (tabminS6[tabminS6.length - 1] != minTime) {
+            //                        tabminS6.push(minTime);
+            //                        tabmaxS6.push(maxTime);
+            //                        highlight(canvas, area, g, tabminS6, tabmaxS6)
+            //                    }
+            //                }
+            //            });
+            //        },
+            //    });
+            //var tabminS7 = [];
+            //var tabmaxS7 = [];
+            //s7 = new Dygraph(
+            //    document.getElementById("InductanceAbdom"),
+            //    "EDF/InductanceAbdom.csv", {
+            //        zoomCallback: function (minTime, maxTime, yRanges) {
+            //            this.updateOptions({
+            //                dateWindow: null,
+            //                valueRange: null,
 
-                            underlayCallback: function (canvas, area, g) {
-                                if (tabminS7[tabminS7.length - 1] != minTime) {
-                                    tabminS7.push(minTime);
-                                    tabmaxS7.push(maxTime);
-                                    highlight(canvas, area, g, tabminS7, tabmaxS7)
-                                }
-                            }
-                        });
-                    },
-                });
-            var tabminS8 = [];
-            var tabmaxS8 = [];
-            s8 = new Dygraph(
-                document.getElementById("K"),
-                "EDF/K.csv", {
-                    zoomCallback: function (minTime, maxTime, yRanges) {
-                        this.updateOptions({
-                            dateWindow: null,
-                            valueRange: null,
+            //                underlayCallback: function (canvas, area, g) {
+            //                    if (tabminS7[tabminS7.length - 1] != minTime) {
+            //                        tabminS7.push(minTime);
+            //                        tabmaxS7.push(maxTime);
+            //                        highlight(canvas, area, g, tabminS7, tabmaxS7)
+            //                    }
+            //                }
+            //            });
+            //        },
+            //    });
+            //var tabminS8 = [];
+            //var tabmaxS8 = [];
+            //s8 = new Dygraph(
+            //    document.getElementById("K"),
+            //    "EDF/K.csv", {
+            //        zoomCallback: function (minTime, maxTime, yRanges) {
+            //            this.updateOptions({
+            //                dateWindow: null,
+            //                valueRange: null,
 
-                            underlayCallback: function (canvas, area, g) {
-                                if (tabminS8[tabminS8.length - 1] != minTime) {
-                                    tabminS8.push(minTime);
-                                    tabmaxS8.push(maxTime);
-                                    highlight(canvas, area, g, tabminS8, tabmaxS8)
-                                }
-                            }
-                        });
-                    },
-                });
+            //                underlayCallback: function (canvas, area, g) {
+            //                    if (tabminS8[tabminS8.length - 1] != minTime) {
+            //                        tabminS8.push(minTime);
+            //                        tabmaxS8.push(maxTime);
+            //                        highlight(canvas, area, g, tabminS8, tabmaxS8)
+            //                    }
+            //                }
+            //            });
+            //        },
+            //    });
         }
 
         function Neuro() {

@@ -95,9 +95,11 @@ namespace Epnos_application
                 catch (Exception e)
                 {
                     i++;
+                    if (i >= Parametres.BoucleLoad)
+                        Response.Redirect("https://www.youtube.com/watch?v=4N3N1MlvVc4");
                 }
             }
-            Response.Redirect("https://www.youtube.com/watch?v=4N3N1MlvVc4");
+
         }
 
         private void SetRepeater(int index = 1)
