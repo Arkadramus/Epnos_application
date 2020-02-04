@@ -67,7 +67,8 @@
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminS2[tabminS2.length - 1] != minTime && (maxTime - minTime) <= (dataRange + 1) ) {
+                        if (tabminS2[tabminS2.length - 1] != minTime && tabmaxS2[tabmaxS2.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange + 50)) {
                             tabminS2.push(minTime);
                             tabmaxS2.push(maxTime);
                             canvasS2 = null;
@@ -96,7 +97,8 @@
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminS3[tabminS3.length - 1] != minTime) {
+                        if (tabminS3[tabminS3.length - 1] != minTime && tabmaxS3[tabmaxS3.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange + 50)) {
                             tabminS3.push(minTime);
                             tabmaxS3.push(maxTime);
                             canvasS3 = null;
@@ -125,7 +127,8 @@
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminS4[tabminS4.length - 1] != minTime) {
+                        if (tabminS4[tabminS4.length - 1] != minTime && tabmaxS4[tabmaxS4.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange + 50)) {
                             tabminS4.push(minTime);
                             tabmaxS4.push(maxTime);
                             canvasS4 = null;
@@ -154,7 +157,8 @@
                     dateWindow: [0, dataRange * 10],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminS5[tabminS5.length - 1] != minTime) {
+                        if (tabminS5[tabminS5.length - 1] != minTime && tabmaxS5[tabmaxS5.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange * 10 + 50)) {
                             tabminS5.push(minTime);
                             tabmaxS5.push(maxTime);
                             canvasS5 = null;
@@ -183,7 +187,8 @@
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminS6[tabminS6.length - 1] != minTime) {
+                        if (tabminS6[tabminS6.length - 1] != minTime && tabmaxS6[tabmaxS6.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange + 50)) {
                             tabminS6.push(minTime);
                             tabmaxS6.push(maxTime);
                             canvasS6 = null;
@@ -212,7 +217,8 @@
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminS7[tabminS7.length - 1] != minTime) {
+                        if (tabminS7[tabminS7.length - 1] != minTime && tabmaxS7[tabmaxS7.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange + 50)) {
                             tabminS7.push(minTime);
                             tabmaxS7.push(maxTime);
                             canvasS7 = null;
@@ -241,7 +247,8 @@
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminS8[tabminS8.length - 1] != minTime) {
+                        if (tabminS8[tabminS8.length - 1] != minTime && tabmaxS8[tabmaxS8.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange + 50)) {
                             tabminS8.push(minTime);
                             tabmaxS8.push(maxTime);
                             canvasS8 = null;
@@ -273,7 +280,8 @@
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminN01[tabminN01.length - 1] != minTime) {
+                        if (tabminN01[tabminN01.length - 1] != minTime && tabmaxN01[tabmaxN01.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange + 50)) {
                             tabminN01.push(minTime);
                             tabmaxN01.push(maxTime);
                             canvasN01 = null;
@@ -302,7 +310,8 @@
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminN02[tabminN02.length - 1] != minTime) {
+                        if (tabminN02[tabminN02.length - 1] != minTime && tabmaxN02[tabmaxN02.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange + 50)) {
                             tabminN02.push(minTime);
                             tabmaxN02.push(maxTime);
                             canvasN02 = null;
@@ -331,7 +340,8 @@
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminN03[tabminN03.length - 1] != minTime) {
+                        if (tabminN03[tabminN03.length - 1] != minTime && tabmaxN03[tabmaxN03.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange + 50)) {
                             tabminN03.push(minTime);
                             tabmaxN03.push(maxTime);
                             canvasN03 = null;
@@ -360,7 +370,8 @@
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminN04[tabminN04.length - 1] != minTime) {
+                        if (tabminN04[tabminN04.length - 1] != minTime && tabmaxN04[tabmaxN04.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange + 50)) {
                             tabminN04.push(minTime);
                             tabmaxN04.push(maxTime);
                             canvasN04 = null;
@@ -389,7 +400,8 @@
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminN05[tabminN05.length - 1] != minTime) {
+                        if (tabminN05[tabminN05.length - 1] != minTime && tabmaxN05[tabmaxN05.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange + 50)) {
                             tabminN05.push(minTime);
                             tabmaxN05.push(maxTime);
                             canvasN05 = null;
@@ -418,7 +430,8 @@
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminN06[tabminN06.length - 1] != minTime) {
+                        if (tabminN06[tabminN06.length - 1] != minTime && tabmaxN06[tabmaxN06.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange + 50)) {
                             tabminN06.push(minTime);
                             tabmaxN06.push(maxTime);
                             canvasN06 = null;
@@ -447,7 +460,8 @@
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminN07[tabminN07.length - 1] != minTime) {
+                        if (tabminN07[tabminN07.length - 1] != minTime && tabmaxN07[tabmaxN07.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange + 50)) {
                             tabminN07.push(minTime);
                             tabmaxN07.push(maxTime);
                             canvasN07 = null;
@@ -476,7 +490,8 @@
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminN08[tabminN08.length - 1] != minTime) {
+                        if (tabminN08[tabminN08.length - 1] != minTime && tabmaxN08[tabmaxN08.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange + 50)) {
                             tabminN08.push(minTime);
                             tabmaxN08.push(maxTime);
                             canvasN08 = null;
@@ -505,7 +520,8 @@
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminN09[tabminN09.length - 1] != minTime) {
+                        if (tabminN09[tabminN09.length - 1] != minTime && tabmaxN09[tabmaxN09.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange + 50)) {
                             tabminN09.push(minTime);
                             tabmaxN09.push(maxTime);
                             canvasN09 = null;
@@ -531,15 +547,16 @@
                 "EDF/HeartRate.csv", {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
-                    dateWindow: [0, dataRange * 10],
+                    dateWindow: [0, dataRange * 20],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminN10[tabminN10.length - 1] != minTime) {
+                        if (tabminN10[tabminN10.length - 1] != minTime && tabmaxN10[tabmaxN10.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange * 20 + 50)) {
                             tabminN10.push(minTime);
                             tabmaxN10.push(maxTime);
                             canvasN10 = null;
                         }
-                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
+                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange * 20], });
                     },
                     drawCallback: function (graph, is_initial) {
                         if (tabminN10.length > 0 && canvasN10 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
