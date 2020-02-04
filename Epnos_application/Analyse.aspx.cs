@@ -23,7 +23,7 @@ namespace Epnos_application
         {
             if (!IsPostBack)
             {
-                InitSignal();
+                //InitSignal();
                 if (Parametres.Pedro)
                 {
                     imgPedro.Visible = true;
@@ -67,30 +67,30 @@ namespace Epnos_application
         private void InitSignal()
         {
             int i = 0;
-            while (i < Parametres.BoucleLoad)
+            while (i < Parametres.BoucleLoad) //On tente l'ouverture plusieurs fois jusqu'à ce qu'il n'y ait plus de OOM
             {
                 try
                 {
                     edfFile = new EDF.File(Parametres.pathEDF);
                     i = Parametres.BoucleLoad;
-                    //ReadSignal("Snoring");
-                    //ReadSignal("E2-M1");
-                    //ReadSignal("E1", "M1");
-                    //ReadSignal("C3-M2");
-                    //ReadSignal("F3-M2");
-                    //ReadSignal("O1-M2");
-                    //ReadSignal("1-F");
-                    //ReadSignal("1-2");
-                    //ReadSignal("ECG");
-                    //ReadSignal("HeartRate");
+                    ReadSignal("Snoring");
+                    ReadSignal("E2-M1");
+                    ReadSignal("E1", "M1");
+                    ReadSignal("C3-M2");
+                    ReadSignal("F3-M2");
+                    ReadSignal("O1-M2");
+                    ReadSignal("1-F");
+                    ReadSignal("1-2");
+                    ReadSignal("ECG");
+                    ReadSignal("HeartRate");
 
-                    //ReadSignal("AudioVolumeDB");
-                    //ReadSignal("AirFlow");
-                    //ReadSignal("RIPFlow");
-                    //ReadSignal("spO2B-B");
-                    //ReadSignal("InductanceThora");
-                    //ReadSignal("InductanceAbdom");
-                    //ReadSignal("K");
+                    ReadSignal("AudioVolumeDB");
+                    ReadSignal("AirFlow");
+                    ReadSignal("RIPFlow");
+                    ReadSignal("spO2B-B");
+                    ReadSignal("InductanceThora");
+                    ReadSignal("InductanceAbdom");
+                    ReadSignal("K");
                 }
                 catch (Exception e)
                 {
@@ -208,7 +208,7 @@ namespace Epnos_application
         }
 
         protected void btnSono_Click(object sender, EventArgs e)
-        {
+        { 
             SetRepeater(2);
             ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "text", "Sono()", true);
             ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "text", "setRange()", true);
