@@ -27,6 +27,7 @@ namespace Epnos_application
 
         protected void Page_Load(object sender, EventArgs e)
         {
+         
             // Récupération du path du fichier que l'on souhaite ouvrir 
             String SelectedFile = Request.QueryString["path"];
             if (!IsPostBack)
@@ -34,8 +35,42 @@ namespace Epnos_application
                 InitSignal();
                 
             }
-            
 
+           
+
+
+        }
+
+     
+      
+        private void InitDDLNeuro()
+        {
+            DDLGraph.Items.Clear();
+            DDLGraph.Items.Add("Snoring");
+            DDLGraph.Items.Add("E2-M1");
+            DDLGraph.Items.Add("E1-M1");
+            DDLGraph.Items.Add("C3-M2");
+            DDLGraph.Items.Add("F3-M2");
+            DDLGraph.Items.Add("O1-M2");
+            DDLGraph.Items.Add("1-F");
+            DDLGraph.Items.Add("1-2");
+            DDLGraph.Items.Add("ECG");
+            DDLGraph.Items.Add("HeartRate");
+            DDLGraph.DataBind();
+        }
+
+        private void InitDDLRespi()
+        {
+            DDLGraph.Items.Clear();
+            DDLGraph.Items.Add("AudioVolumeDB");
+            DDLGraph.Items.Add("Snoring");
+            DDLGraph.Items.Add("AirFlow");
+            DDLGraph.Items.Add("RIPFlow");
+            DDLGraph.Items.Add("spO2B-B");
+            DDLGraph.Items.Add("InductanceThora");
+            DDLGraph.Items.Add("InductanceAbdom");
+            DDLGraph.Items.Add("K");
+            DDLGraph.DataBind();
         }
 
         struct PositionData
@@ -240,6 +275,7 @@ namespace Epnos_application
             btnNeuro.ForeColor = ColorTranslator.FromHtml("#00456f");
             btnSono.BackColor = ColorTranslator.FromHtml("#00456f");
             btnSono.ForeColor = Color.White;
+            InitDDLNeuro();
         }
 
         protected void btnSono_Click(object sender, EventArgs e)
@@ -248,7 +284,7 @@ namespace Epnos_application
             btnNeuro.ForeColor = Color.White;
             btnSono.BackColor = Color.White;
             btnSono.ForeColor = ColorTranslator.FromHtml("#00456f");
-
+            InitDDLRespi();
             SetRepeater(2);
             ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "text", "Sono()", true);
 
@@ -265,6 +301,7 @@ namespace Epnos_application
      
             foreach (RepeaterItem item2 in rptNeuro.Items)
             {
+              
                 ImageButton linkbutton = (ImageButton)item2.FindControl("img_Paint");
                 lbl_pedro.Text = rptNeuro.Items[e.Item.ItemIndex].ItemIndex.ToString();
                 
@@ -285,5 +322,41 @@ namespace Epnos_application
         {
           
         }
+
+
+        protected void menuPaintLine_MenuItemClick(object sender, MenuEventArgs e)
+        {
+            
+        }
+
+        protected void DDLGraph_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (btnNeuro.BackColor == Color.White)
+            {
+                SetRepeater(1);
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "text", "Neuro()", true);
+            }
+            else
+            {
+                SetRepeater(2);
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "text", "Sono()", true);
+            }
+        }
+
+        protected void DDLColor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (btnNeuro.BackColor == Color.White)
+            {
+                SetRepeater(1);
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "text", "Neuro()", true);
+            }
+            else
+            {
+                SetRepeater(2);
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "text", "Sono()", true);
+            }
+        }
+
+       
     }
 }
