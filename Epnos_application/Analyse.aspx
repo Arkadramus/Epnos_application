@@ -1,4 +1,4 @@
-﻿4<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Analyse.aspx.cs" Inherits="Epnos_application.Analyse" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Analyse.aspx.cs" Inherits="Epnos_application.Analyse" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <!DOCTYPE html>
@@ -14,10 +14,9 @@
     <script type="text/javascript">  
         function Sono() {
 
-
             var tab = window.name;
             colorSets = tab.split(",");
-            console.log(colorSets);      
+            console.log(colorSets);
             S1 = new Dygraph(
                 document.getElementById("AudioVolumeDB"),
                 "EDF/AudioVolumeDB.csv", {
@@ -199,14 +198,8 @@
                 });
         }
 
-        
-       
-      
-
-      
-
         function changeColor() {
-          
+
             var colorAvailable = [['#000000'], ['#FF0000'], ['#FFA500'], ['#FFFF00'], ['#00FF00'], ['#00008B'], ['#00BFFF'], ['#9400D3'], ['#FF1493'], ['#8B4513']];
 
             var e = document.getElementById("DDLColor");
@@ -218,14 +211,13 @@
             var tab = window.name;
             colorSets = tab.split(",");
 
-            switch (graphName)
-            {
+            switch (graphName) {
 
                 case "E2-M1":
-                    colorSets[1] = colorAvailable[indColor];  
+                    colorSets[1] = colorAvailable[indColor];
                     window.name = colorSets;
                     break;
-                case "E1-M1":          
+                case "E1-M1":
                     colorSets[2] = colorAvailable[indColor];
                     window.name = colorSets;
                     break;
@@ -289,22 +281,21 @@
                 case "K":
                     colorSets[17] = colorAvailable[indColor];
                     window.name = colorSets;
-                    break;        
+                    break;
 
             }
 
             var Button = document.getElementById("btnNeuro");
             var colorButton = Button.style.backgroundColor;
-            if (colorButton == "white")
-            {
+            if (colorButton == "white") {
                 Neuro();
             }
             else {
                 Sono();
             }
-            
+
             return false;
-            
+
         }
 
         function Neuro() {
@@ -354,7 +345,7 @@
                                 canvas.fillRect(left, area.y, right - left, area.h);
                             }
                         });
-                    
+
                     },
                     colors: [colorSets[1]]
                 });
@@ -544,35 +535,35 @@
         </header>
         <section class="Fond_page">
             <div class="Head_option">
-                <div style="height:15vh; width:30%;  margin-left: 3%; margin-bottom: 1%; float:left;">
+                <div style="height: 15vh; width: 30%; margin-left: 3%; margin-bottom: 1%; float: left;">
                     <div class="Div_Info">
-                         <img src="img/alpaga.jpg" height="100" width="150" />
-                          <asp:Label runat="server" ID="lbl_pedro" Text="Pedro" Font-Size="12px"></asp:Label>
+                        <img src="img/alpaga.jpg" height="100" width="150" />
+                        <asp:Label runat="server" ID="lbl_pedro" Text="Pedro" Font-Size="12px"></asp:Label>
                         <asp:Button runat="server" ID="btnTest" Text="Test" OnClick="btnTest_Click" />
                     </div>
                     <div class="Div_param">
-                        <asp:Label runat="server" Text="Couleur des graphes" style="margin-left:5%;"></asp:Label>
-                        <br >
-                         <asp:Label runat="server" Text="" style="margin-left:5%; "></asp:Label>
-                        <asp:DropDownList id="DDLColor"   AutoPostBack="True"  runat="server" OnSelectedIndexChanged="DDLColor_SelectedIndexChanged"  >   
-                                       <asp:ListItem id="selected" Selected="True" Value="0" style="background-color:#000000; color:white;"> Noir </asp:ListItem>
-                                       <asp:ListItem Value="1"  style="background-color:#FF0000;"> Rouge </asp:ListItem>
-                                       <asp:ListItem Value="2" style="background-color:#FFA500;"> Orange </asp:ListItem>
-                                       <asp:ListItem Value="3"  style="background-color:#FFFF00;"> Jaune </asp:ListItem>
-                                       <asp:ListItem Value="4"   style="background-color:#00FF00;"> Vert </asp:ListItem>
-                                       <asp:ListItem Value="5"   style="background-color:#00008B;"> Bleu </asp:ListItem>
-                                       <asp:ListItem Value="6"   style="background-color:#00BFFF;"> Cyan </asp:ListItem>
-                                       <asp:ListItem Value="7" style="background-color:#9400D3;"> Violet </asp:ListItem>
-                                       <asp:ListItem Value="8"   style="background-color:#FF1493;"> Rose </asp:ListItem>
-                                       <asp:ListItem Value="9" style="background-color:#8B4513;" > Marron </asp:ListItem>
+                        <asp:Label runat="server" Text="Couleur des graphes" Style="margin-left: 5%;"></asp:Label>
+                        <br />
+                        <asp:Label runat="server" Text="" Style="margin-left: 5%;"></asp:Label>
+                        <asp:DropDownList ID="DDLColor" AutoPostBack="True" runat="server" OnSelectedIndexChanged="DDLColor_SelectedIndexChanged">
+                            <asp:ListItem id="selected" Selected="True" Value="0" style="background-color: #000000; color: white;"> Noir </asp:ListItem>
+                            <asp:ListItem Value="1" style="background-color: #FF0000;"> Rouge </asp:ListItem>
+                            <asp:ListItem Value="2" style="background-color: #FFA500;"> Orange </asp:ListItem>
+                            <asp:ListItem Value="3" style="background-color: #FFFF00;"> Jaune </asp:ListItem>
+                            <asp:ListItem Value="4" style="background-color: #00FF00;"> Vert </asp:ListItem>
+                            <asp:ListItem Value="5" style="background-color: #00008B;"> Bleu </asp:ListItem>
+                            <asp:ListItem Value="6" style="background-color: #00BFFF;"> Cyan </asp:ListItem>
+                            <asp:ListItem Value="7" style="background-color: #9400D3;"> Violet </asp:ListItem>
+                            <asp:ListItem Value="8" style="background-color: #FF1493;"> Rose </asp:ListItem>
+                            <asp:ListItem Value="9" style="background-color: #8B4513;"> Marron </asp:ListItem>
                         </asp:DropDownList>
-                        <asp:DropDownList id="DDLGraph"   AutoPostBack="True"  runat="server" OnSelectedIndexChanged="DDLGraph_SelectedIndexChanged" >                 
+                        <asp:DropDownList ID="DDLGraph" AutoPostBack="True" runat="server" OnSelectedIndexChanged="DDLGraph_SelectedIndexChanged">
                         </asp:DropDownList>
                         <asp:Button runat="server" Text="Appliquer" ID="btnApplyChange" OnClientClick=" return changeColor()" />
                         <br />
 
                     </div>
-                    
+
 
 
                     <%-- Division où il y aura les informations du patients --%>
@@ -593,20 +584,13 @@
 
             <div class="Div_Graphe" style="padding-top: 2%">
 
-           
+
 
                 <asp:Repeater ID="rptNeuro" OnItemCommand="rptNeuro_ItemCommand" runat="server">
                     <ItemTemplate>
                         <td>
                             <div class="labelRepeater">
                                 <asp:LinkButton ID="linkButton_Name" runat="server" Text='<%# DataBinder.Eval(Container.DataItem,"Nom")%>'></asp:LinkButton>
-                           
-	                           
-                                
-                                  
-                               
-	                            
-                                 
                             </div>
                         </td>
                         <td>
@@ -616,12 +600,12 @@
                 </asp:Repeater>
 
 
-            
+
 
 
             </div>
 
-           
+
 
 
         </section>

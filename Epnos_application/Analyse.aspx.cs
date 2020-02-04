@@ -27,22 +27,18 @@ namespace Epnos_application
 
         protected void Page_Load(object sender, EventArgs e)
         {
-         
+
             // Récupération du path du fichier que l'on souhaite ouvrir 
             String SelectedFile = Request.QueryString["path"];
             if (!IsPostBack)
             {
                 InitSignal();
-                
+
             }
-
-           
-
-
         }
 
-     
-      
+
+
         private void InitDDLNeuro()
         {
             DDLGraph.Items.Clear();
@@ -77,7 +73,7 @@ namespace Epnos_application
         {
             private string nom;
             private string divID;
-     
+
 
             /// <summary>
             /// Le nom passé en paramètre sera donnée au label et à l'id de la div
@@ -87,24 +83,12 @@ namespace Epnos_application
             {
                 this.nom = nom;
                 this.divID = nom;
-               
-       
-
-                
             }
 
             public PositionData(string nom, string divID)
             {
-                this.nom ="";
-                string pathName = "C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Edf\\VUHA_PSG_EDF.edf";
-                var edfFile = new EDF.File(pathName);
-                var edfHeader = edfFile.Header;
-                var listEdfSignal = edfFile.Signals;
-                if (listEdfSignal[1] != null)
                 this.nom = nom;
                 this.divID = divID;
-               
-               
             }
 
             public string Nom
@@ -115,8 +99,6 @@ namespace Epnos_application
                 }
             }
             public string DivID { get { return divID; } }
-
-          
         }
 
         private void InitSignal()
@@ -258,7 +240,7 @@ namespace Epnos_application
             {
                 g.CopyFromScreen(0, 0, 0, 0, Screen.PrimaryScreen.Bounds.Size);
                 String nameDate = DateTime.Now.Ticks.ToString();
-                bmp.Save("C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Epnos_application\\Epnos_application\\Server\\screen\\"+nameDate+"+.png");  // saves the image
+                bmp.Save("C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Epnos_application\\Epnos_application\\Server\\screen\\" + nameDate + "+.png");  // saves the image
             }
         }
 
@@ -292,19 +274,19 @@ namespace Epnos_application
 
         protected void btn_test_Click(object sender, EventArgs e)
         {
-           
-           
+
+
         }
 
         protected void rptNeuro_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-     
+
             foreach (RepeaterItem item2 in rptNeuro.Items)
             {
-              
+
                 ImageButton linkbutton = (ImageButton)item2.FindControl("img_Paint");
                 lbl_pedro.Text = rptNeuro.Items[e.Item.ItemIndex].ItemIndex.ToString();
-                
+
             }
             if (btnNeuro.BackColor == Color.White)
             {
@@ -320,13 +302,13 @@ namespace Epnos_application
 
         protected void btnTest_Click(object sender, EventArgs e)
         {
-          
+
         }
 
 
         protected void menuPaintLine_MenuItemClick(object sender, MenuEventArgs e)
         {
-            
+
         }
 
         protected void DDLGraph_SelectedIndexChanged(object sender, EventArgs e)
@@ -357,6 +339,6 @@ namespace Epnos_application
             }
         }
 
-       
+
     }
 }
