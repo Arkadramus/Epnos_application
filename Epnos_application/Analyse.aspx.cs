@@ -20,9 +20,6 @@ namespace Epnos_application
 {
     public partial class Analyse : System.Web.UI.Page
     {
-        private readonly string PATH_CSV = "C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Epnos_application\\Epnos_application\\EDF";
-        private readonly int NB_SAMPLE = 2500;
-
         private EDF.File edfFile;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -32,11 +29,14 @@ namespace Epnos_application
             String SelectedFile = Request.QueryString["path"];
             if (!IsPostBack)
             {
-                InitSignal();
-
+                //InitSignal();
+                if (Parametres.Pedro)
+                {
+                    imgPedro.Visible = true;
+                    lbl_pedro.Visible = true;
+                }
             }
         }
-
 
 
         private void InitDDLNeuro()
@@ -98,38 +98,46 @@ namespace Epnos_application
                     return nom;
                 }
             }
+
             public string DivID { get { return divID; } }
         }
 
         private void InitSignal()
         {
-            try
+            int i = 0;
+            while (i < Parametres.BoucleLoad) //On tente l'ouverture plusieurs fois jusqu'à ce qu'il n'y ait plus de OOM
             {
+                try
+                {
+                    //edfFile = new EDF.File(Parametres.pathEDF);
+                    i = Parametres.BoucleLoad;
+                    //ReadSignal("Snoring");
+                    //ReadSignal("E2-M1");
+                    //ReadSignal("E1", "M1");
+                    //ReadSignal("C3-M2");
+                    //ReadSignal("F3-M2");
+                    //ReadSignal("O1-M2");
+                    //ReadSignal("1-F");
+                    //ReadSignal("1-2");
+                    //ReadSignal("ECG");
+                    //ReadSignal("HeartRate");
 
-                //string pathName = "C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Edf\\VUHA_PSG_EDF.edf";
-                //edfFile = new EDF.File(pathName);
-
-                //ReadSignal("Snoring");
-                //ReadSignal("E2-M1");
-                //ReadSignal("E1", "M1");
-                //ReadSignal("C3-M2");
-                //ReadSignal("F3-M2");
-                //ReadSignal("O1-M2");
-                //ReadSignal("1-F");
-                //ReadSignal("1-2");
-                //ReadSignal("ECG");
-                //ReadSignal("HeartRate");
-
-                //ReadSignal("AudioVolumeDB");
-                //ReadSignal("Snoring");
-                //ReadSignal("AirFlow");
-                //ReadSignal("RIPFlow");
-                //ReadSignal("spO2B-B");
-                //ReadSignal("InductanceThora");
-                //ReadSignal("InductanceAbdom");
-                //ReadSignal("K");
+                    //ReadSignal("AudioVolumeDB");
+                    //ReadSignal("AirFlow");
+                    //ReadSignal("RIPFlow");
+                    //ReadSignal("spO2B-B");
+                    //ReadSignal("InductanceThora");
+                    //ReadSignal("InductanceAbdom");
+                    //ReadSignal("K");
+                }
+                catch (Exception e)
+                {
+                    i++;
+                    if (i >= Parametres.BoucleLoad)
+                        Response.Redirect("https://www.youtube.com/watch?v=4N3N1MlvVc4");
+                }
             }
-            catch (Exception e) { }
+
         }
 
         private void SetRepeater(int index = 1)
@@ -195,11 +203,10 @@ namespace Epnos_application
 
 
                             //for (int i = 0; i < length; i++)
-                            for (int i = 0; i < NB_SAMPLE; i++)
+                            for (int i = 0; i < Parametres.NbSample; i++)
                                 csv.Append((i * durationMS).ToString() + "," + (samples1[i] - samples2[i]).ToString() + "\n");
-
                             csv.Append("\n");
-                            File.WriteAllText(PATH_CSV + labelSignal1 + "-" + labelSignal2 + ".csv", csv.ToString());
+                            File.WriteAllText(Parametres.pathCSV + labelSignal1 + "-" + labelSignal2 + ".csv", csv.ToString());
                         }
                     }
                 }
@@ -215,9 +222,9 @@ namespace Epnos_application
                         var csv = new StringBuilder();
                         csv.Append("Time,Signal\n");
 
-                        if (samples.Count > NB_SAMPLE)//Pour le heartRate qui est limité à 110000 samples
+                        if (samples.Count > Parametres.NbSample)//Pour le heartRate qui est limité à 110000 samples
                         {
-                            for (int i = 0; i < NB_SAMPLE; i++)
+                            for (int i = 0; i < Parametres.NbSample; i++)
                                 csv.Append((i * durationMS).ToString() + "," + samples[i].ToString() + "\n");
                         }
                         else
@@ -226,7 +233,7 @@ namespace Epnos_application
                                 csv.Append((i * durationMS).ToString() + "," + samples[i].ToString() + "\n");
                         }
                         csv.Append("\n");
-                        File.WriteAllText(PATH_CSV + labelSignal1 + ".csv", csv.ToString());
+                        File.WriteAllText(Parametres.pathCSV + labelSignal1 + ".csv", csv.ToString());
                     }
                 }
             }
@@ -269,18 +276,11 @@ namespace Epnos_application
             InitDDLRespi();
             SetRepeater(2);
             ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "text", "Sono()", true);
-
         }
 
-        protected void btn_test_Click(object sender, EventArgs e)
-        {
-
-
-        }
 
         protected void rptNeuro_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-
             foreach (RepeaterItem item2 in rptNeuro.Items)
             {
 
@@ -300,15 +300,9 @@ namespace Epnos_application
             }
         }
 
-        protected void btnTest_Click(object sender, EventArgs e)
+        protected void imgPedro_Click(object sender, ImageClickEventArgs e)
         {
-
-        }
-
-
-        protected void menuPaintLine_MenuItemClick(object sender, MenuEventArgs e)
-        {
-
+            Response.Write("<script> window.open('" + "https://www.youtube.com/watch?v=FSKZ4IowkYU" + "','_blank'); </script>");
         }
 
         protected void DDLGraph_SelectedIndexChanged(object sender, EventArgs e)
@@ -338,7 +332,5 @@ namespace Epnos_application
                 ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "text", "Sono()", true);
             }
         }
-
-
     }
 }
