@@ -568,7 +568,7 @@
 
                     <%-- Division où il y aura les informations du patients --%>
                 </div>
-                <div style="margin-right: 3%; width: 20%; float: right; padding-top: 13.5vh; height: 17vh;">
+                <div style="margin-right: 3%; width: 20%; float: right; padding-top: 15vh;">
                     <asp:Button class="btn_sono" runat="server" Text="Neurologie" ID="btnNeuro" Style="margin-bottom: 0%; float: right;" OnClick="btnNeuro_Click" />
                     <asp:Button class="btn_sono" runat="server" Text="Sonore" ID="btnSono" Style="float: right;" OnClick="btnSono_Click" />
                 </div>
