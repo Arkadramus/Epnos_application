@@ -16,7 +16,7 @@ namespace Epnos_application
     public partial class Bibliotèque : System.Web.UI.Page
     {
         /// <summary>
-        /// Lors du lancement, récupération des différents fichiers et affichage de leurs informations dans un tableau
+        /// Lancement de la page
         /// </summary>
         /// <param name="source"></param>
         /// <param name="e"></param>
@@ -24,17 +24,20 @@ namespace Epnos_application
         {
             if (!IsPostBack)
             {
-                Fill_Table();
+                //Fill_Table();
             }
 
         }
 
+        /// <summary>
+        /// Récupération des différents fichiers et affichage de leurs informations dans un tableau
+        /// </summary>
         protected void Fill_Table()
         {
             
                 ArrayList values = new ArrayList();
 
-                List<string> dirs = new List<string>(Directory.EnumerateFiles("C:\\Users\\Alexis_portable\\Documents\\Projet S10\\EDF file"));
+                List<string> dirs = new List<string>(Directory.EnumerateFiles("C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Edf"));
                 hiddenField_paths.Value = "";
                 foreach (var file in dirs)
                 {
@@ -112,9 +115,14 @@ namespace Epnos_application
             Response.Redirect(url);
         }
 
+        /// <summary>
+        /// Gestion des recherches de fichiers dans le dossier affiché
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btn_Recherche_Click(object sender, ImageClickEventArgs e)
         {
-            Fill_Table();
+            //Fill_Table();
 
             String searchText = input_Search.Value;
             ArrayList values = new ArrayList();
@@ -155,6 +163,8 @@ namespace Epnos_application
             }
 
         }
+
+        
     }
 
     /// <summary>
