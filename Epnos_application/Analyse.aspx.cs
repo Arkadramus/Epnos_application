@@ -147,14 +147,14 @@ namespace Epnos_application
             {
                 default:
                 case 1:
-                    valueNeuro.Add(new PositionData("Snoring"));
-                    valueNeuro.Add(new PositionData("E2-M1"));
-                    valueNeuro.Add(new PositionData("E1-M1"));
-                    valueNeuro.Add(new PositionData("C3-M2"));
-                    valueNeuro.Add(new PositionData("F3-M2"));
-                    valueNeuro.Add(new PositionData("O1-M2"));
-                    valueNeuro.Add(new PositionData("1-F"));
-                    valueNeuro.Add(new PositionData("1-2"));
+                    valueNeuro.Add(new PositionData("Snoring","SnoringN"));
+                    valueNeuro.Add(new PositionData("E2-M1","E2M1"));//On ne met pas de "-" pour les div car sinon le JS n'aime pas
+                    valueNeuro.Add(new PositionData("E1-M1", "E1M1"));
+                    valueNeuro.Add(new PositionData("C3-M2", "C3M2"));
+                    valueNeuro.Add(new PositionData("F3-M2", "F3M2"));
+                    valueNeuro.Add(new PositionData("O1-M2", "O1M2"));
+                    valueNeuro.Add(new PositionData("1-F", "1F"));
+                    valueNeuro.Add(new PositionData("1-2", "12"));
                     valueNeuro.Add(new PositionData("ECG"));
                     valueNeuro.Add(new PositionData("HeartRate"));
 
@@ -164,10 +164,10 @@ namespace Epnos_application
 
                 case 2:
                     valueNeuro.Add(new PositionData("AudioVolumeDB"));
-                    valueNeuro.Add(new PositionData("Snoring"));
+                    valueNeuro.Add(new PositionData("Snoring", "SnoringS"));
                     valueNeuro.Add(new PositionData("AirFlow"));
                     valueNeuro.Add(new PositionData("RIPFlow"));
-                    valueNeuro.Add(new PositionData("spO2B-B"));
+                    valueNeuro.Add(new PositionData("spO2B-B", "spO2BB"));
                     valueNeuro.Add(new PositionData("InductanceThora"));
                     valueNeuro.Add(new PositionData("InductanceAbdom"));
                     valueNeuro.Add(new PositionData("K"));
@@ -288,6 +288,7 @@ namespace Epnos_application
                 lbl_pedro.Text = rptNeuro.Items[e.Item.ItemIndex].ItemIndex.ToString();
 
             }
+
             if (btnNeuro.BackColor == Color.White)
             {
                 SetRepeater(1);

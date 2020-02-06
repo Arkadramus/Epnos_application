@@ -169,6 +169,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="EDF\temperatures.csv" />
+    <Content Include="img\undo32.png" />
     <Content Include="Parametres\param.ini" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="img\dossier.png" />

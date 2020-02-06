@@ -12,8 +12,68 @@
     <script src="Scripts/jquery-1.10.2.js"></script>
 
     <script type="text/javascript">  
-        var dataRange = 2000;
-        var rangeHeight = 10;
+        {
+            var dataRange = 2000;
+            var rangeHeight = 10;
+            var tabminS1 = [];
+            var tabmaxS1 = [];
+            var tabminS2 = [];
+            var tabmaxS2 = [];
+            var tabminS3 = [];
+            var tabmaxS3 = [];
+            var tabminS4 = [];
+            var tabmaxS4 = [];
+            var tabminS5 = [];
+            var tabmaxS5 = [];
+            var tabminS6 = [];
+            var tabmaxS6 = [];
+            var tabminS7 = [];
+            var tabmaxS7 = [];
+            var tabminS8 = [];
+            var tabmaxS8 = [];
+
+            var tabminN01 = [];
+            var tabmaxN01 = [];
+            var tabminN02 = [];
+            var tabmaxN02 = [];
+            var tabminN03 = [];
+            var tabmaxN03 = [];
+            var tabminN04 = [];
+            var tabmaxN04 = [];
+            var tabminN05 = [];
+            var tabmaxN05 = [];
+            var tabminN06 = [];
+            var tabmaxN06 = [];
+            var tabminN07 = [];
+            var tabmaxN07 = [];
+            var tabminN08 = [];
+            var tabmaxN08 = [];
+            var tabminN09 = [];
+            var tabmaxN09 = [];
+            var tabminN10 = [];
+            var tabmaxN10 = [];
+
+            var canvasS1 = 1;
+            var canvasS2 = 1;
+            var canvasS3 = 1;
+            var canvasS4 = 1;
+            var canvasS5 = 1;
+            var canvasS6 = 1;
+            var canvasS7 = 1;
+            var canvasS8 = 1;
+
+            var canvasN01 = 1;
+            var canvasN02 = 1;
+            var canvasN03 = 1;
+            var canvasN04 = 1;
+            var canvasN05 = 1;
+            var canvasN06 = 1;
+            var canvasN07 = 1;
+            var canvasN08 = 1;
+            var canvasN09 = 1;
+            var canvasN10 = 1;
+        }
+
         function highlight(canvas, area, g, tabminTab, tabmaxTab) {
             for (var i = 0; i < tabminTab.length; i++) {
                 var bottom_left = g.toDomCoords(tabminTab[i], -20);
@@ -26,13 +86,213 @@
             }
         }
 
+        function Undo(divGraph) {
+            console.log(divGraph.id);
+            switch (divGraph.id) {
+                case "AudioVolumeDB":
+                    tabminS1.pop();
+                    tabmaxS1.pop();
+                    s1.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasS1 = canvas;
+                            highlight(canvasS1, area, g, tabminS1, tabmaxS1)
+                        }
+                    });
+                    break;
+
+                case "SnoringS":
+                    tabminS2.pop();
+                    tabmaxS2.pop();
+                    s2.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasS2 = canvas;
+                            highlight(canvasS2, area, g, tabminS2, tabmaxS2)
+                        }
+                    });
+                    break;
+
+                case "AirFlow":
+                    tabminS3.pop();
+                    tabmaxS3.pop();
+                    s3.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasS3 = canvas;
+                            highlight(canvasS3, area, g, tabminS3, tabmaxS3)
+                        }
+                    });
+                    break;
+
+                case "RIPFlow":
+                    tabminS4.pop();
+                    tabmaxS4.pop();
+                    s4.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasS4 = canvas;
+                            highlight(canvasS4, area, g, tabminS4, tabmaxS4)
+                        }
+                    });
+                    break;
+
+                case "spO2BB":
+                    tabminS5.pop();
+                    tabmaxS5.pop();
+                    s5.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasS5 = canvas;
+                            highlight(canvasS5, area, g, tabminS5, tabmaxS5)
+                        }
+                    });
+                    break;
+
+                case "InductanceThora":
+                    tabminS6.pop();
+                    tabmaxS6.pop();
+                    s6.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasS6 = canvas;
+                            highlight(canvasS6, area, g, tabminS6, tabmaxS6)
+                        }
+                    });
+                    break;
+
+                case "InductanceAbdom":
+                    tabminS7.pop();
+                    tabmaxS7.pop();
+                    s7.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasS7 = canvas;
+                            highlight(canvasS7, area, g, tabminS7, tabmaxS7)
+                        }
+                    });
+                    break;
+
+                case "K":
+                    tabminS8.pop();
+                    tabmaxS8.pop();
+                    s8.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasS8 = canvas;
+                            highlight(canvasS8, area, g, tabminS8, tabmaxS8)
+                        }
+                    });
+                    break;
+
+                case "SnoringN":
+                    tabminN01.pop();
+                    tabmaxN01.pop();
+                    n01.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN01 = canvas;
+                            highlight(canvasN01, area, g, tabminN01, tabmaxN01)
+                        }
+                    });
+                    break;
+
+                case "E2M1":
+                    tabminN02.pop();
+                    tabmaxN02.pop();
+                    n02.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN02 = canvas;
+                            highlight(canvasN02, area, g, tabminN02, tabmaxN02)
+                        }
+                    });
+                    break;
+
+                case "E1M1":
+                    tabminN03.pop();
+                    tabmaxN03.pop();
+                    n03.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN03 = canvas;
+                            highlight(canvasN03, area, g, tabminN03, tabmaxN03)
+                        }
+                    });
+                    break;
+
+                case "C3M2":
+                    tabminN04.pop();
+                    tabmaxN04.pop();
+                    n04.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN04 = canvas;
+                            highlight(canvasN04, area, g, tabminN04, tabmaxN04)
+                        }
+                    });
+                    break;
+
+                case "F3M2":
+                    tabminN05.pop();
+                    tabmaxN05.pop();
+                    n05.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN05 = canvas;
+                            highlight(canvasN05, area, g, tabminN05, tabmaxN05)
+                        }
+                    });
+                    break;
+
+                case "O1M2":
+                    tabminN06.pop();
+                    tabmaxN06.pop();
+                    n06.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN06 = canvas;
+                            highlight(canvasN06, area, g, tabminN06, tabmaxN06)
+                        }
+                    });
+                    break;
+
+                case "1F":
+                    tabminN07.pop();
+                    tabmaxN07.pop();
+                    n07.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN07 = canvas;
+                            highlight(canvasN07, area, g, tabminN07, tabmaxN07)
+                        }
+                    });
+                    break;
+
+                case "12":
+                    tabminN08.pop();
+                    tabmaxN08.pop();
+                    n08.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN08 = canvas;
+                            highlight(canvasN08, area, g, tabminN08, tabmaxN08)
+                        }
+                    });
+                    break;
+
+                case "ECG":
+                    tabminN09.pop();
+                    tabmaxN09.pop();
+                    n09.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN09 = canvas;
+                            highlight(canvasN09, area, g, tabminN09, tabmaxN09)
+                        }
+                    });
+                    break;
+
+                case "HeartRate":
+                    tabminN10.pop();
+                    tabmaxN10.pop();
+                    n10.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN10 = canvas;
+                            highlight(canvasN10, area, g, tabminN10, tabmaxN10)
+                        }
+                    });
+                    break;
+            }
+            return false;
+        }
+
         function Sono() {
-            var tabminS1 = [];
-            var tabmaxS1 = [];
-            var canvasS1 = 1;
             var tab = window.name;
             colorSets = tab.split(",");
-            console.log(colorSets);
             s1 = new Dygraph(
                 document.getElementById("AudioVolumeDB"),
                 "EDF/AudioVolumeDB.csv", {
@@ -62,11 +322,8 @@
                     colors: [colorSets[10]]
                 });
 
-            var tabminS2 = [];
-            var tabmaxS2 = [];
-            var canvasS2 = 1;
             s2 = new Dygraph(
-                document.getElementById("Snoring"),
+                document.getElementById("SnoringS"),
                 "EDF/Snoring.csv", {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
@@ -93,9 +350,7 @@
                     },
                     colors: [colorSets[11]]
                 });
-            var tabminS3 = [];
-            var tabmaxS3 = [];
-            var canvasS3 = 1;
+
             s3 = new Dygraph(
                 document.getElementById("AirFlow"),
                 "EDF/AirFlow.csv", {
@@ -124,24 +379,22 @@
                     },
                     colors: [colorSets[12]]
                 });
-            var tabminS4 = [];
-            var tabmaxS4 = [];
-            var canvasS4 = 1;
+
             s4 = new Dygraph(
                 document.getElementById("RIPFlow"),
                 "EDF/RIPFlow.csv", {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
-                    dateWindow: [0, dataRange],
+                    dateWindow: [0, dataRange * 4],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
                         if (tabminS4[tabminS4.length - 1] != minTime && tabmaxS4[tabmaxS4.length - 1] != maxTime
-                            && (maxTime - minTime) <= (dataRange + 50)) {
+                            && (maxTime - minTime) <= (dataRange * 4 + 50)) {
                             tabminS4.push(minTime);
                             tabmaxS4.push(maxTime);
                             canvasS4 = null;
                         }
-                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
+                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange * 4], });
                     },
                     drawCallback: function (graph, is_initial) {
                         if (tabminS4.length > 0 && canvasS4 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
@@ -155,24 +408,22 @@
                     },
                     colors: [colorSets[13]]
                 });
-            var tabminS5 = [];
-            var tabmaxS5 = [];
-            var canvasS5 = 1;
+
             s5 = new Dygraph(
-                document.getElementById("spO2B-B"),
+                document.getElementById("spO2BB"),
                 "EDF/spO2B-B.csv", {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
-                    dateWindow: [0, dataRange * 10],
+                    dateWindow: [0, dataRange * 20],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
                         if (tabminS5[tabminS5.length - 1] != minTime && tabmaxS5[tabmaxS5.length - 1] != maxTime
-                            && (maxTime - minTime) <= (dataRange * 10 + 50)) {
+                            && (maxTime - minTime) <= (dataRange * 20 + 50)) {
                             tabminS5.push(minTime);
                             tabmaxS5.push(maxTime);
                             canvasS5 = null;
                         }
-                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange * 10], });
+                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange * 20], });
                     },
                     drawCallback: function (graph, is_initial) {
                         if (tabminS5.length > 0 && canvasS5 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
@@ -186,24 +437,22 @@
                     },
                     colors: [colorSets[14]]
                 });
-            var tabminS6 = [];
-            var tabmaxS6 = [];
-            var canvasS6 = 1;
+
             s6 = new Dygraph(
                 document.getElementById("InductanceThora"),
                 "EDF/InductanceThora.csv", {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
-                    dateWindow: [0, dataRange],
+                    dateWindow: [0, dataRange * 4],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
                         if (tabminS6[tabminS6.length - 1] != minTime && tabmaxS6[tabmaxS6.length - 1] != maxTime
-                            && (maxTime - minTime) <= (dataRange + 50)) {
+                            && (maxTime - minTime) <= (dataRange * 4 + 50)) {
                             tabminS6.push(minTime);
                             tabmaxS6.push(maxTime);
                             canvasS6 = null;
                         }
-                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
+                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange * 4], });
                     },
                     drawCallback: function (graph, is_initial) {
                         if (tabminS6.length > 0 && canvasS6 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
@@ -217,24 +466,22 @@
                     },
                     colors: [colorSets[15]]
                 });
-            var tabminS7 = [];
-            var tabmaxS7 = [];
-            var canvasS7 = 1;
+
             s7 = new Dygraph(
                 document.getElementById("InductanceAbdom"),
                 "EDF/InductanceAbdom.csv", {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
-                    dateWindow: [0, dataRange],
+                    dateWindow: [0, dataRange * 4],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
                         if (tabminS7[tabminS7.length - 1] != minTime && tabmaxS7[tabmaxS7.length - 1] != maxTime
-                            && (maxTime - minTime) <= (dataRange + 50)) {
+                            && (maxTime - minTime) <= (dataRange * 4 + 50)) {
                             tabminS7.push(minTime);
                             tabmaxS7.push(maxTime);
                             canvasS7 = null;
                         }
-                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
+                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange * 4], });
                     },
                     drawCallback: function (graph, is_initial) {
                         if (tabminS7.length > 0 && canvasS7 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
@@ -248,24 +495,22 @@
                     },
                     colors: [colorSets[16]]
                 });
-            var tabminS8 = [];
-            var tabmaxS8 = [];
-            var canvasS8 = 1;
+
             s8 = new Dygraph(
                 document.getElementById("K"),
                 "EDF/K.csv", {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
-                    dateWindow: [0, dataRange],
+                    dateWindow: [0, dataRange * 4],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
                         if (tabminS8[tabminS8.length - 1] != minTime && tabmaxS8[tabmaxS8.length - 1] != maxTime
-                            && (maxTime - minTime) <= (dataRange + 50)) {
+                            && (maxTime - minTime) <= (dataRange * 4 + 50)) {
                             tabminS8.push(minTime);
                             tabmaxS8.push(maxTime);
                             canvasS8 = null;
                         }
-                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
+                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange * 4], });
                     },
                     drawCallback: function (graph, is_initial) {
                         if (tabminS8.length > 0 && canvasS8 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
@@ -384,11 +629,9 @@
         function Neuro() {
             var tab = window.name;
             colorSets = tab.split(",");
-            var tabminN01 = [];
-            var tabmaxN01 = [];
-            var canvasN01 = 1;
+
             n01 = new Dygraph(
-                document.getElementById("Snoring"),
+                document.getElementById("SnoringN"),
                 "EDF/Snoring.csv", {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
@@ -415,11 +658,9 @@
                     },
                     colors: [colorSets[0]]
                 });
-            var tabminN02 = [];
-            var tabmaxN02 = [];
-            var canvasN02 = 1;
+
             n02 = new Dygraph(
-                document.getElementById("E2-M1"),
+                document.getElementById("E2M1"),
                 "EDF/E2-M1.csv", {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
@@ -446,11 +687,9 @@
                     },
                     colors: [colorSets[1]]
                 });
-            var tabminN03 = [];
-            var tabmaxN03 = [];
-            var canvasN03 = 1;
+
             n03 = new Dygraph(
-                document.getElementById("E1-M1"),
+                document.getElementById("E1M1"),
                 "EDF/E1-M1.csv", {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
@@ -477,11 +716,9 @@
                     },
                     colors: [colorSets[2]]
                 });
-            var tabminN04 = [];
-            var tabmaxN04 = [];
-            var canvasN04 = 1;
+
             n04 = new Dygraph(
-                document.getElementById("C3-M2"),
+                document.getElementById("C3M2"),
                 "EDF/C3-M2.csv", {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
@@ -508,11 +745,9 @@
                     },
                     colors: [colorSets[3]]
                 });
-            var tabminN05 = [];
-            var tabmaxN05 = [];
-            var canvasN05 = 1;
+
             n05 = new Dygraph(
-                document.getElementById("F3-M2"),
+                document.getElementById("F3M2"),
                 "EDF/F3-M2.csv", {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
@@ -539,11 +774,9 @@
                     },
                     colors: [colorSets[4]]
                 });
-            var tabminN06 = [];
-            var tabmaxN06 = [];
-            var canvasN06 = 1;
+
             n06 = new Dygraph(
-                document.getElementById("O1-M2"),
+                document.getElementById("O1M2"),
                 "EDF/O1-M2.csv", {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
@@ -570,11 +803,9 @@
                     },
                     colors: [colorSets[5]]
                 });
-            var tabminN07 = [];
-            var tabmaxN07 = [];
-            var canvasN07 = 1;
+
             n07 = new Dygraph(
-                document.getElementById("1-F"),
+                document.getElementById("1F"),
                 "EDF/1-F.csv", {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
@@ -601,11 +832,9 @@
                     },
                     colors: [colorSets[6]]
                 });
-            var tabminN08 = [];
-            var tabmaxN08 = [];
-            var canvasN08 = 1;
+
             n08 = new Dygraph(
-                document.getElementById("1-2"),
+                document.getElementById("12"),
                 "EDF/1-2.csv", {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
@@ -632,9 +861,7 @@
                     },
                     colors: [colorSets[7]]
                 });
-            var tabminN09 = [];
-            var tabmaxN09 = [];
-            var canvasN09 = 1;
+
             n09 = new Dygraph(
                 document.getElementById("ECG"),
                 "EDF/ECG.csv", {
@@ -663,9 +890,7 @@
                     },
                     colors: [colorSets[8]]
                 });
-            var tabminN10 = [];
-            var tabmaxN10 = [];
-            var canvasN10 = 1;
+
             n10 = new Dygraph(
                 document.getElementById("HeartRate"),
                 "EDF/HeartRate.csv", {
@@ -750,8 +975,11 @@
                     <ItemTemplate>
                         <td>
                             <div class="labelRepeater">
-                                <asp:LinkButton ID="linkButton_Name" runat="server" Text='<%# DataBinder.Eval(Container.DataItem,"Nom")%>'></asp:LinkButton>
+                                <asp:LinkButton ID="lbRepeater" runat="server" Style="padding-top: 5px; padding-right: 10px;" Text='<%# DataBinder.Eval(Container.DataItem,"Nom")%>'></asp:LinkButton>
+                                <asp:ImageButton runat="server" ImageUrl="img/undo32.png" Width="16px" Height="16px" ID="btnUndo" Text="Undo" Style="float: left; margin: 5px; padding-top: 15px;"
+                                    CommandArgument='<%# DataBinder.Eval(Container.DataItem,"divID")%>' OnClientClick='<%# " return Undo("+Eval("divID")+")"%>' />
                             </div>
+
                         </td>
                         <td>
                             <div class="graphRepeater" id='<%# DataBinder.Eval(Container.DataItem,"divID")%>'></div>
