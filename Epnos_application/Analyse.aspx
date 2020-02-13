@@ -11,63 +11,632 @@
     <script src="Scripts/dygraph.js"></script>
     <script src="Scripts/jquery-1.10.2.js"></script>
     <script type="text/javascript">  
-        var dataRange = 2000;
-        var rangeHeight = 10;
-        function highlight(canvas, area, g, tabminTab, tabmaxTab) {
-            for (var i = 0; i < tabminTab.length; i++) {
-                var bottom_left = g.toDomCoords(tabminTab[i], -20);
-                var top_right = g.toDomCoords(tabmaxTab[i], +20);
-
-                var left = bottom_left[0];
-                var right = top_right[0];
-                canvas.fillStyle = "rgba(0, 255 , 0, 1.0)";
-                canvas.fillRect(left, 0, right - left, area.h);
+        class Canva {
+            //Possède une tableau de min, de max et de couleur
+            constructor(Min = null, Max = null, Color = null) {
+                this.min = (Min) ? Min : [];
+                this.max = (Max) ? Max : [];
+                this.color = (Color != null) ? Color : [];
             }
+
+            Push(Min, Max, Color) {
+                this.min.push(Min);
+                this.max.push(Max);
+                this.color.push(Color);
+            }
+
+            Pop() {
+                this.min.pop();
+                this.max.pop();
+                this.color.pop();
+            }
+
+            IsEmpty() {
+                var res = true;
+                if (this.min.length > 0)
+                    res = false;
+                if (this.max.length > 0)
+                    res = false;
+                if (this.color.length > 0)
+                    res = false;
+
+                return res;
+            }
+        }
+
+        //Variables
+        {
+            var dataRange = 2000;
+            var rangeHeight = 10;
+
+            var CanvS1 = new Canva();
+            var CanvS2 = new Canva();
+            var CanvS3 = new Canva();
+            var CanvS4 = new Canva();
+            var CanvS5 = new Canva();
+            var CanvS6 = new Canva();
+            var CanvS7 = new Canva();
+            var CanvS8 = new Canva();
+            var CanvN2 = new Canva();
+            var CanvN3 = new Canva();
+            var CanvN4 = new Canva();
+            var CanvN5 = new Canva();
+            var CanvN6 = new Canva();
+            var CanvN7 = new Canva();
+            var CanvN8 = new Canva();
+            var CanvN9 = new Canva();
+            var CanvN10 = new Canva();
+
+            var canvasS1, canvasS2, canvasS3, canvasS4, canvasS5, canvasS6, canvasS7, canvasS8 = 1;
+            var canvasN01, canvasN02, canvasN03, canvasN04, canvasN05, canvasN06, canvasN07, canvasN07, canvasN08, canvasN09, canvasN10 = 1;
+        }
+
+        function GetCanva() {
+            var res = "";
+            var hfValue = document.getElementById("hfCanva").value;
+
+            if (!(hfValue === "") && hfValue)
+                res = hfValue;
+
+            if (!CanvS2.IsEmpty())
+                res += "s02" + CanvS2.min + "/" + CanvS2.max + "/" + CanvS2.color + ";";
+
+            if (document.getElementById("btnNeuro").style.backgroundColor == "white") {
+                if (!CanvN2.IsEmpty())
+                    res += "n02" + CanvN2.min + "/" + CanvN2.max + "/" + CanvN2.color + ";";
+                if (!CanvN3.IsEmpty())
+                    res += "n03" + CanvN3.min + "/" + CanvN3.max + "/" + CanvN3.color + ";";
+                if (!CanvN4.IsEmpty())
+                    res += "n04" + CanvN4.min + "/" + CanvN4.max + "/" + CanvN4.color + ";";
+                if (!CanvN5.IsEmpty())
+                    res += "n05" + CanvN5.min + "/" + CanvN5.max + "/" + CanvN5.color + ";";
+                if (!CanvN6.IsEmpty())
+                    res += "n06" + CanvN6.min + "/" + CanvN6.max + "/" + CanvN6.color + ";";
+                if (!CanvN7.IsEmpty())
+                    res += "n07" + CanvN7.min + "/" + CanvN7.max + "/" + CanvN7.color + ";";
+                if (!CanvN8.IsEmpty())
+                    res += "n08" + CanvN8.min + "/" + CanvN8.max + "/" + CanvN8.color + ";";
+                if (!CanvN9.IsEmpty())
+                    res += "n09" + CanvN9.min + "/" + CanvN9.max + "/" + CanvN9.color + ";";
+                if (!CanvN10.IsEmpty())
+                    res += "n10" + CanvN10.min + "/" + CanvN10.max + "/" + CanvN10.color + ";";
+            } else {
+                if (!CanvS1.IsEmpty())
+                    res += "s01" + CanvS1.min + "/" + CanvS1.max + "/" + CanvS1.color + ";";
+                if (!CanvS3.IsEmpty())
+                    res += "s03" + CanvS3.min + "/" + CanvS3.max + "/" + CanvS3.color + ";";
+                if (!CanvS4.IsEmpty())
+                    res += "s04" + CanvS4.min + "/" + CanvS4.max + "/" + CanvS4.color + ";";
+                if (!CanvS5.IsEmpty())
+                    res += "s05" + CanvS5.min + "/" + CanvS5.max + "/" + CanvS5.color + ";";
+                if (!CanvS6.IsEmpty())
+                    res += "s06" + CanvS6.min + "/" + CanvS6.max + "/" + CanvS6.color + ";";
+                if (!CanvS7.IsEmpty())
+                    res += "s07" + CanvS7.min + "/" + CanvS7.max + "/" + CanvS7.color + ";";
+                if (!CanvS8.IsEmpty())
+                    res += "s08" + CanvS8.min + "/" + CanvS8.max + "/" + CanvS8.color + ";";
+            }
+            document.getElementById("hfCanva").value = res;
+        }
+
+        function SetCanva() {
+            var hfValue = document.getElementById("hfCanva").value;
+            if (!(hfValue === "") && hfValue) {
+                var tCanva = hfValue.split(';');
+                if (!(tCanva === "") && tCanva) {
+                    tCanva.forEach(function (element) {
+                        if (!(element === "") && tCanva) {
+                            var min = element.substring(3).split('/')[0].split(',');
+                            var max = element.substring(3).split('/')[1].split(',');
+                            var color = element.substring(3).split('/')[2].split(',');
+                            switch (element.substring(0, 3)) {
+                                case "n02":
+                                    CanvN2.min = min;
+                                    CanvN2.max = max;
+                                    CanvN2.color = color;
+                                    break;
+
+                                case "n03":
+                                    CanvN3.min = min;
+                                    CanvN3.max = max;
+                                    CanvN3.color = color;
+                                    break;
+
+                                case "n04":
+                                    CanvN4.min = min;
+                                    CanvN4.max = max;
+                                    CanvN4.color = color;
+                                    break;
+
+                                case "n05":
+                                    CanvN5.min = min;
+                                    CanvN5.max = max;
+                                    CanvN5.color = color;
+                                    break;
+
+                                case "n06":
+                                    CanvN6.min = min;
+                                    CanvN6.max = max;
+                                    CanvN6.color = color;
+                                    break;
+
+                                case "n07":
+                                    CanvN7.min = min;
+                                    CanvN7.max = max;
+                                    CanvN7.color = color;
+                                    break;
+                                case "n08":
+                                    CanvN8.min = min;
+                                    CanvN8.max = max;
+                                    CanvN8.color = color;
+                                    break;
+
+                                case "n09":
+                                    CanvN9.min = min;
+                                    CanvN9.max = max;
+                                    CanvN9.color = color;
+                                    break;
+
+                                case "n10":
+                                    CanvN10.min = min;
+                                    CanvN10.max = max;
+                                    CanvN10.color = color;
+                                    break;
+
+                                case "s01":
+                                    CanvS1.min = min;
+                                    CanvS1.max = max;
+                                    CanvS1.color = color;
+                                    break;
+
+                                case "s02":
+                                    CanvS2.min = min;
+                                    CanvS2.max = max;
+                                    CanvS2.color = color;
+                                    break;
+                                case "s03":
+                                    CanvS3.min = min;
+                                    CanvS3.max = max;
+                                    CanvS3.color = color;
+                                    break;
+
+                                case "s04":
+                                    CanvS4.min = min;
+                                    CanvS4.max = max;
+                                    CanvS4.color = color;
+                                    break;
+
+                                case "s05":
+                                    CanvS5.min = min;
+                                    CanvS5.max = max;
+                                    CanvS5.color = color;
+                                    break;
+
+                                case "s06":
+                                    CanvS6.min = min;
+                                    CanvS6.max = max;
+                                    CanvS6.color = color;
+                                    break;
+
+                                case "s07":
+                                    CanvS7.min = min;
+                                    CanvS7.max = max;
+                                    CanvS7.color = color;
+                                    break;
+
+                                case "s08":
+                                    CanvS8.min = min;
+                                    CanvS8.max = max;
+                                    CanvS8.color = color;
+                                    break;
+                            }
+                        }
+                    });
+                }
+            }
+        }
+
+        function highlight(canvasName, area, g, Canv) {
+            for (var i = 0; i < Canv.min.length; i++) {
+                canvasName.fillStyle = Canv.color[i];
+                //fillrectangle(x,y,width,heigh)
+                canvasName.fillRect(g.toDomCoords(Canv.min[i], -20)[0], 0, g.toDomCoords(Canv.max[i], +20)[0] - g.toDomCoords(Canv.min[i], -20)[0], area.h);
+            }
+        }
+
+        function ColorFromDDL() {
+            var e = document.getElementById("DDLScoring");
+            var indColor = parseInt(e.options[e.selectedIndex].value);
+            var color = "#000000";
+            switch (indColor) {
+                case 0:
+                    color = "#000000";
+                    break;
+
+                case 1:
+                    color = "#FF0000";
+                    break;
+
+                case 2:
+                    color = "#FFA500";
+                    break;
+
+                case 3:
+                    color = "#FFFF00";
+                    break;
+
+                case 4:
+                    color = "#00FF00";
+                    break;
+
+                case 5:
+                    color = "#00008B";
+
+                case 6:
+                    color = "#00BFFF";
+                    break;
+
+                case 7:
+                    color = "#9400D3";
+                    break;
+
+                case 8:
+                    color = "#FF1493";
+                    break;
+
+                case 9:
+                    color = "#8B4513";
+                    break;
+            }
+
+            return color;
+        }
+
+        function ChangeColor() {
+
+            var colorAvailable = [['#000000'], ['#FF0000'], ['#FFA500'], ['#FFFF00'], ['#00FF00'], ['#00008B'], ['#00BFFF'], ['#9400D3'], ['#FF1493'], ['#8B4513']];
+
+            var e = document.getElementById("DDLColor");
+            var indColor = parseInt(e.options[e.selectedIndex].value);
+            var e = document.getElementById("DDLGraph");
+            var graphName = e.options[e.selectedIndex].value;
+
+            var colorSets = [['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000']];
+            var tab = window.name;
+            colorSets = tab.split(",");
+
+            switch (graphName) {
+                case "E2-M1":
+                    n02.updateOptions({ colors: [colorAvailable[indColor]] });
+                    colorSets[1] = colorAvailable[indColor];
+                    window.name = colorSets;
+                    break;
+                case "E1-M1":
+                    n03.updateOptions({ colors: [colorAvailable[indColor]] });
+                    colorSets[2] = colorAvailable[indColor];
+                    window.name = colorSets;
+                    break;
+                case "C3-M2":
+                    n04.updateOptions({ colors: [colorAvailable[indColor]] });
+                    colorSets[3] = colorAvailable[indColor];
+                    window.name = colorSets;
+                    break;
+                case "F3-M2":
+                    n05.updateOptions({ colors: [colorAvailable[indColor]] });
+                    colorSets[4] = colorAvailable[indColor];
+                    window.name = colorSets;
+                    break;
+                case "O1-M2":
+                    n06.updateOptions({ colors: [colorAvailable[indColor]] });
+                    colorSets[5] = colorAvailable[indColor];
+                    window.name = colorSets;
+                    break;
+                case "1-F":
+                    n07.updateOptions({ colors: [colorAvailable[indColor]] });
+                    colorSets[6] = colorAvailable[indColor];
+                    window.name = colorSets;
+                    break;
+                case "1-2":
+                    n08.updateOptions({ colors: [colorAvailable[indColor]] });
+                    colorSets[7] = colorAvailable[indColor];
+                    window.name = colorSets;
+                    break;
+                case "ECG":
+                    n09.updateOptions({ colors: [colorAvailable[indColor]] });
+                    colorSets[8] = colorAvailable[indColor];
+                    window.name = colorSets;
+                    break;
+                case "HeartRate":
+                    n10.updateOptions({ colors: [colorAvailable[indColor]] });
+                    colorSets[9] = colorAvailable[indColor];
+                    window.name = colorSets;
+                    break;
+                case "AudioVolumeDB":
+                    s1.updateOptions({ colors: [colorAvailable[indColor]] });
+                    colorSets[10] = colorAvailable[indColor];
+                    window.name = colorSets;
+                    break;
+                case "Snoring":
+                    s2.updateOptions({ colors: [colorAvailable[indColor]] });
+                    n01.updateOptions({ colors: [colorAvailable[indColor]] });
+                    colorSets[11] = colorAvailable[indColor];
+                    colorSets[0] = colorAvailable[indColor];
+                    window.name = colorSets;
+                    break;
+                case "AirFlow":
+                    s3.updateOptions({ colors: [colorAvailable[indColor]] });
+                    colorSets[12] = colorAvailable[indColor];
+                    window.name = colorSets;
+                    break;
+                case "RIPFlow":
+                    s4.updateOptions({ colors: [colorAvailable[indColor]] });
+                    colorSets[13] = colorAvailable[indColor];
+                    window.name = colorSets;
+                    break;
+                case "spO2B-B":
+                    s5.updateOptions({ colors: [colorAvailable[indColor]] });
+                    colorSets[14] = colorAvailable[indColor];
+                    window.name = colorSets;
+                    break;
+                case "InductanceThora":
+                    s6.updateOptions({ colors: [colorAvailable[indColor]] });
+                    colorSets[15] = colorAvailable[indColor];
+                    window.name = colorSets;
+                    break;
+                case "InductanceAbdom":
+                    s7.updateOptions({ colors: [colorAvailable[indColor]] });
+                    colorSets[16] = colorAvailable[indColor];
+                    window.name = colorSets;
+                    break;
+                case "K":
+                    s8.updateOptions({ colors: [colorAvailable[indColor]] });
+                    colorSets[17] = colorAvailable[indColor];
+                    window.name = colorSets;
+                    break;
+
+            }
+
+            return false;
+        }
+
+        function Undo(divGraph) {
+            console.log(divGraph.id);
+            switch (divGraph.id) {
+                case "AudioVolumeDB":
+                    CanvS1.Pop();
+                    s1.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasS1 = canvas;
+                            highlight(canvasS1, area, g, CanvS1)
+                        }
+                    });
+                    break;
+
+                case "SnoringS":
+                    CanvS2.Pop();
+                    s2.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasS2 = canvas;
+                            highlight(canvasS2, area, g, CanvS2)
+                        }
+                    });
+                    break;
+
+                case "AirFlow":
+                    CanvS3.Pop();
+                    s3.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasS3 = canvas;
+                            highlight(canvasS3, area, g, CanvS3)
+                        }
+                    });
+                    break;
+
+                case "RIPFlow":
+                    CanvS4.Pop();
+                    s4.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasS4 = canvas;
+                            highlight(canvasS4, area, g, CanvS4)
+                        }
+                    });
+                    break;
+
+                case "spO2BB":
+                    CanvS5.Pop();
+                    s5.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasS5 = canvas;
+                            highlight(canvasS5, area, g, CanvS5)
+                        }
+                    });
+                    break;
+
+                case "InductanceThora":
+                    CanvS6.Pop();
+                    s6.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasS6 = canvas;
+                            highlight(canvasS6, area, g, CanvS6)
+                        }
+                    });
+                    break;
+
+                case "InductanceAbdom":
+                    CanvS7.Pop();
+                    s7.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasS7 = canvas;
+                            highlight(canvasS7, area, g, CanvS7)
+                        }
+                    });
+                    break;
+
+                case "K":
+                    CanvS8.Pop();
+                    s8.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasS8 = canvas;
+                            highlight(canvasS8, area, g, CanvS8)
+                        }
+                    });
+                    break;
+
+                case "SnoringN":
+                    CanvS2.Pop();
+                    n01.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN01 = canvas;
+                            highlight(canvasN01, area, g, CanvS2)
+                        }
+                    });
+                    break;
+
+                case "E2M1":
+                    CanvN2.Pop();
+                    n02.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN02 = canvas;
+                            highlight(canvasN02, area, g, CanvN2)
+                        }
+                    });
+                    break;
+
+                case "E1M1":
+                    CanvN3.Pop();
+                    n03.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN03 = canvas;
+                            highlight(canvasN03, area, g, CanvN3)
+                        }
+                    });
+                    break;
+
+                case "C3M2":
+                    CanvN4.Pop();
+                    n04.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN04 = canvas;
+                            highlight(canvasN04, area, g, CanvN4)
+                        }
+                    });
+                    break;
+
+                case "F3M2":
+                    CanvN5.Pop();
+                    n05.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN05 = canvas;
+                            highlight(canvasN05, area, g, CanvN5)
+                        }
+                    });
+                    break;
+
+                case "O1M2":
+                    CanvN6.Pop();
+                    n06.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN06 = canvas;
+                            highlight(canvasN06, area, g, CanvN6)
+                        }
+                    });
+                    break;
+
+                case "1F":
+                    CanvN7.Pop();
+                    n07.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN07 = canvas;
+                            highlight(canvasN07, area, g, CanvN7)
+                        }
+                    });
+                    break;
+
+                case "12":
+                    CanvN8.Pop();
+                    n08.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN08 = canvas;
+                            highlight(canvasN08, area, g, CanvN8)
+                        }
+                    });
+                    break;
+
+                case "ECG":
+                    CanvN9.Pop();
+                    n09.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN09 = canvas;
+                            highlight(canvasN09, area, g, CanvN9)
+                        }
+                    });
+                    break;
+
+                case "HeartRate":
+                    CanvN10.Pop();
+                    n10.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN10 = canvas;
+                            highlight(canvasN10, area, g, CanvN10)
+                        }
+                    });
+                    break;
+            }
+            return false;
         }
 
         function Sono() {
             var tabminS1 = [];
             var tabmaxS1 = [];
             var canvasS1 = 1;
-
             var colorSets = [['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0']];
             var tab = window.name;
             tab = tab.split(",");
-
             for (var i = 0; i < 36; i++) {
                 if (tab[i] != "") {
                     colorSets[i] = tab[i]
                 }
             }
-
             var e = document.getElementById("hdnFiltre");
             var CSV = e.value;
             var tabCSV = CSV.split(";");
             console.log(tabCSV);
-
             console.log(colorSets);
+            SetCanva();
             s1 = new Dygraph(
                 document.getElementById("AudioVolumeDB"),
-                tabCSV[10], {
+                tabCSV[10], {    
+                    showLabelsOnHighlight: true,
+                    axes: {
+                        x: {
+                            axisLabelFormatter: function (v) {
+                                return v + ' ms';  // controls formatting of the x-axis labels
+                            },
+                        },
+                        y: {
+                            axisLabelFormatter: function (v) {
+                                return v + 'dB';
+                            }
+                        }
+                    },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminS1[tabminS1.length - 1] != minTime && tabmaxS1[tabmaxS1.length - 1] != maxTime
+                        if (CanvS1.min[CanvS1.length - 1] != minTime && CanvS1.max[CanvS1.length - 1] != maxTime
                             && (maxTime - minTime) <= (dataRange + 50)) {
-                            tabminS1.push(minTime);
-                            tabmaxS1.push(maxTime);
+                            CanvS1.Push(minTime, maxTime, ColorFromDDL());
                             canvasS1 = null;
                         }
                         this.updateOptions({ dateWindow: [minTime, minTime + dataRange] });
                     },
                     drawCallback: function (graph, is_initial) {
-                        if (tabminS1.length > 0 && canvasS1 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
+                        if (CanvS1.min.length > 0 && canvasS1 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS1 = canvas;
-                                    highlight(canvasS1, area, g, tabminS1, tabmaxS1)
+                                    highlight(canvasS1, area, g, CanvS1);
                                 }
                             });
                         }
@@ -76,31 +645,40 @@
                     fillGraph: parseInt(colorSets[28])
                 });
 
-            var tabminS2 = [];
-            var tabmaxS2 = [];
-            var canvasS2 = 1;
             s2 = new Dygraph(
-                document.getElementById("Snoring"),
+                document.getElementById("SnoringS"),
                 tabCSV[11], {
+                    showLabelsOnHighlight: true,
+                    axes: {
+                        x: {
+                            axisLabelFormatter: function (v) {
+                                return v + ' ms';  // controls formatting of the x-axis labels
+                            },
+                        },
+                        y: {
+                            ticker: function (mimn, max, pixels, opts, grpah, val) {
+                                return [{ v: 0, label: "0µV/cm" }, { v: 200, label: "200µV/cm" }];
+                            },
+                        }
+                    },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminS2[tabminS2.length - 1] != minTime && tabmaxS2[tabmaxS2.length - 1] != maxTime
+                        if (CanvS2.min[CanvS2.length - 1] != minTime && CanvS2.max[CanvS2.length - 1] != maxTime
                             && (maxTime - minTime) <= (dataRange + 50)) {
-                            tabminS2.push(minTime);
-                            tabmaxS2.push(maxTime);
+                            CanvS2.Push(minTime, maxTime, ColorFromDDL());
                             canvasS2 = null;
                         }
                         this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
                     },
                     drawCallback: function (graph, is_initial) {
-                        if (tabminS2.length > 0 && canvasS2 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
+                        if (CanvS2.min.length > 0 && canvasS2 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS2 = canvas;
-                                    highlight(canvasS2, area, g, tabminS2, tabmaxS2)
+                                    highlight(canvasS2, area, g, CanvS2)
                                 }
                             });
                         }
@@ -108,31 +686,42 @@
                     colors: [colorSets[11]],
                     fillGraph: parseInt(colorSets[29])
                 });
-            var tabminS3 = [];
-            var tabmaxS3 = [];
-            var canvasS3 = 1;
+
             s3 = new Dygraph(
                 document.getElementById("AirFlow"),
                 tabCSV[12], {
+                    showLabelsOnHighlight: true,
+                    axes: {
+                        x: {
+                            axisLabelFormatter: function (v) {
+                                return v + ' ms';  // controls formatting of the x-axis labels
+                            },
+                        },
+                        y: {
+                            ticker: function (mimn, max, pixels, opts, grpah, val) {
+                                return [{ v: 0, label: "0µV/cm" }, { v: 2000, label: "2000µV/cm" }, { v: 4000, label: "4000µV/cm" },
+                                { v: 6000, label: "6000µV/cm" }];
+                            },
+                        }
+                    },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminS3[tabminS3.length - 1] != minTime && tabmaxS3[tabmaxS3.length - 1] != maxTime
+                        if (CanvS3.min[CanvS3.length - 1] != minTime && CanvS3.max[CanvS3.length - 1] != maxTime
                             && (maxTime - minTime) <= (dataRange + 50)) {
-                            tabminS3.push(minTime);
-                            tabmaxS3.push(maxTime);
+                            CanvS3.Push(minTime, maxTime, ColorFromDDL());
                             canvasS3 = null;
                         }
                         this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
                     },
                     drawCallback: function (graph, is_initial) {
-                        if (tabminS3.length > 0 && canvasS3 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
+                        if (CanvS3.min.length > 0 && canvasS3 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS3 = canvas;
-                                    highlight(canvasS3, area, g, tabminS3, tabmaxS3)
+                                    highlight(canvasS3, area, g, CanvS3)
                                 }
                             });
                         }
@@ -140,31 +729,43 @@
                     colors: [colorSets[12]],
                     fillGraph: parseInt(colorSets[30])
                 });
-            var tabminS4 = [];
-            var tabmaxS4 = [];
-            var canvasS4 = 1;
+
             s4 = new Dygraph(
                 document.getElementById("RIPFlow"),
-                tabCSV[13], {
+                tabCSV[13], { 
+                    showLabelsOnHighlight: true,
+                    axes: {
+                        x: {
+                            axisLabelFormatter: function (v) {
+                                return v + ' ms';  // controls formatting of the x-axis labels
+                            },
+                        },
+                        y: {
+                            ticker: function (mimn, max, pixels, opts, grpah, val) {
+                                return [{ v: 0, label: "0µV/cm" }, { v: 3000, label: "3000µV/cm" },
+                                { v: 6000, label: "6000µV/cm" }, { v: -3000, label: "-3000µV/cm" },
+                                { v: -6000, label: "-6000µV/cm" }];
+                            },
+                        }
+                    },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
-                    dateWindow: [0, dataRange],
+                    dateWindow: [0, dataRange * 4],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminS4[tabminS4.length - 1] != minTime && tabmaxS4[tabmaxS4.length - 1] != maxTime
-                            && (maxTime - minTime) <= (dataRange + 50)) {
-                            tabminS4.push(minTime);
-                            tabmaxS4.push(maxTime);
+                        if (CanvS4.min[CanvS4.length - 1] != minTime && CanvS4.max[CanvS4.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange * 4 + 50)) {
+                            CanvS4.push(maxTime);
                             canvasS4 = null;
                         }
-                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
+                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange * 4], });
                     },
                     drawCallback: function (graph, is_initial) {
-                        if (tabminS4.length > 0 && canvasS4 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
+                        if (CanvS4.min.length > 0 && canvasS4 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS4 = canvas;
-                                    highlight(canvasS4, area, g, tabminS4, tabmaxS4)
+                                    highlight(canvasS4, area, g, CanvS4)
                                 }
                             });
                         }
@@ -172,31 +773,42 @@
                     colors: [colorSets[13]],
                     fillGraph: parseInt(colorSets[31])
                 });
-            var tabminS5 = [];
-            var tabmaxS5 = [];
-            var canvasS5 = 1;
+
             s5 = new Dygraph(
-                document.getElementById("spO2B-B"),
+                document.getElementById("spO2BB"),
                 tabCSV[14], {
+                    showLabelsOnHighlight: true,
+                    axes: {
+                        x: {
+                            axisLabelFormatter: function (v) {
+                                return v + ' ms';  // controls formatting of the x-axis labels
+                            },
+                        },
+                        y: {
+                            ticker: function (mimn, max, pixels, opts, grpah, val) {
+                                return [{ v: 0, label: "0µV/cm" }, { v: 800, label: "80%" }, { v: 900, label: "90%" },
+                                { v: 1000, label: "100%" }];
+                            },
+                        }
+                    },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
-                    dateWindow: [0, dataRange * 10],
+                    dateWindow: [0, dataRange * 20],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminS5[tabminS5.length - 1] != minTime && tabmaxS5[tabmaxS5.length - 1] != maxTime
-                            && (maxTime - minTime) <= (dataRange * 10 + 50)) {
-                            tabminS5.push(minTime);
-                            tabmaxS5.push(maxTime);
+                        if (CanvS5.min[CanvS5.length - 1] != minTime && CanvS5.max[CanvS5.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange * 20 + 50)) {
+                            CanvS5.Push(minTime, maxTime, ColorFromDDL());
                             canvasS5 = null;
                         }
-                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange * 10], });
+                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange * 20], });
                     },
                     drawCallback: function (graph, is_initial) {
-                        if (tabminS5.length > 0 && canvasS5 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
+                        if (CanvS5.min.length > 0 && canvasS5 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS5 = canvas;
-                                    highlight(canvasS5, area, g, tabminS5, tabmaxS5)
+                                    highlight(canvasS5, area, g, CanvS5)
                                 }
                             });
                         }
@@ -204,31 +816,42 @@
                     colors: [colorSets[14]],
                     fillGraph: parseInt(colorSets[32])
                 });
-            var tabminS6 = [];
-            var tabmaxS6 = [];
-            var canvasS6 = 1;
+
             s6 = new Dygraph(
                 document.getElementById("InductanceThora"),
                 tabCSV[15], {
+                    showLabelsOnHighlight: true,
+                    axes: {
+                        x: {
+                            axisLabelFormatter: function (v) {
+                                return v + ' ms';  // controls formatting of the x-axis labels
+                            },
+                        },
+                        y: {
+                            ticker: function (mimn, max, pixels, opts, grpah, val) {
+                                return [{ v: 0, label: "0µV/cm" }, { v: 8000, label: "8000µV/cm" }, { v: 4000, label: "4000µV/cm" },
+                                { v: 6000, label: "6000µV/cm" },];
+                            },
+                        }
+                    },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
-                    dateWindow: [0, dataRange],
+                    dateWindow: [0, dataRange * 4],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminS6[tabminS6.length - 1] != minTime && tabmaxS6[tabmaxS6.length - 1] != maxTime
-                            && (maxTime - minTime) <= (dataRange + 50)) {
-                            tabminS6.push(minTime);
-                            tabmaxS6.push(maxTime);
+                        if (CanvS6.min[CanvS6.length - 1] != minTime && CanvS6.max[CanvS6.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange * 4 + 50)) {
+                            CanvS6.Push(minTime, maxTime, ColorFromDDL());
                             canvasS6 = null;
                         }
-                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
+                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange * 4], });
                     },
                     drawCallback: function (graph, is_initial) {
-                        if (tabminS6.length > 0 && canvasS6 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
+                        if (CanvS6.min.length > 0 && canvasS6 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS6 = canvas;
-                                    highlight(canvasS6, area, g, tabminS6, tabmaxS6)
+                                    highlight(canvasS6, area, g, CanvS6)
                                 }
                             });
                         }
@@ -236,31 +859,42 @@
                     colors: [colorSets[15]],
                     fillGraph: parseInt(colorSets[33])
                 });
-            var tabminS7 = [];
-            var tabmaxS7 = [];
-            var canvasS7 = 1;
+
             s7 = new Dygraph(
                 document.getElementById("InductanceAbdom"),
                 tabCSV[16], {
+                    showLabelsOnHighlight: true,
+                    axes: {
+                        x: {
+                            axisLabelFormatter: function (v) {
+                                return v + ' ms';  // controls formatting of the x-axis labels
+                            },
+                        },
+                        y: {
+                            ticker: function (mimn, max, pixels, opts, grpah, val) {
+                                return [{ v: 0, label: "0µV/cm" }, { v: 8000, label: "8000µV/cm" }, { v: 4000, label: "4000µV/cm" },
+                                { v: 6000, label: "6000µV/cm" },];
+                            },
+                        }
+                    },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
-                    dateWindow: [0, dataRange],
+                    dateWindow: [0, dataRange * 4],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminS7[tabminS7.length - 1] != minTime && tabmaxS7[tabmaxS7.length - 1] != maxTime
-                            && (maxTime - minTime) <= (dataRange + 50)) {
-                            tabminS7.push(minTime);
-                            tabmaxS7.push(maxTime);
+                        if (CanvS7[CanvS7.length - 1] != minTime && CanvS7.max[CanvS7.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange * 4 + 50)) {
+                            CanvS7.Push(minTime, maxTime, ColorFromDDL());
                             canvasS7 = null;
                         }
-                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
+                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange * 4], });
                     },
                     drawCallback: function (graph, is_initial) {
-                        if (tabminS7.length > 0 && canvasS7 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
+                        if (CanvS7.min.length > 0 && canvasS7 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS7 = canvas;
-                                    highlight(canvasS7, area, g, tabminS7, tabmaxS7)
+                                    highlight(canvasS7, area, g, CanvS7)
                                 }
                             });
                         }
@@ -268,31 +902,42 @@
                     colors: [colorSets[16]],
                     fillGraph: parseInt(colorSets[34])
                 });
-            var tabminS8 = [];
-            var tabmaxS8 = [];
-            var canvasS8 = 1;
+
             s8 = new Dygraph(
                 document.getElementById("K"),
                 tabCSV[17], {
+                    showLabelsOnHighlight: true,
+                    axes: {
+                        x: {
+                            axisLabelFormatter: function (v) {
+                                return v + ' ms';  // controls formatting of the x-axis labels
+                            },
+                        },
+                        y: {
+                            ticker: function (mimn, max, pixels, opts, grpah, val) {
+                                return [{ v: 0, label: "0µV/cm" }, { v: 8000, label: "8000µV/cm" }, { v: 4000, label: "4000µV/cm" },
+                                { v: 6000, label: "6000µV/cm" },];
+                            },
+                        }
+                    },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
-                    dateWindow: [0, dataRange],
+                    dateWindow: [0, dataRange * 4],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminS8[tabminS8.length - 1] != minTime && tabmaxS8[tabmaxS8.length - 1] != maxTime
-                            && (maxTime - minTime) <= (dataRange + 50)) {
-                            tabminS8.push(minTime);
-                            tabmaxS8.push(maxTime);
+                        if (CanvS8.min[CanvS8.length - 1] != minTime && CanvS8.max[CanvS8.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange * 4 + 50)) {
+                            CanvS8.Push(minTime, maxTime, ColorFromDDL());
                             canvasS8 = null;
                         }
-                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
+                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange * 4], });
                     },
                     drawCallback: function (graph, is_initial) {
-                        if (tabminS8.length > 0 && canvasS8 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
+                        if (CanvS8.min.length > 0 && canvasS8 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS8 = canvas;
-                                    highlight(canvasS8, area, g, tabminS8, tabmaxS8)
+                                    highlight(canvasS8, area, g, CanvS8)
                                 }
                             });
                         }
@@ -437,6 +1082,7 @@
          
             var colorSets = [['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0']];
             var tab = window.name;
+
             tab = tab.split(",");
 
             for (var i = 0; i < 36; i++) {
@@ -454,28 +1100,41 @@
             var tabminN01 = [];
             var tabmaxN01 = [];
             var canvasN01 = 1;
+            SetCanva();
             n01 = new Dygraph(
-                document.getElementById("Snoring"),
+                document.getElementById("SnoringN"),
                 tabCSV[0], {
+                    showLabelsOnHighlight: true,
+                    axes: {
+                        x: {
+                            axisLabelFormatter: function (v) {
+                                return v + ' ms';  // controls formatting of the x-axis labels
+                            },
+                        },
+                        y: {
+                            ticker: function (mimn, max, pixels, opts, grpah, val) {
+                                return [{ v: 0, label: "0µV/cm" }, { v: 200, label: "200µV/cm" }];
+                            },
+                        },
+                    },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminN01[tabminN01.length - 1] != minTime && tabmaxN01[tabmaxN01.length - 1] != maxTime
+                        if (CanvS2.min[CanvS2.length - 1] != minTime && CanvS2.max[CanvS2.length - 1] != maxTime
                             && (maxTime - minTime) <= (dataRange + 50)) {
-                            tabminN01.push(minTime);
-                            tabmaxN01.push(maxTime);
+                            CanvS2.Push(minTime, maxTime, ColorFromDDL());
                             canvasN01 = null;
                         }
                         this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
                     },
                     drawCallback: function (graph, is_initial) {
-                        if (tabminN01.length > 0 && canvasN01 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
+                        if (CanvS2.min.length > 0 && canvasN01 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasN01 = canvas;
-                                    highlight(canvasN01, area, g, tabminN01, tabmaxN01)
+                                    highlight(canvasN01, area, g, CanvS2)
                                 }
                             });
                         }
@@ -483,31 +1142,42 @@
                     colors: [colorSets[0]],
                     fillGraph: parseInt(colorSets[18])
                 });
-            var tabminN02 = [];
-            var tabmaxN02 = [];
-            var canvasN02 = 1;
+
             n02 = new Dygraph(
-                document.getElementById("E2-M1"),
-                tabCSV[1], {
+                document.getElementById("E2M1"),
+                 tabCSV[1], {
+                    showLabelsOnHighlight: true,
+                    axes: {
+                        x: {
+                            axisLabelFormatter: function (v) {
+                                return v + ' ms';  // controls formatting of the x-axis labels
+                            },
+                        },
+                        y: {
+                            ticker: function (mimn, max, pixels, opts, grpah, val) {
+                                return [{ v: 0, label: "0µV/cm" }, { v: 2500, label: "2500µV/cm" }, { v: 5000, label: "5000µV/cm" },
+                                { v: -2500, label: "-2500µV/cm" }, { v: -5000, label: "-5000µV/cm" }];
+                            },
+                        },
+                    },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminN02[tabminN02.length - 1] != minTime && tabmaxN02[tabmaxN02.length - 1] != maxTime
+                        if (CanvN2.min[CanvN2.length - 1] != minTime && CanvN2.max[CanvN2.length - 1] != maxTime
                             && (maxTime - minTime) <= (dataRange + 50)) {
-                            tabminN02.push(minTime);
-                            tabmaxN02.push(maxTime);
+                            CanvN2.Push(minTime, maxTime, ColorFromDDL());
                             canvasN02 = null;
                         }
                         this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
                     },
                     drawCallback: function (graph, is_initial) {
-                        if (tabminN02.length > 0 && canvasN02 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
+                        if (CanvN2.min.length > 0 && canvasN02 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasN02 = canvas;
-                                    highlight(canvasN02, area, g, tabminN02, tabmaxN02)
+                                    highlight(canvasN02, area, g, CanvN2)
                                 }
                             });
                         }
@@ -516,31 +1186,43 @@
                     fillGraph: parseInt(colorSets[19])
 
                 });
-            var tabminN03 = [];
-            var tabmaxN03 = [];
-            var canvasN03 = 1;
+
             n03 = new Dygraph(
-                document.getElementById("E1-M1"),
+                document.getElementById("E1M1"),
                 tabCSV[2], {
+                    showLabelsOnHighlight: true,
+                    axes: {
+                        x: {
+                            axisLabelFormatter: function (v) {
+                                return v + ' ms';  // controls formatting of the x-axis labels
+                            },
+                        },
+                        y: {
+                            ticker: function (mimn, max, pixels, opts, grpah, val) {
+                                return [{ v: 0, label: "0µV/cm" }, { v: 1000, label: "1000µV/cm" },
+                                { v: -1000, label: "-1000µV/cm" }];
+                            },
+
+                        },
+                    },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminN03[tabminN03.length - 1] != minTime && tabmaxN03[tabmaxN03.length - 1] != maxTime
+                        if (CanvN3.min[CanvN3.length - 1] != minTime && CanvN3.max[CanvN3.length - 1] != maxTime
                             && (maxTime - minTime) <= (dataRange + 50)) {
-                            tabminN03.push(minTime);
-                            tabmaxN03.push(maxTime);
+                            CanvN3.Push(minTime, maxTime, ColorFromDDL());
                             canvasN03 = null;
                         }
                         this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
                     },
                     drawCallback: function (graph, is_initial) {
-                        if (tabminN03.length > 0 && canvasN03 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
+                        if (CanvN3.min.length > 0 && canvasN03 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasN03 = canvas;
-                                    highlight(canvasN03, area, g, tabminN03, tabmaxN03)
+                                    highlight(canvasN03, area, g, CanvN3)
                                 }
                             });
                         }
@@ -548,31 +1230,43 @@
                     colors: [colorSets[2]],
                     fillGraph: parseInt(colorSets[20])
                 });
-            var tabminN04 = [];
-            var tabmaxN04 = [];
-            var canvasN04 = 1;
+
             n04 = new Dygraph(
-                document.getElementById("C3-M2"),
+                document.getElementById("C3M2"),
                 tabCSV[3], {
+                    showLabelsOnHighlight: true,
+                    axes: {
+                        x: {
+                            axisLabelFormatter: function (v) {
+                                return v + ' ms';  // controls formatting of the x-axis labels
+                            },
+                        },
+                        y: {
+                            ticker: function (mimn, max, pixels, opts, grpah, val) {
+                                return [{ v: 0, label: "0µV/cm" }, { v: 10000, label: "10000µV/cm" },
+                                { v: 20000, label: "20000µV/cm" }, { v: 30000, label: "30000µV/cm" }];
+                            },
+
+                        },
+                    },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminN04[tabminN04.length - 1] != minTime && tabmaxN04[tabmaxN04.length - 1] != maxTime
+                        if (CanvN4.min[CanvN4.length - 1] != minTime && CanvN4.max[CanvN4.length - 1] != maxTime
                             && (maxTime - minTime) <= (dataRange + 50)) {
-                            tabminN04.push(minTime);
-                            tabmaxN04.push(maxTime);
+                            CanvN4.Push(minTime, maxTime, ColorFromDDL());
                             canvasN04 = null;
                         }
                         this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
                     },
                     drawCallback: function (graph, is_initial) {
-                        if (tabminN04.length > 0 && canvasN04 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
+                        if (CanvN4.min.length > 0 && canvasN04 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasN04 = canvas;
-                                    highlight(canvasN04, area, g, tabminN04, tabmaxN04)
+                                    highlight(canvasN04, area, g, CanvN4)
                                 }
                             });
                         }
@@ -580,31 +1274,42 @@
                     colors: [colorSets[3]],
                     fillGraph: parseInt(colorSets[21])
                 });
-            var tabminN05 = [];
-            var tabmaxN05 = [];
-            var canvasN05 = 1;
+
             n05 = new Dygraph(
-                document.getElementById("F3-M2"),
+                document.getElementById("F3M2"),
                 tabCSV[4], {
+                    showLabelsOnHighlight: true,
+                    axes: {
+                        x: {
+                            axisLabelFormatter: function (v) {
+                                return v + ' ms';  // controls formatting of the x-axis labels
+                            },
+                        },
+                        y: {
+                            ticker: function (mimn, max, pixels, opts, grpah, val) {
+                                return [{ v: 0, label: "0µV/cm" }, { v: 10000, label: "10000µV/cm" },
+                                { v: 20000, label: "20000µV/cm" }, { v: 30000, label: "30000µV/cm" }];
+                            },
+                        },
+                    },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminN05[tabminN05.length - 1] != minTime && tabmaxN05[tabmaxN05.length - 1] != maxTime
+                        if (CanvN5.min[CanvN5.length - 1] != minTime && CanvN5.max[CanvN5.length - 1] != maxTime
                             && (maxTime - minTime) <= (dataRange + 50)) {
-                            tabminN05.push(minTime);
-                            tabmaxN05.push(maxTime);
+                            CanvN5.Push(minTime, maxTime, ColorFromDDL());
                             canvasN05 = null;
                         }
                         this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
                     },
                     drawCallback: function (graph, is_initial) {
-                        if (tabminN05.length > 0 && canvasN05 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
+                        if (CanvN5.min.length > 0 && canvasN05 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasN05 = canvas;
-                                    highlight(canvasN05, area, g, tabminN05, tabmaxN05)
+                                    highlight(canvasN05, area, g, CanvN5)
                                 }
                             });
                         }
@@ -612,31 +1317,42 @@
                     colors: [colorSets[4]],
                     fillGraph: parseInt(colorSets[22])
                 });
-            var tabminN06 = [];
-            var tabmaxN06 = [];
-            var canvasN06 = 1;
+
             n06 = new Dygraph(
-                document.getElementById("O1-M2"),
+                document.getElementById("O1M2"),
                 tabCSV[5], {
+                    showLabelsOnHighlight: true,
+                    axes: {
+                        x: {
+                            axisLabelFormatter: function (v) {
+                                return v + ' ms';  // controls formatting of the x-axis labels
+                            },
+                        },
+                        y: {
+                            ticker: function (mimn, max, pixels, opts, grpah, val) {
+                                return [{ v: 0, label: "0µV/cm" }, { v: 10000, label: "10000µV/cm" },
+                                { v: 20000, label: "20000µV/cm" }, { v: 30000, label: "30000µV/cm" }];
+                            },
+                        },
+                    },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminN06[tabminN06.length - 1] != minTime && tabmaxN06[tabmaxN06.length - 1] != maxTime
+                        if (CanvN6.min[CanvN6.length - 1] != minTime && CanvN6.max[CanvN6.length - 1] != maxTime
                             && (maxTime - minTime) <= (dataRange + 50)) {
-                            tabminN06.push(minTime);
-                            tabmaxN06.push(maxTime);
+                            CanvN6.Push(maxTime);
                             canvasN06 = null;
                         }
                         this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
                     },
                     drawCallback: function (graph, is_initial) {
-                        if (tabminN06.length > 0 && canvasN06 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
+                        if (CanvN6.min.length > 0 && canvasN06 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasN06 = canvas;
-                                    highlight(canvasN06, area, g, tabminN06, tabmaxN06)
+                                    highlight(canvasN06, area, g, CanvN6)
                                 }
                             });
                         }
@@ -644,31 +1360,42 @@
                     colors: [colorSets[5]],
                     fillGraph: parseInt(colorSets[23])
                 });
-            var tabminN07 = [];
-            var tabmaxN07 = [];
-            var canvasN07 = 1;
+
             n07 = new Dygraph(
-                document.getElementById("1-F"),
+                document.getElementById("1F"),
                 tabCSV[6], {
+                    showLabelsOnHighlight: true,
+                    axes: {
+                        x: {
+                            axisLabelFormatter: function (v) {
+                                return v + ' ms';  // controls formatting of the x-axis labels
+                            },
+                        },
+                        y: {
+                            ticker: function (mimn, max, pixels, opts, grpah, val) {
+                                return [{ v: 0, label: "0µV/cm" }, { v: -5000, label: "-5000µV/cm" }, { v: 5000, label: "5000µV/cm" }, { v: 10000, label: "10000µV/cm" },
+                                { v: 15000, label: "15000µV/cm" }, { v: 20000, label: "20000µV/cm" }, { v: 25000, label: "25000µV/cm" }, { v: 30000, label: "30000µV/cm" }];
+                            },
+                        },
+                    },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminN07[tabminN07.length - 1] != minTime && tabmaxN07[tabmaxN07.length - 1] != maxTime
+                        if (CanvN7.min[CanvN7.length - 1] != minTime && CanvN7.max[CanvN7.length - 1] != maxTime
                             && (maxTime - minTime) <= (dataRange + 50)) {
-                            tabminN07.push(minTime);
-                            tabmaxN07.push(maxTime);
+                            CanvN7.Push(minTime, maxTime, ColorFromDDL());
                             canvasN07 = null;
                         }
                         this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
                     },
                     drawCallback: function (graph, is_initial) {
-                        if (tabminN07.length > 0 && canvasN07 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
+                        if (CanvN7.min.length > 0 && canvasN07 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasN07 = canvas;
-                                    highlight(canvasN07, area, g, tabminN07, tabmaxN07)
+                                    highlight(canvasN07, area, g, CanvN7)
                                 }
                             });
                         }
@@ -676,31 +1403,42 @@
                     colors: [colorSets[6]],
                     fillGraph: parseInt(colorSets[24])
                 });
-            var tabminN08 = [];
-            var tabmaxN08 = [];
-            var canvasN08 = 1;
+
             n08 = new Dygraph(
-                document.getElementById("1-2"),
+                document.getElementById("12"),
                 tabCSV[7], {
+                    showLabelsOnHighlight: true,
+                    axes: {
+                        x: {
+                            axisLabelFormatter: function (v) {
+                                return v + ' ms';  // controls formatting of the x-axis labels
+                            },
+                        },
+                        y: {
+                            ticker: function (mimn, max, pixels, opts, grpah, val) {
+                                return [{ v: 0, label: "0µV/cm" }, { v: 5000, label: "5000µV/cm" }, { v: 2500, label: "2500µV/cm" },
+                                { v: 1000, label: "1000µV/cm" }, { v: -1000, label: "-1000µV/cm" }];
+                            },
+                        },
+                    },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminN08[tabminN08.length - 1] != minTime && tabmaxN08[tabmaxN08.length - 1] != maxTime
+                        if (CanvN8.min[CanvN8.length - 1] != minTime && CanvN8.max[CanvN8.length - 1] != maxTime
                             && (maxTime - minTime) <= (dataRange + 50)) {
-                            tabminN08.push(minTime);
-                            tabmaxN08.push(maxTime);
+                            CanvN8.Push(minTime, maxTime, ColorFromDDL());
                             canvasN08 = null;
                         }
                         this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
                     },
                     drawCallback: function (graph, is_initial) {
-                        if (tabminN08.length > 0 && canvasN08 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
+                        if (CanvN8.min.length > 0 && canvasN08 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasN08 = canvas;
-                                    highlight(canvasN08, area, g, tabminN08, tabmaxN08)
+                                    highlight(canvasN08, area, g, CanvN8)
                                 }
                             });
                         }
@@ -708,31 +1446,42 @@
                     colors: [colorSets[7]],
                     fillGraph: parseInt(colorSets[25])
                 });
-            var tabminN09 = [];
-            var tabmaxN09 = [];
-            var canvasN09 = 1;
+
             n09 = new Dygraph(
                 document.getElementById("ECG"),
                 tabCSV[8], {
+                    showLabelsOnHighlight: true,
+                    axes: {
+                        x: {
+                            axisLabelFormatter: function (v) {
+                                return v + ' ms';  // controls formatting of the x-axis labels
+                            },
+                        },
+                        y: {
+                            ticker: function (mimn, max, pixels, opts, grpah, val) {
+                                return [{ v: 0, label: "0µV/cm" }, { v: 10, label: "10µV/cm" },
+                                { v: -10, label: "-10µV/cm" }];
+                            },
+                        },
+                    },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminN09[tabminN09.length - 1] != minTime && tabmaxN09[tabmaxN09.length - 1] != maxTime
+                        if (CanvN9.min[CanvN9.length - 1] != minTime && CanvN9.max[CanvN9.length - 1] != maxTime
                             && (maxTime - minTime) <= (dataRange + 50)) {
-                            tabminN09.push(minTime);
-                            tabmaxN09.push(maxTime);
+                            CanvN9.Push(minTime, maxTime, ColorFromDDL());
                             canvasN09 = null;
                         }
                         this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
                     },
                     drawCallback: function (graph, is_initial) {
-                        if (tabminN09.length > 0 && canvasN09 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
+                        if (CanvN9.min.length > 0 && canvasN09 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasN09 = canvas;
-                                    highlight(canvasN09, area, g, tabminN09, tabmaxN09)
+                                    highlight(canvasN09, area, g, CanvN9)
                                 }
                             });
                         }
@@ -740,31 +1489,44 @@
                     colors: [colorSets[8]],
                     fillGraph: parseInt(colorSets[26])
                 });
-            var tabminN10 = [];
-            var tabmaxN10 = [];
-            var canvasN10 = 1;
+
             n10 = new Dygraph(
                 document.getElementById("HeartRate"),
                 tabCSV[9], {
+                    showLabelsOnHighlight: true,
+                    axes: {
+                        x: {
+                            axisLabelFormatter: function (v) {
+                                return v + ' ms';  // controls formatting of the x-axis labels
+                            },
+                        },
+                        y: {
+                            ticker: function (mimn, max, pixels, opts, grpah, val) {
+                                return [{ v: 0, label: "0µV/cm" }, { v: 2000, label: "2000µV/cm" },
+                                { v: 4000, label: "4000µV/cm" },
+                                { v: 6000, label: "6000µV/cm" }, { v: 8000, label: "8000µV/cm" },
+                                { v: 10000, label: "10000µV/cm" }];
+                            },
+                        },
+                    },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange * 20],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (tabminN10[tabminN10.length - 1] != minTime && tabmaxN10[tabmaxN10.length - 1] != maxTime
+                        if (CanvN10.min[CanvN10.length - 1] != minTime && CanvN10.max[CanvN10.length - 1] != maxTime
                             && (maxTime - minTime) <= (dataRange * 20 + 50)) {
-                            tabminN10.push(minTime);
-                            tabmaxN10.push(maxTime);
+                            CanvN10.Push(minTime, maxTime, ColorFromDDL());
                             canvasN10 = null;
                         }
                         this.updateOptions({ dateWindow: [minTime, minTime + dataRange * 20], });
                     },
                     drawCallback: function (graph, is_initial) {
-                        if (tabminN10.length > 0 && canvasN10 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
+                        if (CanvN10.min.length > 0 && canvasN10 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasN10 = canvas;
-                                    highlight(canvasN10, area, g, tabminN10, tabmaxN10)
+                                    highlight(canvasN10, area, g, CanvN10)
                                 }
                             });
                         }
@@ -776,6 +1538,7 @@
    </script>
 </head>
 <body>
+
     <form id="form1" runat="server">
         <header class="Haut_page">
             <asp:Image runat="server" CssClass="Logo" src="img/navbar-logo.png" Style="margin-top: 5px" />
@@ -786,13 +1549,17 @@
                     <div class="Div_Info">
                         <asp:ImageButton runat="server" ID="imgPedro" ImageUrl="img/alpaga.jpg" Height="75px" Width="150px" Visible="false" OnClick="imgPedro_Click" />
                         <asp:Label runat="server" ID="lbl_pedro" Text="Pedro" Font-Size="12px" Visible="false"></asp:Label>
+
                         <asp:Button runat="server" ID="btnTest" Text="Test"  />
                     </div>
                     <div class="Div_param">
+                         <asp:ScriptManager ID="ScriptManager2" runat="server" />
+                        <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
                         <asp:Label runat="server" Text="Couleur des graphes" Style="margin-left: 5%;"></asp:Label>
                         <br />
                         <asp:Label runat="server" Text="" Style="margin-left: 5%;"></asp:Label>
-                        <asp:DropDownList ID="DDLColor" AutoPostBack="True" runat="server" OnSelectedIndexChanged="DDLColor_SelectedIndexChanged">
+                        <asp:DropDownList ID="DDLColor" AutoPostBack="True" runat="server" >
                             <asp:ListItem id="selected" Selected="True" Value="0" style="background-color: #000000; color: white;"> Noir </asp:ListItem>
                             <asp:ListItem Value="1" style="background-color: #FF0000;"> Rouge </asp:ListItem>
                             <asp:ListItem Value="2" style="background-color: #FFA500;"> Orange </asp:ListItem>
@@ -804,31 +1571,49 @@
                             <asp:ListItem Value="8" style="background-color: #FF1493;"> Rose </asp:ListItem>
                             <asp:ListItem Value="9" style="background-color: #8B4513;"> Marron </asp:ListItem>
                         </asp:DropDownList>
-                        <asp:DropDownList ID="DDLType" AutoPostBack="True" runat="server" OnSelectedIndexChanged="DDLColor_SelectedIndexChanged">
+                        <asp:DropDownList ID="DDLType" AutoPostBack="True" runat="server" >
                             <asp:ListItem Selected="True" Value="0"> Vide </asp:ListItem>
                             <asp:ListItem Value="1"> Plein </asp:ListItem>                      
                         </asp:DropDownList>
-                        <asp:DropDownList ID="DDLGraph" AutoPostBack="True" runat="server" OnSelectedIndexChanged="DDLGraph_SelectedIndexChanged">
+                        <asp:DropDownList ID="DDLGraph" AutoPostBack="True" runat="server" >
                         </asp:DropDownList>
                         <asp:Button runat="server" Text="Appliquer" ID="btnApplyChange" OnClientClick=" return changeColor()" />
                         <br />
+                                <br />
+                                <asp:Label runat="server" Text="Couleur des scoring" Style="margin-left: 5%;"></asp:Label>
+                                <br />
+                                <asp:Label runat="server" Text="" Style="margin-left: 5%;"></asp:Label>
+                                <asp:DropDownList ID="DropDownList1" AutoPostBack="True" runat="server">
+                                    <asp:ListItem Selected="True" Value="0" style="background-color: #000000; color: white;"> Noir </asp:ListItem>
+                                    <asp:ListItem Value="1" style="background-color: #FF0000;"> Rouge </asp:ListItem>
+                                    <asp:ListItem Value="2" style="background-color: #FFA500;"> Orange </asp:ListItem>
+                                    <asp:ListItem Value="3" style="background-color: #FFFF00;"> Jaune </asp:ListItem>
+                                    <asp:ListItem Value="4" style="background-color: #00FF00;"> Vert </asp:ListItem>
+                                    <asp:ListItem Value="5" style="background-color: #00008B; color: white;"> Bleu </asp:ListItem>
+                                    <asp:ListItem Value="6" style="background-color: #00BFFF;"> Cyan </asp:ListItem>
+                                    <asp:ListItem Value="7" style="background-color: #9400D3;"> Violet </asp:ListItem>
+                                    <asp:ListItem Value="8" style="background-color: #FF1493;"> Rose </asp:ListItem>
+                                    <asp:ListItem Value="9" style="background-color: #8B4513;"> Marron </asp:ListItem>
+                                </asp:DropDownList>
                         <asp:Label runat="server" Text="Filtrage" Style="margin-left:5%;"></asp:Label>
                         <br />
                          <asp:Label runat="server" Text="" Style="margin-left: 5%;"></asp:Label>
-                        <asp:DropDownList ID="DDLFiltre" AutoPostBack="True" runat="server" OnSelectedIndexChanged="DDLColor_SelectedIndexChanged">
+                        <asp:DropDownList ID="DDLFiltre" AutoPostBack="True" runat="server">
                             <asp:ListItem Selected="True" Value="Low" > Passe-bas </asp:ListItem>
                             <asp:ListItem Value="High"> Passe-haut </asp:ListItem>                      
                         </asp:DropDownList>
-                        <asp:DropDownList ID="DDLGraph2" AutoPostBack="True" runat="server" OnSelectedIndexChanged="DDLGraph_SelectedIndexChanged">
+                        <asp:DropDownList ID="DDLGraph2" AutoPostBack="True" runat="server" >
                         </asp:DropDownList>
                         <asp:TextBox ID="txtboxFiltre" runat="server" Text="Fc" Width="30px"></asp:TextBox>
                         <asp:Button runat="server" Text="Appliquer" ID="btnFilt" OnClick="btnFilt_Click" />
                         <asp:HiddenField runat="server" Value="" ID="hdnFiltre"  />
+                                  </ContentTemplate>
+                        </asp:UpdatePanel>
                     </div>
                 </div>
                 <div style="margin-right: 3%; width: 20%; float: right; padding-top: 15vh;">
-                    <asp:Button class="btn_sono" runat="server" Text="Neurologie" ID="btnNeuro" Style="margin-bottom: 0%; float: right;" OnClick="btnNeuro_Click" />
-                    <asp:Button class="btn_sono" runat="server" Text="Sonore" ID="btnSono" Style="float: right;" OnClick="btnSono_Click" />
+                    <asp:Button class="btn_sono" runat="server" Text="Neurologie" ID="btnNeuro" Style="margin-bottom: 0%; float: right;" OnClientClick="GetCanva();" OnClick="btnNeuro_Click" />
+                    <asp:Button class="btn_sono" runat="server" Text="Sonore" ID="btnSono" Style="float: right;" OnClientClick="GetCanva();" OnClick="btnSono_Click" />
                 </div>
                 <div style="width: 42%; float: right; padding-top: 1%; height: 17vh;">
                     <%-- Division où il y aura les boutons pour chaque fonctionnalité --%>
@@ -837,14 +1622,16 @@
                     <asp:Button class="btns" runat="server" Text="Capturer l'écran" ID="btn_CaptEcran" Style="margin-left: 1%;" OnClick="btn_CaptEcran_Click" />
                     <asp:Button class="btns" runat="server" Text="Voir les captures" ID="btn_VoirCapt" Style="margin-left: 1%;" OnClick="btn_VoirCapt_Click" />
                 </div>
-
             </div>
+            <asp:HiddenField runat="server" ID="hfCanva" />
             <div class="Div_Graphe" style="padding-top: 2%">
                 <asp:Repeater ID="rptNeuro" OnItemCommand="rptNeuro_ItemCommand" runat="server">
                     <ItemTemplate>
                         <td>
                             <div class="labelRepeater">
-                                <asp:LinkButton ID="linkButton_Name" runat="server" Text='<%# DataBinder.Eval(Container.DataItem,"Nom")%>'></asp:LinkButton>
+                                <asp:LinkButton ID="lbRepeater" runat="server" Style="padding-top: 5px; padding-right: 10px;" Text='<%# DataBinder.Eval(Container.DataItem,"Nom")%>'></asp:LinkButton>
+                                <asp:ImageButton runat="server" ImageUrl="img/undo32.png" Width="16px" Height="16px" ID="btnUndo" Text="Undo" Style="float: left; margin: 5px; padding-top: 15px;"
+                                    CommandArgument='<%# DataBinder.Eval(Container.DataItem,"divID")%>' OnClientClick='<%# " return Undo("+Eval("divID")+")"%>' />
                             </div>
                         </td>
                         <td>
@@ -854,7 +1641,7 @@
                 </asp:Repeater>
             </div>
         </section>
+
     </form>
 </body>
 </html>
-

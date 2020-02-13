@@ -49,6 +49,24 @@ namespace Epnos_application {
         protected global::System.Web.UI.WebControls.Button btnTest;
         
         /// <summary>
+        /// Contrôle ScriptManager2.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager2;
+        
+        /// <summary>
+        /// Contrôle UpdatePanel1.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        /// <summary>
         /// Contrôle DDLColor.
         /// </summary>
         /// <remarks>
@@ -92,6 +110,15 @@ namespace Epnos_application {
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnApplyChange;
+        
+        /// <summary>
+        /// Contrôle DropDownList1.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
         
         /// <summary>
         /// Contrôle DDLFiltre.
@@ -191,6 +218,15 @@ namespace Epnos_application {
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_VoirCapt;
+        
+        /// <summary>
+        /// Contrôle hfCanva.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfCanva;
         
         /// <summary>
         /// Contrôle rptNeuro.

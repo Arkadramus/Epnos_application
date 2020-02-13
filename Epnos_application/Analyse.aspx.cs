@@ -39,7 +39,6 @@ namespace Epnos_application
             }
         }
 
-
         private void InitDDLNeuro()
         {
             DDLGraph.Items.Clear();
@@ -92,39 +91,6 @@ namespace Epnos_application
             DDLGraph2.DataBind();
         }
 
-        struct PositionData
-        {
-            private string nom;
-            private string divID;
-
-
-            /// <summary>
-            /// Le nom passé en paramètre sera donnée au label et à l'id de la div
-            /// </summary>
-            /// <param name="nom">Donne le nom au label et à l'id de la div</param>
-            public PositionData(string nom)
-            {
-                this.nom = nom;
-                this.divID = nom;
-            }
-
-            public PositionData(string nom, string divID)
-            {
-                this.nom = nom;
-                this.divID = divID;
-            }
-
-            public string Nom
-            {
-                get
-                {
-                    return nom;
-                }
-            }
-
-            public string DivID { get { return divID; } }
-        }
-
         private void InitSignal()
         {
             int i = 0;
@@ -163,6 +129,61 @@ namespace Epnos_application
 
         }
 
+        #region Graphique
+        private class Canva
+        {
+            private double Min { get; set; }
+            private double Max { get; set; }
+            private string Couleur { get; set; }
+
+            public Canva()
+            {
+                Min = Max = 0;
+                Couleur = "#000000";
+            }
+
+            public Canva(double min, double max, string couleur)
+            {
+                Min = min;
+                Max = max;
+                Couleur = couleur;
+            }
+
+        }
+
+        struct PositionData
+        {
+            private string nom;
+            private string divID;
+
+
+            /// <summary>
+            /// Le nom passé en paramètre sera donnée au label et à l'id de la div
+            /// </summary>
+            /// <param name="nom">Donne le nom au label et à l'id de la div</param>
+            public PositionData(string nom)
+            {
+                this.nom = nom;
+                this.divID = nom;
+            }
+
+            public PositionData(string nom, string divID)
+            {
+                this.nom = nom;
+                this.divID = divID;
+            }
+
+            public string Nom
+            {
+                get
+                {
+                    return nom;
+                }
+            }
+
+            public string DivID { get { return divID; } }
+        }
+
         private void SetRepeater(int index = 1)
         {
             var valueNeuro = new ArrayList();
@@ -170,14 +191,14 @@ namespace Epnos_application
             {
                 default:
                 case 1:
-                    valueNeuro.Add(new PositionData("Snoring"));
-                    valueNeuro.Add(new PositionData("E2-M1"));
-                    valueNeuro.Add(new PositionData("E1-M1"));
-                    valueNeuro.Add(new PositionData("C3-M2"));
-                    valueNeuro.Add(new PositionData("F3-M2"));
-                    valueNeuro.Add(new PositionData("O1-M2"));
-                    valueNeuro.Add(new PositionData("1-F"));
-                    valueNeuro.Add(new PositionData("1-2"));
+                    valueNeuro.Add(new PositionData("Snoring", "SnoringN"));
+                    valueNeuro.Add(new PositionData("E2-M1", "E2M1"));//On ne met pas de "-" pour les div car sinon le JS n'aime pas
+                    valueNeuro.Add(new PositionData("E1-M1", "E1M1"));
+                    valueNeuro.Add(new PositionData("C3-M2", "C3M2"));
+                    valueNeuro.Add(new PositionData("F3-M2", "F3M2"));
+                    valueNeuro.Add(new PositionData("O1-M2", "O1M2"));
+                    valueNeuro.Add(new PositionData("1-F", "1F"));
+                    valueNeuro.Add(new PositionData("1-2", "12"));
                     valueNeuro.Add(new PositionData("ECG"));
                     valueNeuro.Add(new PositionData("HeartRate"));
 
@@ -187,10 +208,10 @@ namespace Epnos_application
 
                 case 2:
                     valueNeuro.Add(new PositionData("AudioVolumeDB"));
-                    valueNeuro.Add(new PositionData("Snoring"));
+                    valueNeuro.Add(new PositionData("Snoring", "SnoringS"));
                     valueNeuro.Add(new PositionData("AirFlow"));
                     valueNeuro.Add(new PositionData("RIPFlow"));
-                    valueNeuro.Add(new PositionData("spO2B-B"));
+                    valueNeuro.Add(new PositionData("spO2B-B", "spO2BB"));
                     valueNeuro.Add(new PositionData("InductanceThora"));
                     valueNeuro.Add(new PositionData("InductanceAbdom"));
                     valueNeuro.Add(new PositionData("K"));
@@ -226,7 +247,8 @@ namespace Epnos_application
 
 
                             //for (int i = 0; i < length; i++)
-                            for (int i = 0; i < Parametres.NbSample; i++)
+                            //for (int i = 0; i < Parametres.NbSample; i++)
+                            for (int i = 0; i < length; i++)
                                 csv.Append((i * durationMS).ToString() + "," + (samples1[i] - samples2[i]).ToString() + "\n");
                             csv.Append("\n");
                             File.WriteAllText(Parametres.pathCSV + labelSignal1 + "-" + labelSignal2 + ".csv", csv.ToString());
@@ -245,23 +267,25 @@ namespace Epnos_application
                         var csv = new StringBuilder();
                         csv.Append("Time,Signal\n");
 
-                        if (samples.Count > Parametres.NbSample)//Pour le heartRate qui est limité à 110000 samples
-                        {
-                            for (int i = 0; i < Parametres.NbSample; i++)
-                                csv.Append((i * durationMS).ToString() + "," + samples[i].ToString() + "\n");
-                        }
-                        else
-                        {
-                            for (int i = 0; i < samples.Count; i++)
-                                csv.Append((i * durationMS).ToString() + "," + samples[i].ToString() + "\n");
-                        }
+                        //if (samples.Count > Parametres.NbSample)//Pour le heartRate qui est limité à 110000 samples
+                        //{
+                        //    for (int i = 0; i < Parametres.NbSample; i++)
+                        //        csv.Append((i * durationMS).ToString() + "," + samples[i].ToString() + "\n");
+                        //}
+                        //else
+                        //{
+                        for (int i = 0; i < 3800000; i++)
+                            csv.Append((i * durationMS).ToString() + "," + samples[i].ToString() + "\n");
+                        //}
                         csv.Append("\n");
                         File.WriteAllText(Parametres.pathCSV + labelSignal1 + ".csv", csv.ToString());
                     }
                 }
             }
         }
+        #endregion
 
+        #region Button
         protected void btn_CaptEcran_Click(object sender, EventArgs e)
         {
 
@@ -296,15 +320,14 @@ namespace Epnos_application
 
         protected void btnSono_Click(object sender, EventArgs e)
         {
+            SetRepeater(2);
+            ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "text", "Sono()", true);
             btnNeuro.BackColor = ColorTranslator.FromHtml("#00456f");
             btnNeuro.ForeColor = Color.White;
             btnSono.BackColor = Color.White;
             btnSono.ForeColor = ColorTranslator.FromHtml("#00456f");
             InitDDLRespi();
-            SetRepeater(2);
-            ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "text", "Sono()", true);
         }
-
 
         protected void rptNeuro_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
@@ -315,6 +338,7 @@ namespace Epnos_application
                 lbl_pedro.Text = rptNeuro.Items[e.Item.ItemIndex].ItemIndex.ToString();
 
             }
+
             if (btnNeuro.BackColor == Color.White)
             {
                 SetRepeater(1);
@@ -332,12 +356,7 @@ namespace Epnos_application
             Response.Write("<script> window.open('" + "https://www.youtube.com/watch?v=FSKZ4IowkYU" + "','_blank'); </script>");
         }
 
-        protected void DDLGraph_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            traceGraph();
-        }
-
-        protected void DDLColor_SelectedIndexChanged(object sender, EventArgs e)
+        protected void btnTest_Click(object sender, EventArgs e)
         {
             traceGraph();
         }
@@ -503,5 +522,7 @@ namespace Epnos_application
         }
 
        
+
+        #endregion
     }
 }
