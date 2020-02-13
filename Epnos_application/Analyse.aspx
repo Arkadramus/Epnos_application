@@ -10,7 +10,6 @@
     <title></title>
     <script src="Scripts/dygraph.js"></script>
     <script src="Scripts/jquery-1.10.2.js"></script>
-
     <script type="text/javascript">  
         var dataRange = 2000;
         var rangeHeight = 10;
@@ -30,12 +29,26 @@
             var tabminS1 = [];
             var tabmaxS1 = [];
             var canvasS1 = 1;
+
+            var colorSets = [['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0']];
             var tab = window.name;
-            colorSets = tab.split(",");
+            tab = tab.split(",");
+
+            for (var i = 0; i < 36; i++) {
+                if (tab[i] != "") {
+                    colorSets[i] = tab[i]
+                }
+            }
+
+            var e = document.getElementById("hdnFiltre");
+            var CSV = e.value;
+            var tabCSV = CSV.split(";");
+            console.log(tabCSV);
+
             console.log(colorSets);
             s1 = new Dygraph(
                 document.getElementById("AudioVolumeDB"),
-                "EDF/AudioVolumeDB.csv", {
+                tabCSV[10], {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
@@ -59,7 +72,8 @@
                             });
                         }
                     },
-                    colors: [colorSets[10]]
+                    colors: [colorSets[10]],
+                    fillGraph: parseInt(colorSets[28])
                 });
 
             var tabminS2 = [];
@@ -67,7 +81,7 @@
             var canvasS2 = 1;
             s2 = new Dygraph(
                 document.getElementById("Snoring"),
-                "EDF/Snoring.csv", {
+                tabCSV[11], {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
@@ -91,14 +105,15 @@
                             });
                         }
                     },
-                    colors: [colorSets[11]]
+                    colors: [colorSets[11]],
+                    fillGraph: parseInt(colorSets[29])
                 });
             var tabminS3 = [];
             var tabmaxS3 = [];
             var canvasS3 = 1;
             s3 = new Dygraph(
                 document.getElementById("AirFlow"),
-                "EDF/AirFlow.csv", {
+                tabCSV[12], {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
@@ -122,14 +137,15 @@
                             });
                         }
                     },
-                    colors: [colorSets[12]]
+                    colors: [colorSets[12]],
+                    fillGraph: parseInt(colorSets[30])
                 });
             var tabminS4 = [];
             var tabmaxS4 = [];
             var canvasS4 = 1;
             s4 = new Dygraph(
                 document.getElementById("RIPFlow"),
-                "EDF/RIPFlow.csv", {
+                tabCSV[13], {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
@@ -153,14 +169,15 @@
                             });
                         }
                     },
-                    colors: [colorSets[13]]
+                    colors: [colorSets[13]],
+                    fillGraph: parseInt(colorSets[31])
                 });
             var tabminS5 = [];
             var tabmaxS5 = [];
             var canvasS5 = 1;
             s5 = new Dygraph(
                 document.getElementById("spO2B-B"),
-                "EDF/spO2B-B.csv", {
+                tabCSV[14], {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange * 10],
@@ -184,14 +201,15 @@
                             });
                         }
                     },
-                    colors: [colorSets[14]]
+                    colors: [colorSets[14]],
+                    fillGraph: parseInt(colorSets[32])
                 });
             var tabminS6 = [];
             var tabmaxS6 = [];
             var canvasS6 = 1;
             s6 = new Dygraph(
                 document.getElementById("InductanceThora"),
-                "EDF/InductanceThora.csv", {
+                tabCSV[15], {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
@@ -215,14 +233,15 @@
                             });
                         }
                     },
-                    colors: [colorSets[15]]
+                    colors: [colorSets[15]],
+                    fillGraph: parseInt(colorSets[33])
                 });
             var tabminS7 = [];
             var tabmaxS7 = [];
             var canvasS7 = 1;
             s7 = new Dygraph(
                 document.getElementById("InductanceAbdom"),
-                "EDF/InductanceAbdom.csv", {
+                tabCSV[16], {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
@@ -246,14 +265,15 @@
                             });
                         }
                     },
-                    colors: [colorSets[16]]
+                    colors: [colorSets[16]],
+                    fillGraph: parseInt(colorSets[34])
                 });
             var tabminS8 = [];
             var tabmaxS8 = [];
             var canvasS8 = 1;
             s8 = new Dygraph(
                 document.getElementById("K"),
-                "EDF/K.csv", {
+                tabCSV[17], {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
@@ -277,7 +297,8 @@
                             });
                         }
                     },
-                    colors: [colorSets[17]]
+                    colors: [colorSets[17]],
+                    fillGraph: parseInt(colorSets[35])
                 });
         }
 
@@ -289,80 +310,111 @@
             var indColor = parseInt(e.options[e.selectedIndex].value);
             var e = document.getElementById("DDLGraph");
             var graphName = e.options[e.selectedIndex].value;
+            var e = document.getElementById("DDLType");
+            var type = e.options[e.selectedIndex].value;
+            console.log(type);
 
-            var colorSets = [['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000']];
+            var colorSets = [['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0']];
             var tab = window.name;
-            colorSets = tab.split(",");
+            tab = tab.split(",");
 
+            for (var i = 0; i < 36; i++)
+            {
+                if (tab[i] != "")
+                {
+                    colorSets[i] = tab[i]
+                }
+                
+            }
+
+            
             switch (graphName) {
 
                 case "E2-M1":
                     colorSets[1] = colorAvailable[indColor];
+                    if (type == "1") { colorSets[19] = ['1'];}
                     window.name = colorSets;
                     break;
                 case "E1-M1":
                     colorSets[2] = colorAvailable[indColor];
+                    if (type == "1") { colorSets[20] = ['1']; }
                     window.name = colorSets;
                     break;
                 case "C3-M2":
                     colorSets[3] = colorAvailable[indColor];
+                    if (type == "1") { colorSets[21] = ['1']; }
                     window.name = colorSets;
                     break;
                 case "F3-M2":
                     colorSets[4] = colorAvailable[indColor];
+                    if (type == "1") { colorSets[22] = ['1']; }
                     window.name = colorSets;
                     break;
                 case "O1-M2":
                     colorSets[5] = colorAvailable[indColor];
+                    if (type == "1") { colorSets[23] = ['1']; }
                     window.name = colorSets;
                     break;
                 case "1-F":
                     colorSets[6] = colorAvailable[indColor];
+                    if (type == "1") { colorSets[24] = ['1']; }
                     window.name = colorSets;
                     break;
                 case "1-2":
                     colorSets[7] = colorAvailable[indColor];
+                    if (type == "1") { colorSets[25] = ['1']; }
                     window.name = colorSets;
                     break;
                 case "ECG":
                     colorSets[8] = colorAvailable[indColor];
+                    if (type == "1") { colorSets[26] = ['1']; }
                     window.name = colorSets;
                     break;
                 case "HeartRate":
                     colorSets[9] = colorAvailable[indColor];
+                    if (type == "1") { colorSets[27] = ['1']; }
                     window.name = colorSets;
                     break;
                 case "AudioVolumeDB":
                     colorSets[10] = colorAvailable[indColor];
+                    if (type == "1") { colorSets[28] = ['1']; }
                     window.name = colorSets;
                     break;
                 case "Snoring":
                     colorSets[11] = colorAvailable[indColor];
                     colorSets[0] = colorAvailable[indColor];
+                    if (type == "1") { colorSets[29] = ['1']; colorSets[18] = ['1']; }
+
                     window.name = colorSets;
                     break;
                 case "AirFlow":
                     colorSets[12] = colorAvailable[indColor];
+                    if (type == "1") { colorSets[30] = ['1']; }
                     window.name = colorSets;
                     break;
                 case "RIPFlow":
                     colorSets[13] = colorAvailable[indColor];
+                    if (type == "1") { colorSets[31] = ['1']; }
                     window.name = colorSets;
                     break;
                 case "spO2B-B":
                     colorSets[14] = colorAvailable[indColor];
+                    if (type == "1") { colorSets[32] = ['1']; }
                     window.name = colorSets;
                     break;
                 case "InductanceThora":
                     colorSets[15] = colorAvailable[indColor];
+                    if (type == "1") { colorSets[33] = ['1']; }
                     window.name = colorSets;
                     break;
                 case "InductanceAbdom":
                     colorSets[16] = colorAvailable[indColor];
+                    if (type == "1") { colorSets[34] = ['1']; }
                     window.name = colorSets;
                     break;
                 case "K":
                     colorSets[17] = colorAvailable[indColor];
+                    if (type == "1") { colorSets[35] = ['1']; }
                     window.name = colorSets;
                     break;
 
@@ -382,14 +434,29 @@
         }
 
         function Neuro() {
+         
+            var colorSets = [['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0']];
             var tab = window.name;
-            colorSets = tab.split(",");
+            tab = tab.split(",");
+
+            for (var i = 0; i < 36; i++) {
+                if (tab[i] != "") {
+                    colorSets[i] = tab[i]
+                }
+            }
+
+            var e = document.getElementById("hdnFiltre");
+            var CSV = e.value;
+            var tabCSV = CSV.split(";");
+            console.log(tabCSV);
+
+            console.log(colorSets);
             var tabminN01 = [];
             var tabmaxN01 = [];
             var canvasN01 = 1;
             n01 = new Dygraph(
                 document.getElementById("Snoring"),
-                "EDF/Snoring.csv", {
+                tabCSV[0], {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
@@ -413,14 +480,15 @@
                             });
                         }
                     },
-                    colors: [colorSets[0]]
+                    colors: [colorSets[0]],
+                    fillGraph: parseInt(colorSets[18])
                 });
             var tabminN02 = [];
             var tabmaxN02 = [];
             var canvasN02 = 1;
             n02 = new Dygraph(
                 document.getElementById("E2-M1"),
-                "EDF/E2-M1.csv", {
+                tabCSV[1], {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
@@ -444,14 +512,16 @@
                             });
                         }
                     },
-                    colors: [colorSets[1]]
+                    colors: [colorSets[1]],
+                    fillGraph: parseInt(colorSets[19])
+
                 });
             var tabminN03 = [];
             var tabmaxN03 = [];
             var canvasN03 = 1;
             n03 = new Dygraph(
                 document.getElementById("E1-M1"),
-                "EDF/E1-M1.csv", {
+                tabCSV[2], {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
@@ -475,14 +545,15 @@
                             });
                         }
                     },
-                    colors: [colorSets[2]]
+                    colors: [colorSets[2]],
+                    fillGraph: parseInt(colorSets[20])
                 });
             var tabminN04 = [];
             var tabmaxN04 = [];
             var canvasN04 = 1;
             n04 = new Dygraph(
                 document.getElementById("C3-M2"),
-                "EDF/C3-M2.csv", {
+                tabCSV[3], {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
@@ -506,14 +577,15 @@
                             });
                         }
                     },
-                    colors: [colorSets[3]]
+                    colors: [colorSets[3]],
+                    fillGraph: parseInt(colorSets[21])
                 });
             var tabminN05 = [];
             var tabmaxN05 = [];
             var canvasN05 = 1;
             n05 = new Dygraph(
                 document.getElementById("F3-M2"),
-                "EDF/F3-M2.csv", {
+                tabCSV[4], {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
@@ -537,14 +609,15 @@
                             });
                         }
                     },
-                    colors: [colorSets[4]]
+                    colors: [colorSets[4]],
+                    fillGraph: parseInt(colorSets[22])
                 });
             var tabminN06 = [];
             var tabmaxN06 = [];
             var canvasN06 = 1;
             n06 = new Dygraph(
                 document.getElementById("O1-M2"),
-                "EDF/O1-M2.csv", {
+                tabCSV[5], {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
@@ -568,14 +641,15 @@
                             });
                         }
                     },
-                    colors: [colorSets[5]]
+                    colors: [colorSets[5]],
+                    fillGraph: parseInt(colorSets[23])
                 });
             var tabminN07 = [];
             var tabmaxN07 = [];
             var canvasN07 = 1;
             n07 = new Dygraph(
                 document.getElementById("1-F"),
-                "EDF/1-F.csv", {
+                tabCSV[6], {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
@@ -599,14 +673,15 @@
                             });
                         }
                     },
-                    colors: [colorSets[6]]
+                    colors: [colorSets[6]],
+                    fillGraph: parseInt(colorSets[24])
                 });
             var tabminN08 = [];
             var tabmaxN08 = [];
             var canvasN08 = 1;
             n08 = new Dygraph(
                 document.getElementById("1-2"),
-                "EDF/1-2.csv", {
+                tabCSV[7], {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
@@ -630,14 +705,15 @@
                             });
                         }
                     },
-                    colors: [colorSets[7]]
+                    colors: [colorSets[7]],
+                    fillGraph: parseInt(colorSets[25])
                 });
             var tabminN09 = [];
             var tabmaxN09 = [];
             var canvasN09 = 1;
             n09 = new Dygraph(
                 document.getElementById("ECG"),
-                "EDF/ECG.csv", {
+                tabCSV[8], {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
@@ -661,14 +737,15 @@
                             });
                         }
                     },
-                    colors: [colorSets[8]]
+                    colors: [colorSets[8]],
+                    fillGraph: parseInt(colorSets[26])
                 });
             var tabminN10 = [];
             var tabmaxN10 = [];
             var canvasN10 = 1;
             n10 = new Dygraph(
                 document.getElementById("HeartRate"),
-                "EDF/HeartRate.csv", {
+                tabCSV[9], {
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange * 20],
@@ -692,10 +769,11 @@
                             });
                         }
                     },
-                    colors: [colorSets[9]]
+                    colors: [colorSets[9]],
+                    fillGraph: parseInt(colorSets[27])
                 });
         }
-    </script>
+   </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -708,7 +786,7 @@
                     <div class="Div_Info">
                         <asp:ImageButton runat="server" ID="imgPedro" ImageUrl="img/alpaga.jpg" Height="75px" Width="150px" Visible="false" OnClick="imgPedro_Click" />
                         <asp:Label runat="server" ID="lbl_pedro" Text="Pedro" Font-Size="12px" Visible="false"></asp:Label>
-                        <asp:Button runat="server" ID="btnTest" Text="Test" />
+                        <asp:Button runat="server" ID="btnTest" Text="Test"  />
                     </div>
                     <div class="Div_param">
                         <asp:Label runat="server" Text="Couleur des graphes" Style="margin-left: 5%;"></asp:Label>
@@ -726,10 +804,26 @@
                             <asp:ListItem Value="8" style="background-color: #FF1493;"> Rose </asp:ListItem>
                             <asp:ListItem Value="9" style="background-color: #8B4513;"> Marron </asp:ListItem>
                         </asp:DropDownList>
+                        <asp:DropDownList ID="DDLType" AutoPostBack="True" runat="server" OnSelectedIndexChanged="DDLColor_SelectedIndexChanged">
+                            <asp:ListItem Selected="True" Value="0"> Vide </asp:ListItem>
+                            <asp:ListItem Value="1"> Plein </asp:ListItem>                      
+                        </asp:DropDownList>
                         <asp:DropDownList ID="DDLGraph" AutoPostBack="True" runat="server" OnSelectedIndexChanged="DDLGraph_SelectedIndexChanged">
                         </asp:DropDownList>
                         <asp:Button runat="server" Text="Appliquer" ID="btnApplyChange" OnClientClick=" return changeColor()" />
                         <br />
+                        <asp:Label runat="server" Text="Filtrage" Style="margin-left:5%;"></asp:Label>
+                        <br />
+                         <asp:Label runat="server" Text="" Style="margin-left: 5%;"></asp:Label>
+                        <asp:DropDownList ID="DDLFiltre" AutoPostBack="True" runat="server" OnSelectedIndexChanged="DDLColor_SelectedIndexChanged">
+                            <asp:ListItem Selected="True" Value="Low" > Passe-bas </asp:ListItem>
+                            <asp:ListItem Value="High"> Passe-haut </asp:ListItem>                      
+                        </asp:DropDownList>
+                        <asp:DropDownList ID="DDLGraph2" AutoPostBack="True" runat="server" OnSelectedIndexChanged="DDLGraph_SelectedIndexChanged">
+                        </asp:DropDownList>
+                        <asp:TextBox ID="txtboxFiltre" runat="server" Text="Fc" Width="30px"></asp:TextBox>
+                        <asp:Button runat="server" Text="Appliquer" ID="btnFilt" OnClick="btnFilt_Click" />
+                        <asp:HiddenField runat="server" Value="" ID="hdnFiltre"  />
                     </div>
                 </div>
                 <div style="margin-right: 3%; width: 20%; float: right; padding-top: 15vh;">

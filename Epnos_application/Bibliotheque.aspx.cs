@@ -24,7 +24,23 @@ namespace Epnos_application
         {
             if (!IsPostBack)
             {
-                //Fill_Table();
+                int i = 0;
+                while (i < Parametres.BoucleLoad) //On tente l'ouverture plusieurs fois jusqu'à ce qu'il n'y ait plus de OOM
+                {
+                    try
+                    {
+                        
+                        Fill_Table();
+            i = Parametres.BoucleLoad;
+                    }
+                    catch (Exception ex)
+                    {
+                        i++;
+                        if (i >= Parametres.BoucleLoad)
+                            Response.Redirect("https://www.youtube.com/watch?v=4N3N1MlvVc4");
+                    }
+                }
+                
             }
 
         }
@@ -122,7 +138,22 @@ namespace Epnos_application
         /// <param name="e"></param>
         protected void btn_Recherche_Click(object sender, ImageClickEventArgs e)
         {
-            //Fill_Table();
+            int i = 0;
+            while (i < Parametres.BoucleLoad) //On tente l'ouverture plusieurs fois jusqu'à ce qu'il n'y ait plus de OOM
+            {
+                try
+                {
+                    i = Parametres.BoucleLoad;
+                    Fill_Table();
+                }
+                catch (Exception ex)
+                {
+                    i++;
+                    if (i >= Parametres.BoucleLoad)
+                        Response.Redirect("https://www.youtube.com/watch?v=4N3N1MlvVc4");
+                }
+            }
+
 
             String searchText = input_Search.Value;
             ArrayList values = new ArrayList();
