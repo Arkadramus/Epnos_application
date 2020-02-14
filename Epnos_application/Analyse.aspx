@@ -605,44 +605,60 @@
             SetCanva();
             s1 = new Dygraph(
                 document.getElementById("AudioVolumeDB"),
-                tabCSV[10], {    
+                "EDF/Filt_Low_AudioVolumeDB.csv", {
                     showLabelsOnHighlight: true,
-                    axes: {
-                        x: {
-                            axisLabelFormatter: function (v) {
-                                return v + ' ms';  // controls formatting of the x-axis labels
-                            },
+                    labels: ['Year', 'Straight', 'Smoothed'],
+                    series: {
+                        Straight: {
+                            color: 'green',
+                            strokeWidth: 2,
+                            drawPoints: true,
+                            pointSize: 3
                         },
-                        y: {
-                            axisLabelFormatter: function (v) {
-                                return v + 'dB';
-                            }
-                        }
-                    },
-                    showRangeSelector: true,
-                    rangeSelectorHeight: rangeHeight,
-                    dateWindow: [0, dataRange],
-                    interactionModel: Dygraph.defaultInteractionModel,
-                    zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (CanvS1.min[CanvS1.length - 1] != minTime && CanvS1.max[CanvS1.length - 1] != maxTime
-                            && (maxTime - minTime) <= (dataRange + 50)) {
-                            CanvS1.Push(minTime, maxTime, ColorFromDDL());
-                            canvasS1 = null;
-                        }
-                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange] });
-                    },
-                    drawCallback: function (graph, is_initial) {
-                        if (CanvS1.min.length > 0 && canvasS1 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
-                            this.updateOptions({
-                                underlayCallback: function (canvas, area, g) {
-                                    canvasS1 = canvas;
-                                    highlight(canvasS1, area, g, CanvS1);
+                        Smoothed: {
+                            color: 'red',
+                            strokeWidth: 2,
+                            drawPoints: true
+                        },
+                        axes: {
+                            x: {
+                                axisLabelFormatter: function (v) {
+                                    return v + ' ms';  // controls formatting of the x-axis labels
+                                },
+                            },
+                            y: {
+                                axisLabelFormatter: function (v) {
+                                    return v + 'dB';
                                 }
-                            });
+                            },
+
+
+                            showRangeSelector: true,
+                            rangeSelectorHeight: rangeHeight,
+                            dateWindow: [0, dataRange],
+                            interactionModel: Dygraph.defaultInteractionModel,
+                            zoomCallback: function (minTime, maxTime, yRanges) {
+                                if (CanvS1.min[CanvS1.length - 1] != minTime && CanvS1.max[CanvS1.length - 1] != maxTime
+                                    && (maxTime - minTime) <= (dataRange + 50)) {
+                                    CanvS1.Push(minTime, maxTime, ColorFromDDL());
+                                    canvasS1 = null;
+                                }
+                                this.updateOptions({ dateWindow: [minTime, minTime + dataRange] });
+                            },
+                            drawCallback: function (graph, is_initial) {
+                                if (CanvS1.min.length > 0 && canvasS1 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
+                                    this.updateOptions({
+                                        underlayCallback: function (canvas, area, g) {
+                                            canvasS1 = canvas;
+                                            highlight(canvasS1, area, g, CanvS1);
+                                        }
+                                    });
+                                }
+                            },
+                            //colors: [colorSets[10]],
+                            // fillGraph: parseInt(colorSets[28])
                         }
-                    },
-                    colors: [colorSets[10]],
-                    fillGraph: parseInt(colorSets[28])
+                    }
                 });
 
             s2 = new Dygraph(
@@ -1583,7 +1599,7 @@
                                 <asp:Label runat="server" Text="Couleur des scoring" Style="margin-left: 5%;"></asp:Label>
                                 <br />
                                 <asp:Label runat="server" Text="" Style="margin-left: 5%;"></asp:Label>
-                                <asp:DropDownList ID="DropDownList1" AutoPostBack="True" runat="server">
+                                <asp:DropDownList ID="DDLScoring" AutoPostBack="True" runat="server">
                                     <asp:ListItem Selected="True" Value="0" style="background-color: #000000; color: white;"> Noir </asp:ListItem>
                                     <asp:ListItem Value="1" style="background-color: #FF0000;"> Rouge </asp:ListItem>
                                     <asp:ListItem Value="2" style="background-color: #FFA500;"> Orange </asp:ListItem>

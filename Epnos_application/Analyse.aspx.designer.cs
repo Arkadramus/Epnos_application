@@ -112,13 +112,13 @@ namespace Epnos_application {
         protected global::System.Web.UI.WebControls.Button btnApplyChange;
         
         /// <summary>
-        /// Contrôle DropDownList1.
+        /// Contrôle DDLScoring.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.DropDownList DDLScoring;
         
         /// <summary>
         /// Contrôle DDLFiltre.
