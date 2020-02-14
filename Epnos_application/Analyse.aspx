@@ -73,6 +73,8 @@
             var canvasN01, canvasN02, canvasN03, canvasN04, canvasN05, canvasN06, canvasN07, canvasN07, canvasN08, canvasN09, canvasN10 = 1;
         }
 
+
+
         function GetCanva() {
             var res = "";
             var hfValue = document.getElementById("hfCanva").value;
@@ -246,10 +248,13 @@
             }
         }
 
+        document.addEventListener('keydown', MoveDiagraph);
+
         function MoveDiagraph(e) {
-            if (e.ctrlKey && e.keyCode == 39)//Aller à droite
+            console.log(e);
+            if (e.key === "ArrowRight")//Aller à droite
                 iDataRange++;
-            else if (e.ctrlKey && e.keyCode == 37)//Aller à gauche
+            else if (e.key === "ArrowLeft")//Aller à gauche
                 iDataRange--;
 
             n01.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
@@ -264,8 +269,6 @@
 
             return false;
         }
-
-        document.addEventListener('keypress', MoveDiagraph, false);
 
         function ColorFromDDL() {
             var e = document.getElementById("DDLScoring");
@@ -978,7 +981,7 @@
                             CanvS2.Push(minTime, maxTime, ColorFromDDL());
                             canvasN01 = null;
                         }
-                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
+                        this.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange], });
                     },
                     drawCallback: function (graph, is_initial) {
                         if (CanvS2.min.length > 0 && canvasN01 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
@@ -1005,7 +1008,7 @@
                             CanvN2.Push(minTime, maxTime, ColorFromDDL());
                             canvasN02 = null;
                         }
-                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
+                        this.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange], });
                     },
                     drawCallback: function (graph, is_initial) {
                         if (CanvN2.min.length > 0 && canvasN02 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
@@ -1032,7 +1035,7 @@
                             CanvN3.Push(minTime, maxTime, ColorFromDDL());
                             canvasN03 = null;
                         }
-                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
+                        this.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange], });
                     },
                     drawCallback: function (graph, is_initial) {
                         if (CanvN3.min.length > 0 && canvasN03 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
@@ -1059,7 +1062,7 @@
                             CanvN4.Push(minTime, maxTime, ColorFromDDL());
                             canvasN04 = null;
                         }
-                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
+                        this.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange], });
                     },
                     drawCallback: function (graph, is_initial) {
                         if (CanvN4.min.length > 0 && canvasN04 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
@@ -1086,7 +1089,7 @@
                             CanvN5.Push(minTime, maxTime, ColorFromDDL());
                             canvasN05 = null;
                         }
-                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
+                        this.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange], });
                     },
                     drawCallback: function (graph, is_initial) {
                         if (CanvN5.min.length > 0 && canvasN05 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
@@ -1113,7 +1116,7 @@
                             CanvN6.Push(maxTime);
                             canvasN06 = null;
                         }
-                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
+                        this.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange], });
                     },
                     drawCallback: function (graph, is_initial) {
                         if (CanvN6.min.length > 0 && canvasN06 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
@@ -1140,7 +1143,7 @@
                             CanvN7.Push(minTime, maxTime, ColorFromDDL());
                             canvasN07 = null;
                         }
-                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
+                        this.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange], });
                     },
                     drawCallback: function (graph, is_initial) {
                         if (CanvN7.min.length > 0 && canvasN07 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
@@ -1167,7 +1170,7 @@
                             CanvN8.Push(minTime, maxTime, ColorFromDDL());
                             canvasN08 = null;
                         }
-                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
+                        this.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange], });
                     },
                     drawCallback: function (graph, is_initial) {
                         if (CanvN8.min.length > 0 && canvasN08 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
@@ -1194,7 +1197,7 @@
                             CanvN9.Push(minTime, maxTime, ColorFromDDL());
                             canvasN09 = null;
                         }
-                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
+                        this.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange], });
                     },
                     drawCallback: function (graph, is_initial) {
                         if (CanvN9.min.length > 0 && canvasN09 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
