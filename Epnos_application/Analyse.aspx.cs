@@ -75,18 +75,18 @@ namespace Epnos_application
             {
                 try
                 {
-                    //edfFile = new EDF.File(Parametres.pathEDF);
+                    edfFile = new EDF.File(Parametres.pathEDF);
                     i = Parametres.BoucleLoad;
-                    //ReadSignal("Snoring");
-                    //ReadSignal("E2-M1");
-                    //ReadSignal("E1", "M1");
-                    //ReadSignal("C3-M2");
-                    //ReadSignal("F3-M2");
-                    //ReadSignal("O1-M2");
-                    //ReadSignal("1-F");
-                    //ReadSignal("1-2");
-                    //ReadSignal("ECG");
-                    //ReadSignal("HeartRate");
+                    ReadSignal("Snoring");
+                    ReadSignal("E2-M1");
+                    ReadSignal("E1", "M1");
+                    ReadSignal("C3-M2");
+                    ReadSignal("F3-M2");
+                    ReadSignal("O1-M2");
+                    ReadSignal("1-F");
+                    ReadSignal("1-2");
+                    ReadSignal("ECG");
+                    ReadSignal("HeartRate");
 
                     //ReadSignal("AudioVolumeDB");
                     //ReadSignal("AirFlow");
@@ -98,9 +98,10 @@ namespace Epnos_application
                 }
                 catch (Exception e)
                 {
-                    i++;
-                    if (i >= Parametres.BoucleLoad)
+                    if (i != Parametres.BoucleLoad)
                         Response.Redirect("https://www.youtube.com/watch?v=4N3N1MlvVc4");
+                    i++;
+
                 }
             }
 
@@ -211,21 +212,13 @@ namespace Epnos_application
                         && signal2 != null && signal2.Label.Value.Replace(" ", "").ToLower() == labelSignal2.ToLower())//Pour ne pas avoir les espaces dans les labels
                         {
                             double durationMS = edfFile.Header.RecordDurationInSeconds.Value * 1000 / signal1.SampleCountPerRecord.Value;
+                            int nbRecord = int.Parse(Parametres.Temps) / edfFile.Header.RecordDurationInSeconds.Value; //Pour savoir combien de Records dans le temps donné
                             var samples1 = signal1.Samples;
                             var samples2 = signal2.Samples;
                             var csv = new StringBuilder();
                             csv.Append("Time,Signal\n");
-                            var length = 1;
 
-                            if (samples1.Count >= samples2.Count)//On check si les tailles sont les mêmes et on prend la plus faible
-                                length = samples2.Count;
-                            else
-                                length = samples1.Count;
-
-
-                            //for (int i = 0; i < length; i++)
-                            //for (int i = 0; i < Parametres.NbSample; i++)
-                            for (int i = 0; i < length; i++)
+                            for (int i = 0; i < nbRecord * signal1.SampleCountPerRecord.Value; i ++)
                                 csv.Append((i * durationMS).ToString() + "," + (samples1[i] - samples2[i]).ToString() + "\n");
                             csv.Append("\n");
                             File.WriteAllText(Parametres.pathCSV + labelSignal1 + "-" + labelSignal2 + ".csv", csv.ToString());
@@ -240,20 +233,13 @@ namespace Epnos_application
                     if (signal != null && signal.Label.Value.Replace(" ", "").ToLower() == labelSignal1.ToLower())//Pour ne pas avoir les espaces dans les labels
                     {
                         double durationMS = edfFile.Header.RecordDurationInSeconds.Value * 1000 / signal.SampleCountPerRecord.Value;
+                        int nbRecord = int.Parse(Parametres.Temps) / edfFile.Header.RecordDurationInSeconds.Value; //Pour savoir combien de Records dans le temps donné
                         var samples = signal.Samples;
                         var csv = new StringBuilder();
                         csv.Append("Time,Signal\n");
 
-                        //if (samples.Count > Parametres.NbSample)//Pour le heartRate qui est limité à 110000 samples
-                        //{
-                        //    for (int i = 0; i < Parametres.NbSample; i++)
-                        //        csv.Append((i * durationMS).ToString() + "," + samples[i].ToString() + "\n");
-                        //}
-                        //else
-                        //{
-                        for (int i = 0; i < 3800000; i++)
+                        for (int i = 0; i < nbRecord * signal.SampleCountPerRecord.Value; i ++)
                             csv.Append((i * durationMS).ToString() + "," + samples[i].ToString() + "\n");
-                        //}
                         csv.Append("\n");
                         File.WriteAllText(Parametres.pathCSV + labelSignal1 + ".csv", csv.ToString());
                     }

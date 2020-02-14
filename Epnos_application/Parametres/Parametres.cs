@@ -38,6 +38,15 @@ namespace Epnos_application
 
         }
 
+        public static string Temps
+        {
+            get
+            {
+                return (Read("Temps", "Analyse"));
+            }
+
+        }
+
         public static bool Pedro
         {
             get

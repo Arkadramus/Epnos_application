@@ -47,8 +47,9 @@
 
         //Variables
         {
-            var dataRange = 2000;
+            var dataRange = 60000; //en ms
             var rangeHeight = 10;
+            var iDataRange = 0; //Pour savoir de combien on est décalé
 
             var CanvS1 = new Canva();
             var CanvS2 = new Canva();
@@ -237,12 +238,31 @@
             }
         }
 
-        function highlight(canvasName, area, g, Canv) {
+        function Highlight(canvasName, area, g, Canv) {
             for (var i = 0; i < Canv.min.length; i++) {
                 canvasName.fillStyle = Canv.color[i];
                 //fillrectangle(x,y,width,heigh)
                 canvasName.fillRect(g.toDomCoords(Canv.min[i], -20)[0], 0, g.toDomCoords(Canv.max[i], +20)[0] - g.toDomCoords(Canv.min[i], -20)[0], area.h);
             }
+        }
+
+        function MoveDiagraph(sens) {
+            if (sens == 2)//Aller à droite
+                iDataRange++;
+            else if (sens == 1)//Aller à gauche
+                iDataRange--;
+
+            n01.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
+            n02.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
+            n03.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
+            n04.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
+            n05.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
+            n06.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
+            n07.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
+            n08.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
+            n09.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
+
+            return false;
         }
 
         function ColorFromDDL() {
@@ -408,7 +428,7 @@
                     s1.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasS1 = canvas;
-                            highlight(canvasS1, area, g, CanvS1)
+                            Highlight(canvasS1, area, g, CanvS1)
                         }
                     });
                     break;
@@ -418,7 +438,7 @@
                     s2.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasS2 = canvas;
-                            highlight(canvasS2, area, g, CanvS2)
+                            Highlight(canvasS2, area, g, CanvS2)
                         }
                     });
                     break;
@@ -428,7 +448,7 @@
                     s3.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasS3 = canvas;
-                            highlight(canvasS3, area, g, CanvS3)
+                            Highlight(canvasS3, area, g, CanvS3)
                         }
                     });
                     break;
@@ -438,7 +458,7 @@
                     s4.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasS4 = canvas;
-                            highlight(canvasS4, area, g, CanvS4)
+                            Highlight(canvasS4, area, g, CanvS4)
                         }
                     });
                     break;
@@ -448,7 +468,7 @@
                     s5.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasS5 = canvas;
-                            highlight(canvasS5, area, g, CanvS5)
+                            Highlight(canvasS5, area, g, CanvS5)
                         }
                     });
                     break;
@@ -458,7 +478,7 @@
                     s6.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasS6 = canvas;
-                            highlight(canvasS6, area, g, CanvS6)
+                            Highlight(canvasS6, area, g, CanvS6)
                         }
                     });
                     break;
@@ -468,7 +488,7 @@
                     s7.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasS7 = canvas;
-                            highlight(canvasS7, area, g, CanvS7)
+                            Highlight(canvasS7, area, g, CanvS7)
                         }
                     });
                     break;
@@ -478,7 +498,7 @@
                     s8.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasS8 = canvas;
-                            highlight(canvasS8, area, g, CanvS8)
+                            Highlight(canvasS8, area, g, CanvS8)
                         }
                     });
                     break;
@@ -488,7 +508,7 @@
                     n01.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasN01 = canvas;
-                            highlight(canvasN01, area, g, CanvS2)
+                            Highlight(canvasN01, area, g, CanvS2)
                         }
                     });
                     break;
@@ -498,7 +518,7 @@
                     n02.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasN02 = canvas;
-                            highlight(canvasN02, area, g, CanvN2)
+                            Highlight(canvasN02, area, g, CanvN2)
                         }
                     });
                     break;
@@ -508,7 +528,7 @@
                     n03.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasN03 = canvas;
-                            highlight(canvasN03, area, g, CanvN3)
+                            Highlight(canvasN03, area, g, CanvN3)
                         }
                     });
                     break;
@@ -518,7 +538,7 @@
                     n04.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasN04 = canvas;
-                            highlight(canvasN04, area, g, CanvN4)
+                            Highlight(canvasN04, area, g, CanvN4)
                         }
                     });
                     break;
@@ -528,7 +548,7 @@
                     n05.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasN05 = canvas;
-                            highlight(canvasN05, area, g, CanvN5)
+                            Highlight(canvasN05, area, g, CanvN5)
                         }
                     });
                     break;
@@ -538,7 +558,7 @@
                     n06.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasN06 = canvas;
-                            highlight(canvasN06, area, g, CanvN6)
+                            Highlight(canvasN06, area, g, CanvN6)
                         }
                     });
                     break;
@@ -548,7 +568,7 @@
                     n07.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasN07 = canvas;
-                            highlight(canvasN07, area, g, CanvN7)
+                            Highlight(canvasN07, area, g, CanvN7)
                         }
                     });
                     break;
@@ -558,7 +578,7 @@
                     n08.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasN08 = canvas;
-                            highlight(canvasN08, area, g, CanvN8)
+                            Highlight(canvasN08, area, g, CanvN8)
                         }
                     });
                     break;
@@ -568,7 +588,7 @@
                     n09.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasN09 = canvas;
-                            highlight(canvasN09, area, g, CanvN9)
+                            Highlight(canvasN09, area, g, CanvN9)
                         }
                     });
                     break;
@@ -578,7 +598,7 @@
                     n10.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasN10 = canvas;
-                            highlight(canvasN10, area, g, CanvN10)
+                            Highlight(canvasN10, area, g, CanvN10)
                         }
                     });
                     break;
@@ -623,7 +643,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS1 = canvas;
-                                    highlight(canvasS1, area, g, CanvS1);
+                                    Highlight(canvasS1, area, g, CanvS1);
                                 }
                             });
                         }
@@ -664,7 +684,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS2 = canvas;
-                                    highlight(canvasS2, area, g, CanvS2)
+                                    Highlight(canvasS2, area, g, CanvS2)
                                 }
                             });
                         }
@@ -706,7 +726,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS3 = canvas;
-                                    highlight(canvasS3, area, g, CanvS3)
+                                    Highlight(canvasS3, area, g, CanvS3)
                                 }
                             });
                         }
@@ -749,7 +769,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS4 = canvas;
-                                    highlight(canvasS4, area, g, CanvS4)
+                                    Highlight(canvasS4, area, g, CanvS4)
                                 }
                             });
                         }
@@ -791,7 +811,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS5 = canvas;
-                                    highlight(canvasS5, area, g, CanvS5)
+                                    Highlight(canvasS5, area, g, CanvS5)
                                 }
                             });
                         }
@@ -833,7 +853,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS6 = canvas;
-                                    highlight(canvasS6, area, g, CanvS6)
+                                    Highlight(canvasS6, area, g, CanvS6)
                                 }
                             });
                         }
@@ -875,7 +895,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS7 = canvas;
-                                    highlight(canvasS7, area, g, CanvS7)
+                                    Highlight(canvasS7, area, g, CanvS7)
                                 }
                             });
                         }
@@ -917,7 +937,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS8 = canvas;
-                                    highlight(canvasS8, area, g, CanvS8)
+                                    Highlight(canvasS8, area, g, CanvS8)
                                 }
                             });
                         }
@@ -934,20 +954,20 @@
                 document.getElementById("SnoringN"),
                 "EDF/Snoring.csv", {
                     showLabelsOnHighlight: true,
-                    axes: {
-                        x: {
-                            axisLabelFormatter: function (v) {
-                                return v + ' ms';  // controls formatting of the x-axis labels
-                            },
-                        },
-                        y: {
-                            ticker: function (mimn, max, pixels, opts, grpah, val) {
-                                return [{ v: 0, label: "0µV/cm" }, { v: 200, label: "200µV/cm" }];
-                            },
-                        },
-                    },
-                    showRangeSelector: true,
-                    rangeSelectorHeight: rangeHeight,
+                    //axes: {
+                    //    x: {
+                    //        axisLabelFormatter: function (v) {
+                    //            return v + ' ms';  // controls formatting of the x-axis labels
+                    //        },
+                    //    },
+                    //    y: {
+                    //        ticker: function (mimn, max, pixels, opts, grpah, val) {
+                    //            return [{ v: 0, label: "0µV/cm" }, { v: 200, label: "200µV/cm" }];
+                    //        },
+                    //    },
+                    //},
+                    //showRangeSelector: true,
+                    //rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
@@ -963,7 +983,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasN01 = canvas;
-                                    highlight(canvasN01, area, g, CanvS2)
+                                    Highlight(canvasN01, area, g, CanvS2)
                                 }
                             });
                         }
@@ -975,21 +995,6 @@
                 document.getElementById("E2M1"),
                 "EDF/E2-M1.csv", {
                     showLabelsOnHighlight: true,
-                    axes: {
-                        x: {
-                            axisLabelFormatter: function (v) {
-                                return v + ' ms';  // controls formatting of the x-axis labels
-                            },
-                        },
-                        y: {
-                            ticker: function (mimn, max, pixels, opts, grpah, val) {
-                                return [{ v: 0, label: "0µV/cm" }, { v: 2500, label: "2500µV/cm" }, { v: 5000, label: "5000µV/cm" },
-                                { v: -2500, label: "-2500µV/cm" }, { v: -5000, label: "-5000µV/cm" }];
-                            },
-                        },
-                    },
-                    showRangeSelector: true,
-                    rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
@@ -1005,7 +1010,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasN02 = canvas;
-                                    highlight(canvasN02, area, g, CanvN2)
+                                    Highlight(canvasN02, area, g, CanvN2)
                                 }
                             });
                         }
@@ -1017,22 +1022,6 @@
                 document.getElementById("E1M1"),
                 "EDF/E1-M1.csv", {
                     showLabelsOnHighlight: true,
-                    axes: {
-                        x: {
-                            axisLabelFormatter: function (v) {
-                                return v + ' ms';  // controls formatting of the x-axis labels
-                            },
-                        },
-                        y: {
-                            ticker: function (mimn, max, pixels, opts, grpah, val) {
-                                return [{ v: 0, label: "0µV/cm" }, { v: 1000, label: "1000µV/cm" },
-                                { v: -1000, label: "-1000µV/cm" }];
-                            },
-
-                        },
-                    },
-                    showRangeSelector: true,
-                    rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
@@ -1048,7 +1037,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasN03 = canvas;
-                                    highlight(canvasN03, area, g, CanvN3)
+                                    Highlight(canvasN03, area, g, CanvN3)
                                 }
                             });
                         }
@@ -1060,22 +1049,6 @@
                 document.getElementById("C3M2"),
                 "EDF/C3-M2.csv", {
                     showLabelsOnHighlight: true,
-                    axes: {
-                        x: {
-                            axisLabelFormatter: function (v) {
-                                return v + ' ms';  // controls formatting of the x-axis labels
-                            },
-                        },
-                        y: {
-                            ticker: function (mimn, max, pixels, opts, grpah, val) {
-                                return [{ v: 0, label: "0µV/cm" }, { v: 10000, label: "10000µV/cm" },
-                                { v: 20000, label: "20000µV/cm" }, { v: 30000, label: "30000µV/cm" }];
-                            },
-
-                        },
-                    },
-                    showRangeSelector: true,
-                    rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
@@ -1091,7 +1064,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasN04 = canvas;
-                                    highlight(canvasN04, area, g, CanvN4)
+                                    Highlight(canvasN04, area, g, CanvN4)
                                 }
                             });
                         }
@@ -1103,21 +1076,6 @@
                 document.getElementById("F3M2"),
                 "EDF/F3-M2.csv", {
                     showLabelsOnHighlight: true,
-                    axes: {
-                        x: {
-                            axisLabelFormatter: function (v) {
-                                return v + ' ms';  // controls formatting of the x-axis labels
-                            },
-                        },
-                        y: {
-                            ticker: function (mimn, max, pixels, opts, grpah, val) {
-                                return [{ v: 0, label: "0µV/cm" }, { v: 10000, label: "10000µV/cm" },
-                                { v: 20000, label: "20000µV/cm" }, { v: 30000, label: "30000µV/cm" }];
-                            },
-                        },
-                    },
-                    showRangeSelector: true,
-                    rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
@@ -1133,7 +1091,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasN05 = canvas;
-                                    highlight(canvasN05, area, g, CanvN5)
+                                    Highlight(canvasN05, area, g, CanvN5)
                                 }
                             });
                         }
@@ -1145,21 +1103,6 @@
                 document.getElementById("O1M2"),
                 "EDF/O1-M2.csv", {
                     showLabelsOnHighlight: true,
-                    axes: {
-                        x: {
-                            axisLabelFormatter: function (v) {
-                                return v + ' ms';  // controls formatting of the x-axis labels
-                            },
-                        },
-                        y: {
-                            ticker: function (mimn, max, pixels, opts, grpah, val) {
-                                return [{ v: 0, label: "0µV/cm" }, { v: 10000, label: "10000µV/cm" },
-                                { v: 20000, label: "20000µV/cm" }, { v: 30000, label: "30000µV/cm" }];
-                            },
-                        },
-                    },
-                    showRangeSelector: true,
-                    rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
@@ -1175,7 +1118,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasN06 = canvas;
-                                    highlight(canvasN06, area, g, CanvN6)
+                                    Highlight(canvasN06, area, g, CanvN6)
                                 }
                             });
                         }
@@ -1187,21 +1130,6 @@
                 document.getElementById("1F"),
                 "EDF/1-F.csv", {
                     showLabelsOnHighlight: true,
-                    axes: {
-                        x: {
-                            axisLabelFormatter: function (v) {
-                                return v + ' ms';  // controls formatting of the x-axis labels
-                            },
-                        },
-                        y: {
-                            ticker: function (mimn, max, pixels, opts, grpah, val) {
-                                return [{ v: 0, label: "0µV/cm" }, { v: -5000, label: "-5000µV/cm" }, { v: 5000, label: "5000µV/cm" }, { v: 10000, label: "10000µV/cm" },
-                                { v: 15000, label: "15000µV/cm" }, { v: 20000, label: "20000µV/cm" }, { v: 25000, label: "25000µV/cm" }, { v: 30000, label: "30000µV/cm" }];
-                            },
-                        },
-                    },
-                    showRangeSelector: true,
-                    rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
@@ -1217,7 +1145,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasN07 = canvas;
-                                    highlight(canvasN07, area, g, CanvN7)
+                                    Highlight(canvasN07, area, g, CanvN7)
                                 }
                             });
                         }
@@ -1229,21 +1157,6 @@
                 document.getElementById("12"),
                 "EDF/1-2.csv", {
                     showLabelsOnHighlight: true,
-                    axes: {
-                        x: {
-                            axisLabelFormatter: function (v) {
-                                return v + ' ms';  // controls formatting of the x-axis labels
-                            },
-                        },
-                        y: {
-                            ticker: function (mimn, max, pixels, opts, grpah, val) {
-                                return [{ v: 0, label: "0µV/cm" }, { v: 5000, label: "5000µV/cm" }, { v: 2500, label: "2500µV/cm" },
-                                { v: 1000, label: "1000µV/cm" }, { v: -1000, label: "-1000µV/cm" }];
-                            },
-                        },
-                    },
-                    showRangeSelector: true,
-                    rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
@@ -1259,7 +1172,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasN08 = canvas;
-                                    highlight(canvasN08, area, g, CanvN8)
+                                    Highlight(canvasN08, area, g, CanvN8)
                                 }
                             });
                         }
@@ -1271,21 +1184,6 @@
                 document.getElementById("ECG"),
                 "EDF/ECG.csv", {
                     showLabelsOnHighlight: true,
-                    axes: {
-                        x: {
-                            axisLabelFormatter: function (v) {
-                                return v + ' ms';  // controls formatting of the x-axis labels
-                            },
-                        },
-                        y: {
-                            ticker: function (mimn, max, pixels, opts, grpah, val) {
-                                return [{ v: 0, label: "0µV/cm" }, { v: 10, label: "10µV/cm" },
-                                { v: -10, label: "-10µV/cm" }];
-                            },
-                        },
-                    },
-                    showRangeSelector: true,
-                    rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
@@ -1301,7 +1199,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasN09 = canvas;
-                                    highlight(canvasN09, area, g, CanvN9)
+                                    Highlight(canvasN09, area, g, CanvN9)
                                 }
                             });
                         }
@@ -1313,23 +1211,6 @@
                 document.getElementById("HeartRate"),
                 "EDF/HeartRate.csv", {
                     showLabelsOnHighlight: true,
-                    axes: {
-                        x: {
-                            axisLabelFormatter: function (v) {
-                                return v + ' ms';  // controls formatting of the x-axis labels
-                            },
-                        },
-                        y: {
-                            ticker: function (mimn, max, pixels, opts, grpah, val) {
-                                return [{ v: 0, label: "0µV/cm" }, { v: 2000, label: "2000µV/cm" },
-                                { v: 4000, label: "4000µV/cm" },
-                                { v: 6000, label: "6000µV/cm" }, { v: 8000, label: "8000µV/cm" },
-                                { v: 10000, label: "10000µV/cm" }];
-                            },
-                        },
-                    },
-                    showRangeSelector: true,
-                    rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange * 20],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
@@ -1345,7 +1226,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasN10 = canvas;
-                                    highlight(canvasN10, area, g, CanvN10)
+                                    Highlight(canvasN10, area, g, CanvN10)
                                 }
                             });
                         }
@@ -1356,7 +1237,6 @@
     </script>
 </head>
 <body>
-
     <form id="form1" runat="server">
         <header class="Haut_page">
             <asp:Image runat="server" CssClass="Logo" src="img/navbar-logo.png" Style="margin-top: 5px" />
@@ -1367,7 +1247,7 @@
                     <div class="Div_Info">
                         <asp:ImageButton runat="server" ID="imgPedro" ImageUrl="img/alpaga.jpg" Height="75px" Width="150px" Visible="false" OnClick="imgPedro_Click" />
                         <asp:Label runat="server" ID="lbl_pedro" Text="Pedro" Font-Size="12px" Visible="false"></asp:Label>
-                        <asp:Button runat="server" ID="btnTest" Text="Fin de projet" OnClick="btnTest_Click" />
+                        <%--<asp:Button runat="server" ID="btnTest" Text="Fin de projet" OnClick="btnTest_Click" />--%>
                     </div>
                     <div class="Div_param">
                         <asp:ScriptManager ID="ScriptManager1" runat="server" />
@@ -1407,6 +1287,9 @@
                                     <asp:ListItem Value="8" style="background-color: #FF1493;"> Rose </asp:ListItem>
                                     <asp:ListItem Value="9" style="background-color: #8B4513;"> Marron </asp:ListItem>
                                 </asp:DropDownList>
+                                <br />
+                                <asp:Button runat="server" Text="<<" ID="btnLeft" OnClientClick=" return MoveDiagraph(1)" />
+                                <asp:Button runat="server" Text=">>" ID="btnRight" OnClientClick=" return MoveDiagraph(2)" />
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </div>
