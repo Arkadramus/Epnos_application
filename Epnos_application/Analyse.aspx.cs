@@ -100,14 +100,16 @@ namespace Epnos_application
                 {
                     //edfFile = new EDF.File(Parametres.pathEDF);
                     i = Parametres.BoucleLoad;
-                    //ReadSignal("Snoring");
                     //ReadSignal("E2-M1");
                     //ReadSignal("E1", "M1");
-                    //ReadSignal("C3-M2");
+                    //ReadSignal("F4-M1");
                     //ReadSignal("F3-M2");
+                    //ReadSignal("C4-M1");
+                    //ReadSignal("C3-M2");
+                    //ReadSignal("O2-M1");
                     //ReadSignal("O1-M2");
-                    //ReadSignal("1-F");
                     //ReadSignal("1-2");
+                    //ReadSignal("1-F");
                     //ReadSignal("ECG");
                     //ReadSignal("HeartRate");
 
@@ -117,7 +119,7 @@ namespace Epnos_application
                     //ReadSignal("spO2B-B");
                     //ReadSignal("InductanceThora");
                     //ReadSignal("InductanceAbdom");
-                    //ReadSignal("K");
+                   
                 }
                 catch (Exception e)
                 {
@@ -191,14 +193,16 @@ namespace Epnos_application
             {
                 default:
                 case 1:
-                    valueNeuro.Add(new PositionData("Snoring", "SnoringN"));
-                    valueNeuro.Add(new PositionData("E2-M1", "E2M1"));//On ne met pas de "-" pour les div car sinon le JS n'aime pas
                     valueNeuro.Add(new PositionData("E1-M1", "E1M1"));
-                    valueNeuro.Add(new PositionData("C3-M2", "C3M2"));
+                    valueNeuro.Add(new PositionData("E2-M1", "E2M1"));
+                    valueNeuro.Add(new PositionData("F4-M1", "F4M1"));//On ne met pas de "-" pour les div car sinon le JS n'aime pas
                     valueNeuro.Add(new PositionData("F3-M2", "F3M2"));
+                    valueNeuro.Add(new PositionData("C4-M1", "C4M1"));
+                    valueNeuro.Add(new PositionData("C3-M2", "C3M2"));
+                    valueNeuro.Add(new PositionData("O2-M1", "O2M1"));
                     valueNeuro.Add(new PositionData("O1-M2", "O1M2"));
-                    valueNeuro.Add(new PositionData("1-F", "1F"));
                     valueNeuro.Add(new PositionData("1-2", "12"));
+                    valueNeuro.Add(new PositionData("1-F", "1F"));
                     valueNeuro.Add(new PositionData("ECG"));
                     valueNeuro.Add(new PositionData("HeartRate"));
 
@@ -214,7 +218,7 @@ namespace Epnos_application
                     valueNeuro.Add(new PositionData("spO2B-B", "spO2BB"));
                     valueNeuro.Add(new PositionData("InductanceThora"));
                     valueNeuro.Add(new PositionData("InductanceAbdom"));
-                    valueNeuro.Add(new PositionData("K"));
+                 
 
                     rptNeuro.DataSource = valueNeuro;
                     rptNeuro.DataBind();

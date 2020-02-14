@@ -603,6 +603,8 @@
             console.log(tabCSV);
             console.log(colorSets);
             SetCanva();
+
+            // Exemple création graphe avec deux courbes 
             s1 = new Dygraph(
                 document.getElementById("AudioVolumeDB"),
                 "EDF/Filt_Low_AudioVolumeDB.csv", {
@@ -660,6 +662,7 @@
                         }
                     }
                 });
+            
 
             s2 = new Dygraph(
                 document.getElementById("SnoringS"),
@@ -917,50 +920,7 @@
                     },
                     colors: [colorSets[16]],
                     fillGraph: parseInt(colorSets[34])
-                });
-
-            s8 = new Dygraph(
-                document.getElementById("K"),
-                tabCSV[17], {
-                    showLabelsOnHighlight: true,
-                    axes: {
-                        x: {
-                            axisLabelFormatter: function (v) {
-                                return v + ' ms';  // controls formatting of the x-axis labels
-                            },
-                        },
-                        y: {
-                            ticker: function (mimn, max, pixels, opts, grpah, val) {
-                                return [{ v: 0, label: "0µV/cm" }, { v: 8000, label: "8000µV/cm" }, { v: 4000, label: "4000µV/cm" },
-                                { v: 6000, label: "6000µV/cm" },];
-                            },
-                        }
-                    },
-                    showRangeSelector: true,
-                    rangeSelectorHeight: rangeHeight,
-                    dateWindow: [0, dataRange * 4],
-                    interactionModel: Dygraph.defaultInteractionModel,
-                    zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (CanvS8.min[CanvS8.length - 1] != minTime && CanvS8.max[CanvS8.length - 1] != maxTime
-                            && (maxTime - minTime) <= (dataRange * 4 + 50)) {
-                            CanvS8.Push(minTime, maxTime, ColorFromDDL());
-                            canvasS8 = null;
-                        }
-                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange * 4], });
-                    },
-                    drawCallback: function (graph, is_initial) {
-                        if (CanvS8.min.length > 0 && canvasS8 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
-                            this.updateOptions({
-                                underlayCallback: function (canvas, area, g) {
-                                    canvasS8 = canvas;
-                                    highlight(canvasS8, area, g, CanvS8)
-                                }
-                            });
-                        }
-                    },
-                    colors: [colorSets[17]],
-                    fillGraph: parseInt(colorSets[35])
-                });
+                });          
         }
 
         function changeColor() {
@@ -1117,50 +1077,9 @@
             var tabmaxN01 = [];
             var canvasN01 = 1;
             SetCanva();
+            
             n01 = new Dygraph(
-                document.getElementById("SnoringN"),
-                tabCSV[0], {
-                    showLabelsOnHighlight: true,
-                    axes: {
-                        x: {
-                            axisLabelFormatter: function (v) {
-                                return v + ' ms';  // controls formatting of the x-axis labels
-                            },
-                        },
-                        y: {
-                            ticker: function (mimn, max, pixels, opts, grpah, val) {
-                                return [{ v: 0, label: "0µV/cm" }, { v: 200, label: "200µV/cm" }];
-                            },
-                        },
-                    },
-                    showRangeSelector: true,
-                    rangeSelectorHeight: rangeHeight,
-                    dateWindow: [0, dataRange],
-                    interactionModel: Dygraph.defaultInteractionModel,
-                    zoomCallback: function (minTime, maxTime, yRanges) {
-                        if (CanvS2.min[CanvS2.length - 1] != minTime && CanvS2.max[CanvS2.length - 1] != maxTime
-                            && (maxTime - minTime) <= (dataRange + 50)) {
-                            CanvS2.Push(minTime, maxTime, ColorFromDDL());
-                            canvasN01 = null;
-                        }
-                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange], });
-                    },
-                    drawCallback: function (graph, is_initial) {
-                        if (CanvS2.min.length > 0 && canvasN01 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
-                            this.updateOptions({
-                                underlayCallback: function (canvas, area, g) {
-                                    canvasN01 = canvas;
-                                    highlight(canvasN01, area, g, CanvS2)
-                                }
-                            });
-                        }
-                    },
-                    colors: [colorSets[0]],
-                    fillGraph: parseInt(colorSets[18])
-                });
-
-            n02 = new Dygraph(
-                document.getElementById("E2M1"),
+                document.getElementById("E1M1"),
                  tabCSV[1], {
                     showLabelsOnHighlight: true,
                     axes: {
@@ -1203,8 +1122,8 @@
 
                 });
 
-            n03 = new Dygraph(
-                document.getElementById("E1M1"),
+            n02 = new Dygraph(
+                document.getElementById("E2M1"),
                 tabCSV[2], {
                     showLabelsOnHighlight: true,
                     axes: {
@@ -1247,8 +1166,8 @@
                     fillGraph: parseInt(colorSets[20])
                 });
 
-            n04 = new Dygraph(
-                document.getElementById("C3M2"),
+            n03 = new Dygraph(
+                document.getElementById("F4M1"),
                 tabCSV[3], {
                     showLabelsOnHighlight: true,
                     axes: {
@@ -1291,7 +1210,7 @@
                     fillGraph: parseInt(colorSets[21])
                 });
 
-            n05 = new Dygraph(
+            n04 = new Dygraph(
                 document.getElementById("F3M2"),
                 tabCSV[4], {
                     showLabelsOnHighlight: true,
@@ -1334,8 +1253,8 @@
                     fillGraph: parseInt(colorSets[22])
                 });
 
-            n06 = new Dygraph(
-                document.getElementById("O1M2"),
+            n05 = new Dygraph(
+                document.getElementById("C4M1"),
                 tabCSV[5], {
                     showLabelsOnHighlight: true,
                     axes: {
@@ -1377,8 +1296,8 @@
                     fillGraph: parseInt(colorSets[23])
                 });
 
-            n07 = new Dygraph(
-                document.getElementById("1F"),
+            n06 = new Dygraph(
+                document.getElementById("C3M2"),
                 tabCSV[6], {
                     showLabelsOnHighlight: true,
                     axes: {
@@ -1420,8 +1339,8 @@
                     fillGraph: parseInt(colorSets[24])
                 });
 
-            n08 = new Dygraph(
-                document.getElementById("12"),
+            n07 = new Dygraph(
+                document.getElementById("O2M1"),
                 tabCSV[7], {
                     showLabelsOnHighlight: true,
                     axes: {
@@ -1463,8 +1382,8 @@
                     fillGraph: parseInt(colorSets[25])
                 });
 
-            n09 = new Dygraph(
-                document.getElementById("ECG"),
+            n08 = new Dygraph(
+                document.getElementById("O1M2"),
                 tabCSV[8], {
                     showLabelsOnHighlight: true,
                     axes: {
@@ -1506,6 +1425,138 @@
                     fillGraph: parseInt(colorSets[26])
                 });
 
+            n09 = new Dygraph(
+                document.getElementById("12"),
+                tabCSV[9], {
+                    showLabelsOnHighlight: true,
+                    axes: {
+                        x: {
+                            axisLabelFormatter: function (v) {
+                                return v + ' ms';  // controls formatting of the x-axis labels
+                            },
+                        },
+                        y: {
+                            ticker: function (mimn, max, pixels, opts, grpah, val) {
+                                return [{ v: 0, label: "0µV/cm" }, { v: 2000, label: "2000µV/cm" },
+                                { v: 4000, label: "4000µV/cm" },
+                                { v: 6000, label: "6000µV/cm" }, { v: 8000, label: "8000µV/cm" },
+                                { v: 10000, label: "10000µV/cm" }];
+                            },
+                        },
+                    },
+                    showRangeSelector: true,
+                    rangeSelectorHeight: rangeHeight,
+                    dateWindow: [0, dataRange * 20],
+                    interactionModel: Dygraph.defaultInteractionModel,
+                    zoomCallback: function (minTime, maxTime, yRanges) {
+                        if (CanvN10.min[CanvN10.length - 1] != minTime && CanvN10.max[CanvN10.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange * 20 + 50)) {
+                            CanvN10.Push(minTime, maxTime, ColorFromDDL());
+                            canvasN10 = null;
+                        }
+                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange * 20], });
+                    },
+                    drawCallback: function (graph, is_initial) {
+                        if (CanvN10.min.length > 0 && canvasN10 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
+                            this.updateOptions({
+                                underlayCallback: function (canvas, area, g) {
+                                    canvasN10 = canvas;
+                                    highlight(canvasN10, area, g, CanvN10)
+                                }
+                            });
+                        }
+                    },
+                    colors: [colorSets[9]],
+                    fillGraph: parseInt(colorSets[27])
+                });
+            n10 = new Dygraph(
+                document.getElementById("1F"),
+                tabCSV[9], {
+                    showLabelsOnHighlight: true,
+                    axes: {
+                        x: {
+                            axisLabelFormatter: function (v) {
+                                return v + ' ms';  // controls formatting of the x-axis labels
+                            },
+                        },
+                        y: {
+                            ticker: function (mimn, max, pixels, opts, grpah, val) {
+                                return [{ v: 0, label: "0µV/cm" }, { v: 2000, label: "2000µV/cm" },
+                                { v: 4000, label: "4000µV/cm" },
+                                { v: 6000, label: "6000µV/cm" }, { v: 8000, label: "8000µV/cm" },
+                                { v: 10000, label: "10000µV/cm" }];
+                            },
+                        },
+                    },
+                    showRangeSelector: true,
+                    rangeSelectorHeight: rangeHeight,
+                    dateWindow: [0, dataRange * 20],
+                    interactionModel: Dygraph.defaultInteractionModel,
+                    zoomCallback: function (minTime, maxTime, yRanges) {
+                        if (CanvN10.min[CanvN10.length - 1] != minTime && CanvN10.max[CanvN10.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange * 20 + 50)) {
+                            CanvN10.Push(minTime, maxTime, ColorFromDDL());
+                            canvasN10 = null;
+                        }
+                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange * 20], });
+                    },
+                    drawCallback: function (graph, is_initial) {
+                        if (CanvN10.min.length > 0 && canvasN10 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
+                            this.updateOptions({
+                                underlayCallback: function (canvas, area, g) {
+                                    canvasN10 = canvas;
+                                    highlight(canvasN10, area, g, CanvN10)
+                                }
+                            });
+                        }
+                    },
+                    colors: [colorSets[9]],
+                    fillGraph: parseInt(colorSets[27])
+                });
+            n09 = new Dygraph(
+                document.getElementById("ECG"),
+                tabCSV[9], {
+                    showLabelsOnHighlight: true,
+                    axes: {
+                        x: {
+                            axisLabelFormatter: function (v) {
+                                return v + ' ms';  // controls formatting of the x-axis labels
+                            },
+                        },
+                        y: {
+                            ticker: function (mimn, max, pixels, opts, grpah, val) {
+                                return [{ v: 0, label: "0µV/cm" }, { v: 2000, label: "2000µV/cm" },
+                                { v: 4000, label: "4000µV/cm" },
+                                { v: 6000, label: "6000µV/cm" }, { v: 8000, label: "8000µV/cm" },
+                                { v: 10000, label: "10000µV/cm" }];
+                            },
+                        },
+                    },
+                    showRangeSelector: true,
+                    rangeSelectorHeight: rangeHeight,
+                    dateWindow: [0, dataRange * 20],
+                    interactionModel: Dygraph.defaultInteractionModel,
+                    zoomCallback: function (minTime, maxTime, yRanges) {
+                        if (CanvN10.min[CanvN10.length - 1] != minTime && CanvN10.max[CanvN10.length - 1] != maxTime
+                            && (maxTime - minTime) <= (dataRange * 20 + 50)) {
+                            CanvN10.Push(minTime, maxTime, ColorFromDDL());
+                            canvasN10 = null;
+                        }
+                        this.updateOptions({ dateWindow: [minTime, minTime + dataRange * 20], });
+                    },
+                    drawCallback: function (graph, is_initial) {
+                        if (CanvN10.min.length > 0 && canvasN10 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
+                            this.updateOptions({
+                                underlayCallback: function (canvas, area, g) {
+                                    canvasN10 = canvas;
+                                    highlight(canvasN10, area, g, CanvN10)
+                                }
+                            });
+                        }
+                    },
+                    colors: [colorSets[9]],
+                    fillGraph: parseInt(colorSets[27])
+                });
             n10 = new Dygraph(
                 document.getElementById("HeartRate"),
                 tabCSV[9], {
