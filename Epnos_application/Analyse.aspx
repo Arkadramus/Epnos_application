@@ -246,10 +246,10 @@
             }
         }
 
-        function MoveDiagraph(sens) {
-            if (sens == 2)//Aller à droite
+        function MoveDiagraph(e) {
+            if (e.ctrlKey && e.keyCode == 39)//Aller à droite
                 iDataRange++;
-            else if (sens == 1)//Aller à gauche
+            else if (e.ctrlKey && e.keyCode == 37)//Aller à gauche
                 iDataRange--;
 
             n01.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
@@ -264,6 +264,8 @@
 
             return false;
         }
+
+        document.addEventListener('keypress', MoveDiagraph, false);
 
         function ColorFromDDL() {
             var e = document.getElementById("DDLScoring");
@@ -1288,8 +1290,6 @@
                                     <asp:ListItem Value="9" style="background-color: #8B4513;"> Marron </asp:ListItem>
                                 </asp:DropDownList>
                                 <br />
-                                <asp:Button runat="server" Text="<<" ID="btnLeft" OnClientClick=" return MoveDiagraph(1)" />
-                                <asp:Button runat="server" Text=">>" ID="btnRight" OnClientClick=" return MoveDiagraph(2)" />
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </div>
