@@ -35,33 +35,37 @@ namespace Epnos_application
                     imgPedro.Visible = true;
                     lbl_pedro.Visible = true;
                 }
-                hdnFiltre.Value = "EDF/Snoring.csv;EDF/E2-M1.csv;EDF/E1-M1.csv;EDF/C3-M2.csv;EDF/F3-M2.csv;EDF/O1-M2.csv;EDF/1-F.csv;EDF/1-2.csv;EDF/ECG.csv;EDF/HeartRate.csv;EDF/AudioVolumeDB.csv;EDF/Snoring.csv;EDF/AirFlow.csv;EDF/RIPFlow.csv;EDF/spO2B-B.csv;EDF/InductanceThora.csv;EDF/InductanceAbdom.csv;EDF/K.csv";
+                hdnFiltre.Value = "EDF/E1-M1.csv;EDF/E2-M1.csv;EDF/Group1.csv;EDF/Group2.csv;EDF/ECG.csv;EDF/HeartRate.csv;EDF/AudioVolumeDB.csv;EDF/Snoring.csv;EDF/AirFlow.csv;EDF/RIPFlow.csv;EDF/spO2B-B.csv;EDF/InductanceThora.csv;EDF/InductanceAbdom.csv";
             }
         }
 
         private void InitDDLNeuro()
         {
             DDLGraph.Items.Clear();
-            DDLGraph.Items.Add("Snoring");
-            DDLGraph.Items.Add("E2-M1");
             DDLGraph.Items.Add("E1-M1");
-            DDLGraph.Items.Add("C3-M2");
+            DDLGraph.Items.Add("E2-M1");
+            DDLGraph.Items.Add("F4-M1");
             DDLGraph.Items.Add("F3-M2");
+            DDLGraph.Items.Add("C4-M1");
+            DDLGraph.Items.Add("C3-M2");
+            DDLGraph.Items.Add("O2-M1");
             DDLGraph.Items.Add("O1-M2");
-            DDLGraph.Items.Add("1-F");
             DDLGraph.Items.Add("1-2");
+            DDLGraph.Items.Add("1-F");
             DDLGraph.Items.Add("ECG");
             DDLGraph.Items.Add("HeartRate");
             DDLGraph.DataBind();
             DDLGraph2.Items.Clear();
-            DDLGraph2.Items.Add("Snoring");
-            DDLGraph2.Items.Add("E2-M1");
             DDLGraph2.Items.Add("E1-M1");
-            DDLGraph2.Items.Add("C3-M2");
+            DDLGraph2.Items.Add("E2-M1");
+            DDLGraph2.Items.Add("F4-M1");
             DDLGraph2.Items.Add("F3-M2");
+            DDLGraph2.Items.Add("C4-M1");
+            DDLGraph2.Items.Add("C3-M2");
+            DDLGraph2.Items.Add("O2-M1");
             DDLGraph2.Items.Add("O1-M2");
-            DDLGraph2.Items.Add("1-F");
             DDLGraph2.Items.Add("1-2");
+            DDLGraph2.Items.Add("1-F");
             DDLGraph2.Items.Add("ECG");
             DDLGraph2.Items.Add("HeartRate");
             DDLGraph2.DataBind();
@@ -77,7 +81,6 @@ namespace Epnos_application
             DDLGraph.Items.Add("spO2B-B");
             DDLGraph.Items.Add("InductanceThora");
             DDLGraph.Items.Add("InductanceAbdom");
-            DDLGraph.Items.Add("K");
             DDLGraph.DataBind();
             DDLGraph2.Items.Clear();
             DDLGraph2.Items.Add("AudioVolumeDB");
@@ -87,12 +90,17 @@ namespace Epnos_application
             DDLGraph2.Items.Add("spO2B-B");
             DDLGraph2.Items.Add("InductanceThora");
             DDLGraph2.Items.Add("InductanceAbdom");
-            DDLGraph2.Items.Add("K");
             DDLGraph2.DataBind();
         }
 
         private void InitSignal()
         {
+            String[] Group1 = { "F4-M1", "F3-M2", "C4-M1", "C3-M2", "O2-M1", "O1-M2" };
+            GroupSignals(Group1, "Group1");
+
+            String[] Group2 = { "1-2", "1-F" };
+            GroupSignals(Group2, "Group2");
+
             int i = 0;
             while (i < Parametres.BoucleLoad) //On tente l'ouverture plusieurs fois jusqu'à ce qu'il n'y ait plus de OOM
             {
@@ -114,12 +122,16 @@ namespace Epnos_application
                     //ReadSignal("HeartRate");
 
                     //ReadSignal("AudioVolumeDB");
+                    //ReadSignal("Snoring");
                     //ReadSignal("AirFlow");
                     //ReadSignal("RIPFlow");
                     //ReadSignal("spO2B-B");
                     //ReadSignal("InductanceThora");
                     //ReadSignal("InductanceAbdom");
-                   
+
+               
+
+
                 }
                 catch (Exception e)
                 {
@@ -195,14 +207,8 @@ namespace Epnos_application
                 case 1:
                     valueNeuro.Add(new PositionData("E1-M1", "E1M1"));
                     valueNeuro.Add(new PositionData("E2-M1", "E2M1"));
-                    valueNeuro.Add(new PositionData("F4-M1", "F4M1"));//On ne met pas de "-" pour les div car sinon le JS n'aime pas
-                    valueNeuro.Add(new PositionData("F3-M2", "F3M2"));
-                    valueNeuro.Add(new PositionData("C4-M1", "C4M1"));
-                    valueNeuro.Add(new PositionData("C3-M2", "C3M2"));
-                    valueNeuro.Add(new PositionData("O2-M1", "O2M1"));
-                    valueNeuro.Add(new PositionData("O1-M2", "O1M2"));
-                    valueNeuro.Add(new PositionData("1-2", "12"));
-                    valueNeuro.Add(new PositionData("1-F", "1F"));
+                    valueNeuro.Add(new PositionData("Group1", "Group1"));//On ne met pas de "-" pour les div car sinon le JS n'aime pas                
+                    valueNeuro.Add(new PositionData("Group2", "Group2"));             
                     valueNeuro.Add(new PositionData("ECG"));
                     valueNeuro.Add(new PositionData("HeartRate"));
 
@@ -287,6 +293,80 @@ namespace Epnos_application
                 }
             }
         }
+        
+        protected void GroupSignals(String[] labelSignals, String groupName)
+        {
+            bool condX = true;
+            var ListData = new List<List<int>>();
+            foreach(var nameSignal in labelSignals)
+            {
+                var points = new List<string>();
+                var columnX = new List<int>();
+                var columnY = new List<int>();
+                var rd = new StreamReader(Parametres.pathCSV+nameSignal +".csv");              
+                while (!rd.EndOfStream)
+                {
+                    var splits = rd.ReadLine().Split('\n');
+                    points.Add(splits[0]);
+                }
+               
+                foreach (var element in points)
+                {
+                    if (!string.IsNullOrEmpty(element))
+                    {
+                        var val = element.Split(',');
+
+                        if (element != points[0])
+                        {
+                            columnX.Add(int.Parse(val[0]));
+                            columnY.Add(int.Parse(val[1]));
+                        }
+                    }
+                }
+                if(condX)
+                {
+                    ListData.Add(columnX);
+                    condX = false;
+                }
+                ListData.Add(columnY);
+            }
+
+            var csv = new StringBuilder();
+            String entete = "Time";
+            for(int i = 0;i<ListData.Count()-1;i++)
+            {
+                entete += ",Signal" + (i + 1).ToString();
+            }
+            entete += '\n';
+            csv.Append(entete);
+
+           
+            for (int i = 0; i < ListData[0].Count(); i++)
+            {
+                String ligne = "";
+                bool condFirst = true;
+                for (int j = 0; j< ListData.Count(); j++)
+                {
+                    if(condFirst)
+                    {
+                        ligne += ListData[j][i].ToString();
+                        condFirst = false;
+                    }
+                    else
+                    {
+                        ligne += "," + ListData[j][i].ToString();
+                    }
+                   
+                }
+                ligne += "\n";    
+                csv.Append(ligne);
+               
+            }
+            File.WriteAllText(Parametres.pathCSV  + groupName + ".csv", csv.ToString());
+           
+
+
+        }
         #endregion
 
         #region Button
@@ -303,7 +383,6 @@ namespace Epnos_application
 
             traceGraph();
         }
-
 
         protected void btn_VoirCapt_Click(object sender, EventArgs e)
         {
@@ -390,67 +469,73 @@ namespace Epnos_application
 
             switch (graphName)
             {
-                case "E2-M1":
+                case "E1-M1":
                     tab[1] = "EDF/Filt_"+typeFiltre+"_" + graphName + ".csv"; 
                    break;
-                case "E1-M1":
+                case "E2-M2":
                     tab[2] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
-                case "C3-M2":
+                case "F4-M1":
                     tab[3] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
                 case "F3-M2":
                     tab[4] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
-                case "O1-M2":
+                case "C4-M1":
                     tab[5] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
-                case "1-F":
+                case "C3-M2":
                     tab[6] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
-                case "1-2":
+                case "O2M1":
                     tab[7] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
-                case "ECG":
+                case "O1M2":
                     tab[8] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
-                case "HeartRate":
+                case "1-F":
                     tab[9] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
-                case "AudioVolumeDB":
+                case "1-2":
                     tab[10] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
-                case "Snoring":
-                    tab[0] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
+                case "ECG":
                     tab[11] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
-                case "AirFlow":
+                case "HeartRate":
                     tab[12] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
-                case "RIPFlow":
+                case "AudioVolumeDB":
                     tab[13] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
-                case "spO2B-B":
+                case "Snoring":
                     tab[14] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
-                case "InductanceThora":
+                case "AirFlow":
                     tab[15] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
-                case "InductanceAbdom":
+                case "RIPFlow":
                     tab[16] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
-                case "K":
+                case "spO2B-B":
                     tab[17] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
+                case "InductanceThora":
+                    tab[18] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
+                    break;
+                case "InductanceAbdom":
+                    tab[19] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
+                    break;
+              
             }
             hdnFiltre.Value = tab[0];
-            for(int i = 1; i < 18; i++) { hdnFiltre.Value += ";"+tab[i]; }
+            for(int i = 1; i < 20; i++) { hdnFiltre.Value += ";"+tab[i]; }
             traceGraph();
         }
 
         protected void filter(String file,String filter,int fc)
         {
-            String pathFile = "C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Epnos_application\\Epnos_application\\EDF\\" + file + ".csv";
+            String pathFile = Parametres.pathCSV  + file + ".csv";
             // Définition des variables
             var points = new List<string>();
             var columnX = new List<int>();
@@ -496,7 +581,7 @@ namespace Epnos_application
             for (int i = 0; i < filteredPoints.Count(); i++)
                 csv.Append(columnX[i].ToString() + "," + filteredPoints[i].ToString() + "\n");
             csv.Append("\n");
-            File.WriteAllText("C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Epnos_application\\Epnos_application\\EDF\\" + "Filt_" +filter+"_"+file+".csv", csv.ToString());
+            File.WriteAllText(Parametres.pathCSV  + "Filt_" +filter+"_"+file+".csv", csv.ToString());
             
 
         }
