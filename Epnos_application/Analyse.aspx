@@ -854,9 +854,7 @@
                             },
                         },
                         y: {
-                            axisLabelFormatter: function (v) {
-                                return v + 'dB';
-                            }
+                           
                         },
                     },
 

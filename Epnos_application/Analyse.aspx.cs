@@ -207,8 +207,8 @@ namespace Epnos_application
                 case 1:
                     valueNeuro.Add(new PositionData("E1-M1", "E1M1"));
                     valueNeuro.Add(new PositionData("E2-M1", "E2M1"));
-                    valueNeuro.Add(new PositionData("Group1", "Group1"));//On ne met pas de "-" pour les div car sinon le JS n'aime pas                
-                    valueNeuro.Add(new PositionData("Group2", "Group2"));             
+                    valueNeuro.Add(new PositionData("F4-M1 F3-M2 \r\n C4-M1 \r\n C3-M2 \r\n O2-M1 \r\n O1-M2", "Group1"));//On ne met pas de "-" pour les div car sinon le JS n'aime pas                
+                    valueNeuro.Add(new PositionData("1-2 1-F", "Group2"));             
                     valueNeuro.Add(new PositionData("ECG"));
                     valueNeuro.Add(new PositionData("HeartRate"));
 
@@ -340,26 +340,27 @@ namespace Epnos_application
             entete += '\n';
             csv.Append(entete);
 
-           
+          
             for (int i = 0; i < ListData[0].Count(); i++)
             {
+                int offset = 0;
                 String ligne = "";
                 bool condFirst = true;
                 for (int j = 0; j< ListData.Count(); j++)
                 {
                     if(condFirst)
                     {
-                        ligne += ListData[j][i].ToString();
+                        ligne += (ListData[j][i]+offset).ToString();
                         condFirst = false;
                     }
                     else
                     {
-                        ligne += "," + ListData[j][i].ToString();
+                        ligne += "," + (ListData[j][i] + offset).ToString();
                     }
-                   
+                    offset += 100000;
                 }
                 ligne += "\n";    
-                csv.Append(ligne);
+                csv.Append(ligne);               
                
             }
             File.WriteAllText(Parametres.pathCSV  + groupName + ".csv", csv.ToString());

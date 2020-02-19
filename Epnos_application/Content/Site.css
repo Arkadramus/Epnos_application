@@ -96,7 +96,7 @@ div.Liste_Info {
 }
 
 div.labelRepeater {
-    height: 10%;
+    height: 15%;
     width: 5%;
     float: left;
     text-align:center;
@@ -104,7 +104,7 @@ div.labelRepeater {
 }
 
 div.graphRepeater {
-    height: 10%;
+    height: 15%;
     width: 95%;
     float: right;
 }
