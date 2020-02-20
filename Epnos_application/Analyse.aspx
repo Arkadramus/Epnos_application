@@ -46,8 +46,11 @@
 
         //Variables
         {
-            var dataRange = 30000;
-            var rangeHeight = 10;
+            var dataRange = 60000; //en ms
+            var rangeHeight = 10;//taille du range selector
+            var iDataRange = 0; //Pour savoir de combien on est décalé
+            var dataHypno = [];
+            dataHypno.push([0, 0]);
 
             var CanvS1 = new Canva();
             var CanvS2 = new Canva();
@@ -145,12 +148,31 @@
             }
         }
 
-        function highlight(canvasName, area, g, Canv) {
+        function Highlight(canvasName, area, g, Canv) {
             for (var i = 0; i < Canv.min.length; i++) {
                 canvasName.fillStyle = Canv.color[i];
                 //fillrectangle(x,y,width,heigh)
                 canvasName.fillRect(g.toDomCoords(Canv.min[i], -20)[0], 0, g.toDomCoords(Canv.max[i], +20)[0] - g.toDomCoords(Canv.min[i], -20)[0], area.h);
             }
+        }
+
+        document.addEventListener('keydown', MoveDiagraph);
+
+        function MoveDiagraph(e) {
+            if (e.key === "ArrowRight")//Aller à droite
+                iDataRange++;
+            else if (e.key === "ArrowLeft")//Aller à gauche
+                iDataRange--;
+
+            n01.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
+            n02.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
+            n03.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
+            n04.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
+            n05.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
+            n06.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
+            n07.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
+
+            return false;
         }
 
         function ColorFromDDL() {
@@ -201,6 +223,14 @@
             return color;
         }
 
+        function AddDataHypno() {
+            var indEtat = parseInt(document.getElementById("DDLHypno").options[document.getElementById("DDLHypno").selectedIndex].value);
+            //if (dataHypno.length == iDataRange) {
+            dataHypno.push([iDataRange, indEtat]);
+            h.updateOptions({ 'file': dataHypno });
+            //}
+        }
+
         function Undo(divGraph) {
             console.log(divGraph.id);
             switch (divGraph.id) {
@@ -209,7 +239,7 @@
                     s1.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasS1 = canvas;
-                            highlight(canvasS1, area, g, CanvS1)
+                            Highlight(canvasS1, area, g, CanvS1)
                         }
                     });
                     break;
@@ -219,7 +249,7 @@
                     s2.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasS2 = canvas;
-                            highlight(canvasS2, area, g, CanvS2)
+                            Highlight(canvasS2, area, g, CanvS2)
                         }
                     });
                     break;
@@ -229,7 +259,7 @@
                     s3.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasS3 = canvas;
-                            highlight(canvasS3, area, g, CanvS3)
+                            Highlight(canvasS3, area, g, CanvS3)
                         }
                     });
                     break;
@@ -239,7 +269,7 @@
                     s4.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasS4 = canvas;
-                            highlight(canvasS4, area, g, CanvS4)
+                            Highlight(canvasS4, area, g, CanvS4)
                         }
                     });
                     break;
@@ -249,7 +279,7 @@
                     s5.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasS5 = canvas;
-                            highlight(canvasS5, area, g, CanvS5)
+                            Highlight(canvasS5, area, g, CanvS5)
                         }
                     });
                     break;
@@ -259,7 +289,7 @@
                     s6.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasS6 = canvas;
-                            highlight(canvasS6, area, g, CanvS6)
+                            Highlight(canvasS6, area, g, CanvS6)
                         }
                     });
                     break;
@@ -269,7 +299,117 @@
                     s7.updateOptions({
                         underlayCallback: function (canvas, area, g) {
                             canvasS7 = canvas;
-                            highlight(canvasS7, area, g, CanvS7)
+                            Highlight(canvasS7, area, g, CanvS7)
+                        }
+                    });
+                    break;
+
+                case "K":
+                    CanvS8.Pop();
+                    s8.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasS8 = canvas;
+                            Highlight(canvasS8, area, g, CanvS8)
+                        }
+                    });
+                    break;
+
+                case "SnoringN":
+                    CanvS2.Pop();
+                    n01.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN01 = canvas;
+                            Highlight(canvasN01, area, g, CanvS2)
+                        }
+                    });
+                    break;
+
+                case "E2M1":
+                    CanvN2.Pop();
+                    n02.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN02 = canvas;
+                            Highlight(canvasN02, area, g, CanvN2)
+                        }
+                    });
+                    break;
+
+                case "E1M1":
+                    CanvN3.Pop();
+                    n03.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN03 = canvas;
+                            Highlight(canvasN03, area, g, CanvN3)
+                        }
+                    });
+                    break;
+
+                case "C3M2":
+                    CanvN4.Pop();
+                    n04.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN04 = canvas;
+                            Highlight(canvasN04, area, g, CanvN4)
+                        }
+                    });
+                    break;
+
+                case "F3M2":
+                    CanvN5.Pop();
+                    n05.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN05 = canvas;
+                            Highlight(canvasN05, area, g, CanvN5)
+                        }
+                    });
+                    break;
+
+                case "O1M2":
+                    CanvN6.Pop();
+                    n06.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN06 = canvas;
+                            Highlight(canvasN06, area, g, CanvN6)
+                        }
+                    });
+                    break;
+
+                case "1F":
+                    CanvN7.Pop();
+                    n07.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN07 = canvas;
+                            Highlight(canvasN07, area, g, CanvN7)
+                        }
+                    });
+                    break;
+
+                case "12":
+                    CanvN8.Pop();
+                    n08.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN08 = canvas;
+                            Highlight(canvasN08, area, g, CanvN8)
+                        }
+                    });
+                    break;
+
+                case "ECG":
+                    CanvN9.Pop();
+                    n09.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN09 = canvas;
+                            Highlight(canvasN09, area, g, CanvN9)
+                        }
+                    });
+                    break;
+
+                case "HeartRate":
+                    CanvN10.Pop();
+                    n10.updateOptions({
+                        underlayCallback: function (canvas, area, g) {
+                            canvasN10 = canvas;
+                            Highlight(canvasN10, area, g, CanvN10)
                         }
                     });
                     break;
@@ -327,6 +467,7 @@
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS1 = canvas;
                                     highlight(canvasS1, area, g, CanvS1)
+                                    Highlight(canvasS1, area, g, CanvS1);
                                 }
                             });
                         }
@@ -367,7 +508,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS2 = canvas;
-                                    highlight(canvasS2, area, g, CanvS2)
+                                    Highlight(canvasS2, area, g, CanvS2)
                                 }
                             });
                         }
@@ -407,7 +548,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS3 = canvas;
-                                    highlight(canvasS3, area, g, CanvS3)
+                                    Highlight(canvasS3, area, g, CanvS3)
                                 }
                             });
                         }
@@ -447,7 +588,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS4 = canvas;
-                                    highlight(canvasS4, area, g, CanvS4)
+                                    Highlight(canvasS4, area, g, CanvS4)
                                 }
                             });
                         }
@@ -487,7 +628,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS5 = canvas;
-                                    highlight(canvasS5, area, g, CanvS5)
+                                    Highlight(canvasS5, area, g, CanvS5)
                                 }
                             });
                         }
@@ -527,7 +668,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS6 = canvas;
-                                    highlight(canvasS6, area, g, CanvS6)
+                                    Highlight(canvasS6, area, g, CanvS6)
                                 }
                             });
                         }
@@ -567,7 +708,7 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS7 = canvas;
-                                    highlight(canvasS7, area, g, CanvS7)
+                                    Highlight(canvasS7, area, g, CanvS7)
                                 }
                             });
                         }
@@ -600,7 +741,6 @@
                     colorSets[i] = tab[i]
                 }
             }
-
             
             switch (graphName) {
                 case "E1-M1":   
@@ -722,7 +862,16 @@
         }
 
         function Neuro() {
-
+             h = new Dygraph(document.getElementById("graphHypno"), dataHypno, {
+                showLabelsOnHighlight: false,
+                drawPoints: true,
+                axes: {              
+                        y: {
+                            ticker: function (mimn, max, pixels, opts, grpah, val) {
+                                return [{ v: 0, label: "Aw" }, { v: -1, label: "SP" }, { v: -2, label: "N1" }, { v: -3, label: "N2" }, { v: -4, label: "N3" }];
+                            },
+                        }
+                    }, });
             var colorSets = [['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0']];
             var tab = window.name;
 
@@ -842,6 +991,29 @@
                     zoomCallback: function (minTime, maxTime, yRanges) {
                         this.updateOptions({ dateWindow: [0, dataRange], });
                     },
+
+                    //showLabelsOnHighlight: false,
+                    //dateWindow: [0, dataRange],
+                    //interactionModel: Dygraph.defaultInteractionModel,
+                    //zoomCallback: function (minTime, maxTime, yRanges) {
+                    //    if (CanvN3.min[CanvN3.length - 1] != minTime && CanvN3.max[CanvN3.length - 1] != maxTime
+                    //        && (maxTime - minTime) <= (dataRange + 50)) {
+                    //        CanvN3.Push(minTime, maxTime, ColorFromDDL());
+                    //        canvasN03 = null;
+                    //    }
+                    //    this.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange], });
+                    //},
+                    //drawCallback: function (graph, is_initial) {
+                    //    if (CanvN3.min.length > 0 && canvasN03 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
+                    //        this.updateOptions({
+                    //            underlayCallback: function (canvas, area, g) {
+                    //                canvasN03 = canvas;
+                    //                Highlight(canvasN03, area, g, CanvN3)
+                    //            }
+                    //        });
+                    //    }
+                    //},
+                    //colors: [colorSets[2]]
                 });
 
             n04 = new Dygraph(
@@ -933,19 +1105,17 @@
    </script>
 </head>
 <body>
-
     <form id="form1" runat="server">
         <header class="Haut_page">
             <asp:Image runat="server" CssClass="Logo" src="img/navbar-logo.png" Style="margin-top: 5px" />
         </header>
         <section class="Fond_page">
             <div class="Head_option">
-                <div style="height: 15vh; width: 30%; margin-left: 3%; margin-bottom: 1%; float: left;">
+                <div style="height: 15vh; width: 30%; margin-left: 3%; margin-bottom: 1%; display: inline-block">
                     <div class="Div_Info">
                         <asp:ImageButton runat="server" ID="imgPedro" ImageUrl="img/alpaga.jpg" Height="75px" Width="150px" Visible="false" OnClick="imgPedro_Click" />
                         <asp:Label runat="server" ID="lbl_pedro" Text="Pedro" Font-Size="12px" Visible="false"></asp:Label>
-
-                        <asp:Button runat="server" ID="btnTest" Text="Test"  />
+                        <%--<asp:Button runat="server" ID="btnTest" Text="Fin de projet" OnClick="btnTest_Click" />--%>
                     </div>
                     <div class="Div_param">
                          <asp:ScriptManager ID="ScriptManager2" runat="server" />
@@ -1002,20 +1172,32 @@
                         <asp:TextBox ID="txtboxFiltre" runat="server" Text="Fc" Width="30px"></asp:TextBox>
                         <asp:Button runat="server" Text="Appliquer" ID="btnFilt" OnClick="btnFilt_Click" />
                         <asp:HiddenField runat="server" Value="" ID="hdnFiltre"  />
-                                  </ContentTemplate>
+                                <br />
+                                <asp:Label runat="server" Text="Hypnographe" Style="margin-left: 5%;"></asp:Label>
+                                <br />
+                                <asp:Label runat="server" Text="" Style="margin-left: 5%;"></asp:Label>
+                                <asp:DropDownList ID="DDLHypno" AutoPostBack="True" runat="server">
+                                    <asp:ListItem Selected="True" Value="0"> Eveil </asp:ListItem>
+                                    <asp:ListItem Value="-1"> Paradox </asp:ListItem>
+                                    <asp:ListItem Value="-2"> N1 </asp:ListItem>
+                                    <asp:ListItem Value="-3"> N2 </asp:ListItem>
+                                    <asp:ListItem Value="-4"> N3 </asp:ListItem>
+                                </asp:DropDownList>
+                                <asp:Button runat="server" Text="Appliquer" ID="btnHypno" OnClientClick=" return AddDataHypno()" />
+                            </ContentTemplate>
                         </asp:UpdatePanel>
                     </div>
                 </div>
-                <div style="margin-right: 3%; width: 20%; float: right; padding-top: 15vh;">
-                    <asp:Button class="btn_sono" runat="server" Text="Neurologie" ID="btnNeuro" Style="margin-bottom: 0%; float: right;" OnClientClick="GetCanva();" OnClick="btnNeuro_Click" />
-                    <asp:Button class="btn_sono" runat="server" Text="Sonore" ID="btnSono" Style="float: right;" OnClientClick="GetCanva();" OnClick="btnSono_Click" />
-                </div>
-                <div style="width: 42%; float: right; padding-top: 1%; height: 17vh;">
-                    <%-- Division où il y aura les boutons pour chaque fonctionnalité --%>
-                    <asp:Button class="btns" runat="server" Text="Générer un rapport" ID="btn_GenereRapport" Style="margin-left: 0%;" />
-                    <asp:Button class="btns" runat="server" Text="Sauvegarder" ID="btn_Save" Style="margin-left: 1%;" />
-                    <asp:Button class="btns" runat="server" Text="Capturer l'écran" ID="btn_CaptEcran" Style="margin-left: 1%;" OnClick="btn_CaptEcran_Click" />
-                    <asp:Button class="btns" runat="server" Text="Voir les captures" ID="btn_VoirCapt" Style="margin-left: 1%;" OnClick="btn_VoirCapt_Click" />
+                <div id="graphHypno" style="height: 15vh; width: 40%; margin-bottom: 1%; display: inline-block"></div>
+                <div style="margin-right: 3%; height: 15vh; width: 20%; display: inline-block; float: right;">
+                    <div style="display: flex; height: 50%;">
+                        <asp:Button class="btns" runat="server" Text="Capturer l'écran" ID="btn_CaptEcran" Style="margin-left: 1%; margin-bottom: 10%; width: 50%" OnClick="btn_CaptEcran_Click" />
+                        <asp:Button class="btns" runat="server" Text="Voir les captures" ID="btn_VoirCapt" Style="margin-left: 1%; margin-bottom: 10%; width: 50%" OnClick="btn_VoirCapt_Click" />
+                    </div>
+                    <div style="display: flex; height: 65%;">
+                        <asp:Button class="btn_sono" runat="server" Text="Neurologie" ID="btnNeuro" Style="margin-left: 1%; margin-top: 20%; width: 50%" OnClientClick="GetCanva();" OnClick="btnNeuro_Click" />
+                        <asp:Button class="btn_sono" runat="server" Text="Sonore" ID="btnSono" Style="margin-left: 1%; margin-top: 20%; width: 50%" OnClientClick="GetCanva();" OnClick="btnSono_Click" />
+                    </div>
                 </div>
             </div>
             <asp:HiddenField runat="server" ID="hfCanva" />
