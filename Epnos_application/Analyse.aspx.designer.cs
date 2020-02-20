@@ -103,40 +103,22 @@ namespace Epnos_application {
         protected global::System.Web.UI.WebControls.DropDownList DDLScoring;
         
         /// <summary>
-        /// btnNeuro control.
+        /// DDLHypno control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNeuro;
+        protected global::System.Web.UI.WebControls.DropDownList DDLHypno;
         
         /// <summary>
-        /// btnSono control.
+        /// btnHypno control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSono;
-        
-        /// <summary>
-        /// btn_GenereRapport control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_GenereRapport;
-        
-        /// <summary>
-        /// btn_Save control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_Save;
+        protected global::System.Web.UI.WebControls.Button btnHypno;
         
         /// <summary>
         /// btn_CaptEcran control.
@@ -155,6 +137,24 @@ namespace Epnos_application {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_VoirCapt;
+        
+        /// <summary>
+        /// btnNeuro control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnNeuro;
+        
+        /// <summary>
+        /// btnSono control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSono;
         
         /// <summary>
         /// hfCanva control.
