@@ -41,56 +41,56 @@ namespace Epnos_application
 
         private void InitDDLNeuro()
         {
-            DDLGraph.Items.Clear();
-            DDLGraph.Items.Add("E1-M1");
-            DDLGraph.Items.Add("E2-M1");
-            DDLGraph.Items.Add("F4-M1");
-            DDLGraph.Items.Add("F3-M2");
-            DDLGraph.Items.Add("C4-M1");
-            DDLGraph.Items.Add("C3-M2");
-            DDLGraph.Items.Add("O2-M1");
-            DDLGraph.Items.Add("O1-M2");
-            DDLGraph.Items.Add("1-2");
-            DDLGraph.Items.Add("1-F");
-            DDLGraph.Items.Add("ECG");
-            DDLGraph.Items.Add("HeartRate");
-            DDLGraph.DataBind();
-            DDLGraph2.Items.Clear();
-            DDLGraph2.Items.Add("E1-M1");
-            DDLGraph2.Items.Add("E2-M1");
-            DDLGraph2.Items.Add("F4-M1");
-            DDLGraph2.Items.Add("F3-M2");
-            DDLGraph2.Items.Add("C4-M1");
-            DDLGraph2.Items.Add("C3-M2");
-            DDLGraph2.Items.Add("O2-M1");
-            DDLGraph2.Items.Add("O1-M2");
-            DDLGraph2.Items.Add("1-2");
-            DDLGraph2.Items.Add("1-F");
-            DDLGraph2.Items.Add("ECG");
-            DDLGraph2.Items.Add("HeartRate");
-            DDLGraph2.DataBind();
+            DDLGraphNameColor.Items.Clear();
+            DDLGraphNameColor.Items.Add("E1-M1");
+            DDLGraphNameColor.Items.Add("E2-M1");
+            DDLGraphNameColor.Items.Add("F4-M1");
+            DDLGraphNameColor.Items.Add("F3-M2");
+            DDLGraphNameColor.Items.Add("C4-M1");
+            DDLGraphNameColor.Items.Add("C3-M2");
+            DDLGraphNameColor.Items.Add("O2-M1");
+            DDLGraphNameColor.Items.Add("O1-M2");
+            DDLGraphNameColor.Items.Add("1-2");
+            DDLGraphNameColor.Items.Add("1-F");
+            DDLGraphNameColor.Items.Add("ECG");
+            DDLGraphNameColor.Items.Add("HeartRate");
+            DDLGraphNameColor.DataBind();
+            DDLGraphNameFilter.Items.Clear();
+            DDLGraphNameFilter.Items.Add("E1-M1");
+            DDLGraphNameFilter.Items.Add("E2-M1");
+            DDLGraphNameFilter.Items.Add("F4-M1");
+            DDLGraphNameFilter.Items.Add("F3-M2");
+            DDLGraphNameFilter.Items.Add("C4-M1");
+            DDLGraphNameFilter.Items.Add("C3-M2");
+            DDLGraphNameFilter.Items.Add("O2-M1");
+            DDLGraphNameFilter.Items.Add("O1-M2");
+            DDLGraphNameFilter.Items.Add("1-2");
+            DDLGraphNameFilter.Items.Add("1-F");
+            DDLGraphNameFilter.Items.Add("ECG");
+            DDLGraphNameFilter.Items.Add("HeartRate");
+            DDLGraphNameFilter.DataBind();
         }
 
         private void InitDDLRespi()
         {
-            DDLGraph.Items.Clear();
-            DDLGraph.Items.Add("AudioVolumeDB");
-            DDLGraph.Items.Add("Snoring");
-            DDLGraph.Items.Add("AirFlow");
-            DDLGraph.Items.Add("RIPFlow");
-            DDLGraph.Items.Add("spO2B-B");
-            DDLGraph.Items.Add("InductanceThora");
-            DDLGraph.Items.Add("InductanceAbdom");
-            DDLGraph.DataBind();
-            DDLGraph2.Items.Clear();
-            DDLGraph2.Items.Add("AudioVolumeDB");
-            DDLGraph2.Items.Add("Snoring");
-            DDLGraph2.Items.Add("AirFlow");
-            DDLGraph2.Items.Add("RIPFlow");
-            DDLGraph2.Items.Add("spO2B-B");
-            DDLGraph2.Items.Add("InductanceThora");
-            DDLGraph2.Items.Add("InductanceAbdom");
-            DDLGraph2.DataBind();
+            DDLGraphNameColor.Items.Clear();
+            DDLGraphNameColor.Items.Add("AudioVolumeDB");
+            DDLGraphNameColor.Items.Add("Snoring");
+            DDLGraphNameColor.Items.Add("AirFlow");
+            DDLGraphNameColor.Items.Add("RIPFlow");
+            DDLGraphNameColor.Items.Add("spO2B-B");
+            DDLGraphNameColor.Items.Add("InductanceThora");
+            DDLGraphNameColor.Items.Add("InductanceAbdom");
+            DDLGraphNameColor.DataBind();
+            DDLGraphNameFilter.Items.Clear();
+            DDLGraphNameFilter.Items.Add("AudioVolumeDB");
+            DDLGraphNameFilter.Items.Add("Snoring");
+            DDLGraphNameFilter.Items.Add("AirFlow");
+            DDLGraphNameFilter.Items.Add("RIPFlow");
+            DDLGraphNameFilter.Items.Add("spO2B-B");
+            DDLGraphNameFilter.Items.Add("InductanceThora");
+            DDLGraphNameFilter.Items.Add("InductanceAbdom");
+            DDLGraphNameFilter.DataBind();
         }
 
         private void InitSignal()
@@ -128,10 +128,6 @@ namespace Epnos_application
                     //ReadSignal("spO2B-B");
                     //ReadSignal("InductanceThora");
                     //ReadSignal("InductanceAbdom");
-
-               
-
-
                 }
                 catch (Exception e)
                 {
@@ -462,7 +458,7 @@ namespace Epnos_application
         protected void btnFilt_Click(object sender, EventArgs e)
         {
             String typeFiltre = DDLFiltre.SelectedValue;
-            String graphName = DDLGraph2.SelectedValue;
+            String graphName = DDLGraphNameFilter.SelectedValue;
             int frqCpr = int.Parse(txtboxFiltre.Text);
             String[] tab = hdnFiltre.Value.Split(';');
 

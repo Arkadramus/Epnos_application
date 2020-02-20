@@ -46,7 +46,7 @@
 
         //Variables
         {
-            var dataRange = 2000;
+            var dataRange = 30000;
             var rangeHeight = 10;
 
             var CanvS1 = new Canva();
@@ -57,10 +57,7 @@
             var CanvS6 = new Canva();
             var CanvS7 = new Canva();
            
-          
-
             var canvasS1, canvasS2, canvasS3, canvasS4, canvasS5, canvasS6, canvasS7= 1;
-           
         }
 
         function GetCanva() {
@@ -295,8 +292,6 @@
             var e = document.getElementById("hdnFiltre");
             var CSV = e.value;
             var tabCSV = CSV.split(";");
-            console.log(tabCSV);
-            console.log(colorSets);
             SetCanva();
 
             // Exemple création graphe avec deux courbes 
@@ -588,7 +583,7 @@
 
             var e = document.getElementById("DDLColor");
             var indColor = parseInt(e.options[e.selectedIndex].value);
-            var e = document.getElementById("DDLGraph");
+            var e = document.getElementById("DDLGraphNameColor");
             var graphName = e.options[e.selectedIndex].value;
             var e = document.getElementById("DDLType");
             var type = e.options[e.selectedIndex].value;
@@ -604,12 +599,10 @@
                 {
                     colorSets[i] = tab[i]
                 }
-                
             }
 
             
             switch (graphName) {
-
                 case "E1-M1":   
                     colorSets[0] = colorAvailable[indColor];
                     if (type == "1") { colorSets[19] = ['1'];}
@@ -626,7 +619,6 @@
                     colorSets[2] = colorAvailable[indColor];
                     if (type == "1") { colorSets[21] = ['1']; }
                     window.name = colorSets;
-                    
                     break;
                 case "F3-M2":
                     colorSets[3] = colorAvailable[indColor];
@@ -725,13 +717,8 @@
                     window.name = colorSets;
                     s2.updateOptions({ colors: [colorAvailable[indColor]], fillGraph: parseInt(colorSets[37]) });
                     break;
-                
-
             }
-
-          
             return false;
-
         }
 
         function Neuro() {
@@ -750,18 +737,13 @@
             var e = document.getElementById("hdnFiltre");
             var CSV = e.value;
             var tabCSV = CSV.split(";");
-            console.log(tabCSV);
 
-            console.log(colorSets);
-            var tabminN01 = [];
-            var tabmaxN01 = [];
-            var canvasN01 = 1;
             SetCanva();
 
             n01 = new Dygraph(
                 document.getElementById("E1M1"),
                 tabCSV[0], {
-                    showLabelsOnHighlight: true,
+                    showLabelsOnHighlight: false,
                     axes: {
                         x: {
                             axisLabelFormatter: function (v) {
@@ -772,7 +754,7 @@
                            
                         },
                     },
-                    showRangeSelector: true,
+                    showRangeSelector: false,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
@@ -781,7 +763,6 @@
                     },
                     colors: [colorSets[0]],
                     fillGraph: parseInt(colorSets[19])
-
                 });
 
             n02 = new Dygraph(
@@ -799,7 +780,7 @@
 
                         },
                     },
-                    showRangeSelector: true,
+                    showRangeSelector: false,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
@@ -813,7 +794,7 @@
             n03 = new Dygraph(
                 document.getElementById("Group1"),
                 tabCSV[2], {
-                    showLabelsOnHighlight: true,
+                    showLabelsOnHighlight: false,
                     //labels: ['Time','F4-M1', 'F3-M2', 'C4-M1', 'C3-M2', 'O2-M1', 'O1-M2'],
                     series: {
                         F4M1: {
@@ -829,7 +810,6 @@
                         C4M1: {
                             color: [colorSets[4]],
                             strokeWidth: 2,
-                            fillGraph: parseInt(colorSets[23])
                         },
                         C3M2: {
                             color: [colorSets[5]],
@@ -839,7 +819,6 @@
                         O2M1: {
                             color: [colorSets[6]],
                             strokeWidth: 2,
-                            fillGraph: parseInt(colorSets[25])
                         },
                         O1M2: {
                             color: [colorSets[7]],
@@ -857,22 +836,18 @@
                            
                         },
                     },
-
-                    showRangeSelector: true,
-                    rangeSelectorHeight: rangeHeight,
+                    showRangeSelector: false,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
                         this.updateOptions({ dateWindow: [0, dataRange], });
                     },
-                                        
-                    
                 });
 
             n04 = new Dygraph(
                 document.getElementById("Group2"),
                 tabCSV[3], {
-                    showLabelsOnHighlight: true,
+                    showLabelsOnHighlight: false,
                     // labels: ['Time','12', '1F'],
                     series: {
                         g12: {
@@ -896,24 +871,19 @@
 
                         },
                     },
-                    showRangeSelector: true,
+                    showRangeSelector: false,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
                          this.updateOptions({ dateWindow: [0, dataRange], });
                     },
-                        
-                        
-                    
                 });
             
-
-
             n05 = new Dygraph(
                 document.getElementById("ECG"),
                 tabCSV[4], {
-                    showLabelsOnHighlight: true,
+                    showLabelsOnHighlight: false,
                     axes: {
                         x: {
                             axisLabelFormatter: function (v) {
@@ -924,7 +894,7 @@
                            
                         },
                     },
-                    showRangeSelector: true,
+                    showRangeSelector: false,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
@@ -938,7 +908,7 @@
             n06 = new Dygraph(
                 document.getElementById("HeartRate"),
                 tabCSV[5], {
-                    showLabelsOnHighlight: true,
+                    showLabelsOnHighlight: false,
                     axes: {
                         x: {
                             axisLabelFormatter: function (v) {
@@ -949,7 +919,7 @@
                             
                         },
                     },
-                    showRangeSelector: true,
+                    showRangeSelector: false,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
@@ -1000,7 +970,7 @@
                             <asp:ListItem Selected="True" Value="0"> Vide </asp:ListItem>
                             <asp:ListItem Value="1"> Plein </asp:ListItem>                      
                         </asp:DropDownList>
-                        <asp:DropDownList ID="DDLGraph" AutoPostBack="True" runat="server" >
+                        <asp:DropDownList ID="DDLGraphNameColor" AutoPostBack="True" runat="server" >
                         </asp:DropDownList>
                         <asp:Button runat="server" Text="Appliquer" ID="btnApplyChange" OnClientClick=" return ChangeColor()" />
                                 <br /><br />
@@ -1027,7 +997,7 @@
                             <asp:ListItem Selected="True" Value="Low" > Passe-bas </asp:ListItem>
                             <asp:ListItem Value="High"> Passe-haut </asp:ListItem>                      
                         </asp:DropDownList>
-                        <asp:DropDownList ID="DDLGraph2" AutoPostBack="True" runat="server" >
+                        <asp:DropDownList ID="DDLGraphNameFilter" AutoPostBack="True" runat="server" >
                         </asp:DropDownList>
                         <asp:TextBox ID="txtboxFiltre" runat="server" Text="Fc" Width="30px"></asp:TextBox>
                         <asp:Button runat="server" Text="Appliquer" ID="btnFilt" OnClick="btnFilt_Click" />
