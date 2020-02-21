@@ -1115,6 +1115,22 @@
                     <div class="Div_Info">
                         <asp:ImageButton runat="server" ID="imgPedro" ImageUrl="img/alpaga.jpg" Height="75px" Width="150px" Visible="false" OnClick="imgPedro_Click" />
                         <asp:Label runat="server" ID="lbl_pedro" Text="Pedro" Font-Size="12px" Visible="false"></asp:Label>
+                        <asp:Label runat="server" ID="lblInfo" Font-Bold="true" Text="Information du patient" Style=" color: black; font-size: 20px;"></asp:Label>
+                        <br /> <br /> 
+                        <asp:Label runat="server" ID="lblDoctorIdentity" Text="Médecin :" Style="color:black;font-size:15px;"></asp:Label>
+                        <br /> <br /> 
+                        <asp:Label runat="server" ID="lblDoctorCoord" Text="Coordonnées :" Style="color:black;font-size:15px;"></asp:Label>
+                        <br /> <br /> 
+                        <asp:Label runat="server" ID="lblNumPatient" Text="Numéro du patient : "  Style="color:black;font-size:15px;"></asp:Label>
+                        <br /> <br /> 
+                        <asp:Label runat="server" ID="lblTaille" Text="Taille :" Style="color:black;font-size:15px;"></asp:Label>
+                        <br /><br /> 
+                        <asp:Label runat="server" ID="lblPoids" Text="Poids :" Style="color:black;font-size:15px;"></asp:Label>
+                        <br /><br /> 
+                        <asp:Label runat="server" ID="lblAge" Text="Âge :" Style="color:black;font-size:15px;"></asp:Label>
+                        <br /><br /> 
+                        <asp:Label runat="server" ID="lblNote" Text="Note :" Style="color:black;font-size:15px;"></asp:Label>
+                        <br /><br /> 
                         <%--<asp:Button runat="server" ID="btnTest" Text="Fin de projet" OnClick="btnTest_Click" />--%>
                     </div>
                     <div class="Div_param">

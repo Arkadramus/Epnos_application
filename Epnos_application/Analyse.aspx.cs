@@ -453,12 +453,12 @@ namespace Epnos_application
             switch (graphName)
             {
                 case "E1-M1":
-                    tab[1] = "EDF/Filt_"+typeFiltre+"_" + graphName + ".csv"; 
+                    tab[0] = "EDF/Filt_"+typeFiltre+"_" + graphName + ".csv"; 
                    break;
                 case "E2-M2":
-                    tab[2] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
+                    tab[1] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
-                case "F4-M1":
+                /*case "F4-M1":
                     tab[3] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
                 case "F3-M2":
@@ -481,38 +481,38 @@ namespace Epnos_application
                     break;
                 case "1-2":
                     tab[10] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
-                    break;
+                    break;*/
                 case "ECG":
-                    tab[11] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
+                    tab[4] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
                 case "HeartRate":
-                    tab[12] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
+                    tab[5] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
                 case "AudioVolumeDB":
-                    tab[13] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
+                    tab[6] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
                 case "Snoring":
-                    tab[14] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
+                    tab[7] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
                 case "AirFlow":
-                    tab[15] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
+                    tab[8] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
                 case "RIPFlow":
-                    tab[16] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
+                    tab[9] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
                 case "spO2B-B":
-                    tab[17] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
+                    tab[10] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
                 case "InductanceThora":
-                    tab[18] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
+                    tab[11] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
                 case "InductanceAbdom":
-                    tab[19] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
+                    tab[12] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
               
             }
             hdnFiltre.Value = tab[0];
-            for(int i = 1; i < 20; i++) { hdnFiltre.Value += ";"+tab[i]; }
+            for(int i = 1; i < 13; i++) { hdnFiltre.Value += ";"+tab[i]; }
             traceGraph();
         }
 
