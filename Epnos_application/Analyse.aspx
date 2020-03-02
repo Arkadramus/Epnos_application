@@ -46,8 +46,8 @@
 
         //Variables
         {
-            var dataRange = 60000; //en ms
-            var rangeHeight = 10;//taille du range selector
+            var dataRange = 30000; //en ms
+            var rangeHeight = 10; //taille du range selector
             var iDataRange = 0; //Pour savoir de combien on est décalé
             var dataHypno = [];
             dataHypno.push([0, 0]);
@@ -156,6 +156,7 @@
             }
         }
 
+        //Permet de déplacer le graphique à gauche ou à droite avec les touches flèches
         document.addEventListener('keydown', MoveDiagraph);
 
         function MoveDiagraph(e) {
@@ -174,10 +175,12 @@
             return false;
         }
 
+        //Permet d'ajouter les courbes à l'hypnographe en appuyant sur 1/2/3/4/5
         document.addEventListener('keypress', AddDataHypno);
 
         function AddDataHypno(e) {
-            var indEtat = parseInt(document.getElementById("DDLHypno").options[document.getElementById("DDLHypno").selectedIndex].value);
+            var indEtat = 0;
+               // indEtat = parseInt(document.getElementById("DDLHypno").options[document.getElementById("DDLHypno").selectedIndex].value);
 
             if (e.key == "1")
                 indEtat = 0;
@@ -190,7 +193,10 @@
             else if (e.key == "5")
                 indEtat = -4;
 
-            dataHypno.push([iDataRange, indEtat]);
+            if (dataHypno[iDataRange] == null)//On ajoute s'il n' y a pas de valeur
+                dataHypno.push([iDataRange, indEtat]);
+            else//Sinon on remplace
+                dataHypno.splice(iDataRange, 1, [iDataRange, indEtat]);
             h.updateOptions({ 'file': dataHypno });
         }
 
@@ -872,9 +878,10 @@
             h = new Dygraph(document.getElementById("graphHypno"), dataHypno, {
                 showLabelsOnHighlight: false,
                 drawPoints: true,
+                dateWindow: [0, 50],
                 axes: {
                     y: {
-                        ticker: function (mimn, max, pixels, opts, grpah, val) {
+                        ticker: function (min, max, pixels, opts, graph, val) {
                             return [{ v: 0, label: "Aw" }, { v: -1, label: "SP" }, { v: -2, label: "N1" }, { v: -3, label: "N2" }, { v: -4, label: "N3" }];
                         },
                     }
@@ -906,17 +913,14 @@
                             axisLabelFormatter: function (v) {
                                 return v + ' ms';  // controls formatting of the x-axis labels
                             },
-                        },
-                        y: {
-
-                        },
+                        }
                     },
                     showRangeSelector: false,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        this.updateOptions({ dateWindow: [0, dataRange], });
+                        this.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange], });
                     },
                     colors: [colorSets[0]],
                     fillGraph: parseInt(colorSets[19])
@@ -932,17 +936,13 @@
                                 return v + ' ms';  // controls formatting of the x-axis labels
                             },
                         },
-                        y: {
-
-
-                        },
                     },
                     showRangeSelector: false,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        this.updateOptions({ dateWindow: [0, dataRange], });
+                        this.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange], });
                     },
                     colors: [colorSets[1]],
                     fillGraph: parseInt(colorSets[20])
@@ -989,15 +989,12 @@
                                 return v + ' ms';  // controls formatting of the x-axis labels
                             },
                         },
-                        y: {
-
-                        },
                     },
                     showRangeSelector: false,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        this.updateOptions({ dateWindow: [0, dataRange], });
+                        this.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange], });
                     },
 
                     //showLabelsOnHighlight: false,
@@ -1047,16 +1044,13 @@
                                 return v + ' ms';  // controls formatting of the x-axis labels
                             },
                         },
-                        y: {
-
-                        },
                     },
                     showRangeSelector: false,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        this.updateOptions({ dateWindow: [0, dataRange], });
+                        this.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange], });
                     },
                 });
 
@@ -1070,16 +1064,13 @@
                                 return v + ' ms';  // controls formatting of the x-axis labels
                             },
                         },
-                        y: {
-
-                        },
                     },
                     showRangeSelector: false,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        this.updateOptions({ dateWindow: [0, dataRange], });
+                        this.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange], });
                     },
                     colors: [colorSets[10]],
                     fillGraph: parseInt(colorSets[29])
@@ -1095,16 +1086,13 @@
                                 return v + ' ms';  // controls formatting of the x-axis labels
                             },
                         },
-                        y: {
-
-                        },
                     },
                     showRangeSelector: false,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                        this.updateOptions({ dateWindow: [0, dataRange], });
+                        this.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange], });
                     },
                     colors: [colorSets[11]],
                     fillGraph: parseInt(colorSets[30])
@@ -1183,17 +1171,19 @@
                                 <asp:Button runat="server" Text="Appliquer" ID="btnFilt" OnClick="btnFilt_Click" />
                                 <asp:HiddenField runat="server" Value="" ID="hdnFiltre" />
                                 <br />
-                                <asp:Label runat="server" Text="Hypnographe" Style="margin-left: 5%;"></asp:Label>
-                                <br />
-                                <asp:Label runat="server" Text="" Style="margin-left: 5%;"></asp:Label>
-                                <asp:DropDownList ID="DDLHypno" AutoPostBack="True" runat="server">
-                                    <asp:ListItem Selected="True" Value="0"> Eveil </asp:ListItem>
-                                    <asp:ListItem Value="-1"> Paradox </asp:ListItem>
-                                    <asp:ListItem Value="-2"> N1 </asp:ListItem>
-                                    <asp:ListItem Value="-3"> N2 </asp:ListItem>
-                                    <asp:ListItem Value="-4"> N3 </asp:ListItem>
-                                </asp:DropDownList>
-                                <asp:Button runat="server" Text="Appliquer" ID="btnHypno" OnClientClick=" return AddDataHypno()" />
+                                <asp:Panel runat="server" Visible="false">
+                                    <asp:Label runat="server" Text="Hypnographe" Style="margin-left: 5%;"></asp:Label>
+                                    <br />
+                                    <asp:Label runat="server" Text="" Style="margin-left: 5%;"></asp:Label>
+                                    <asp:DropDownList ID="DDLHypno" AutoPostBack="True" runat="server">
+                                        <asp:ListItem Selected="True" Value="0"> Eveil </asp:ListItem>
+                                        <asp:ListItem Value="-1"> Paradox </asp:ListItem>
+                                        <asp:ListItem Value="-2"> N1 </asp:ListItem>
+                                        <asp:ListItem Value="-3"> N2 </asp:ListItem>
+                                        <asp:ListItem Value="-4"> N3 </asp:ListItem>
+                                    </asp:DropDownList>
+                                    <asp:Button runat="server" Text="Appliquer" ID="btnHypno" OnClientClick=" return AddDataHypno()" />
+                                </asp:Panel>
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </div>
@@ -1206,7 +1196,7 @@
                     </div>
                     <div style="display: flex; height: 65%;">
                         <asp:Button class="btn_sono" runat="server" Text="Neurologie" ID="btnNeuro" Style="margin-left: 1%; margin-top: 20%; width: 50%" OnClientClick="GetCanva();" OnClick="btnNeuro_Click" />
-                        <asp:Button class="btn_sono" runat="server" Text="Sonore" ID="btnSono" Style="margin-left: 1%; margin-top: 20%; width: 50%" OnClientClick="GetCanva();" OnClick="btnSono_Click" />
+                        <asp:Button class="btn_sono" runat="server" Text="Respiratoire" ID="btnSono" Style="margin-left: 1%; margin-top: 20%; width: 50%" OnClientClick="GetCanva();" OnClick="btnSono_Click" />
                     </div>
                 </div>
             </div>

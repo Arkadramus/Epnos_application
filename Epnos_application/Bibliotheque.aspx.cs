@@ -53,7 +53,7 @@ namespace Epnos_application
             
                 ArrayList values = new ArrayList();
 
-                List<string> dirs = new List<string>(Directory.EnumerateFiles("C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Edf"));
+                List<string> dirs = new List<string>(Directory.EnumerateFiles("C:\\Users\\Alexis_portable\\Documents\\Projet_S10\\EDF file\\"));
                 hiddenField_paths.Value = "";
                 foreach (var file in dirs)
                 {
