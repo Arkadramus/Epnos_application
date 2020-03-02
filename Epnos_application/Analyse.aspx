@@ -1111,7 +1111,7 @@
         </header>
         <section class="Fond_page">
             <div class="Head_option">
-                <div style="height: 15vh; width: 30%; margin-left: 3%; margin-bottom: 1%; display: inline-block">
+                <div style="height: 28vh; width: 40%; margin-left: 3%; margin-bottom: 1%; display: inline-block">
                     <div class="Div_Info">
                         <asp:ImageButton runat="server" ID="imgPedro" ImageUrl="img/alpaga.jpg" Height="75px" Width="150px" Visible="false" OnClick="imgPedro_Click" />
                         <asp:Label runat="server" ID="lbl_pedro" Text="Pedro" Font-Size="12px" Visible="false"></asp:Label>
@@ -1204,7 +1204,12 @@
                         </asp:UpdatePanel>
                     </div>
                 </div>
-                <div id="graphHypno" style="height: 15vh; width: 40%; margin-bottom: 1%; display: inline-block"></div>
+                
+                <div class="Div_Hypno">                  
+                    <asp:Label runat="server" Text="bite" Style="  padding-top:7.5%;"></asp:Label>
+                    <div id="graphHypno" Style="display:inline-block; height: 15vh; width: 100%; margin-bottom: 1%;"></div>
+                </div>
+               
                 <div style="margin-right: 3%; height: 15vh; width: 20%; display: inline-block; float: right;">
                     <div style="display: flex; height: 50%;">
                         <asp:Button class="btns" runat="server" Text="Capturer l'écran" ID="btn_CaptEcran" Style="margin-left: 1%; margin-bottom: 10%; width: 50%" OnClick="btn_CaptEcran_Click" />
@@ -1212,7 +1217,7 @@
                     </div>
                     <div style="display: flex; height: 65%;">
                         <asp:Button class="btn_sono" runat="server" Text="Neurologie" ID="btnNeuro" Style="margin-left: 1%; margin-top: 20%; width: 50%" OnClientClick="GetCanva();" OnClick="btnNeuro_Click" />
-                        <asp:Button class="btn_sono" runat="server" Text="Sonore" ID="btnSono" Style="margin-left: 1%; margin-top: 20%; width: 50%" OnClientClick="GetCanva();" OnClick="btnSono_Click" />
+                        <asp:Button class="btn_sono" runat="server" Text="Respiratoire" ID="btnSono" Style="margin-left: 1%; margin-top: 20%; width: 50%" OnClientClick="GetCanva();" OnClick="btnSono_Click" />
                     </div>
                 </div>
             </div>
