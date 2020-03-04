@@ -445,9 +445,6 @@
                                 return v + ' ms';  // controls formatting of the x-axis labels
                             },
                         },
-                        y: {
-                            
-                        }
                     },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
@@ -466,7 +463,6 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS1 = canvas;
-                                    highlight(canvasS1, area, g, CanvS1)
                                     Highlight(canvasS1, area, g, CanvS1);
                                 }
                             });
@@ -487,9 +483,6 @@
                                 return v + ' ms';  // controls formatting of the x-axis labels
                             },
                         },
-                        y: {
-                           
-                        }
                     },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
@@ -527,9 +520,6 @@
                                 return v + ' ms';  // controls formatting of the x-axis labels
                             },
                         },
-                        y: {
-                          
-                        }
                     },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
@@ -567,9 +557,6 @@
                                 return v + ' ms';  // controls formatting of the x-axis labels
                             },
                         },
-                        y: {
-
-                        }
                     },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
@@ -607,9 +594,6 @@
                                 return v + ' ms';  // controls formatting of the x-axis labels
                             },
                         },
-                        y: {
-                           
-                        }
                     },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
@@ -647,9 +631,6 @@
                                 return v + ' ms';  // controls formatting of the x-axis labels
                             },
                         },
-                        y: {
-                          
-                        }
                     },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
@@ -687,9 +668,6 @@
                                 return v + ' ms';  // controls formatting of the x-axis labels
                             },
                         },
-                        y: {
-                            
-                        }
                     },
                     showRangeSelector: true,
                     rangeSelectorHeight: rangeHeight,
