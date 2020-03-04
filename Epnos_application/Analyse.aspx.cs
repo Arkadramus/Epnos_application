@@ -591,9 +591,6 @@ namespace Epnos_application
             }
             return y;
         }
-
-       
-
         #endregion
     }
 }
