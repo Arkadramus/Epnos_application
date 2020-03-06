@@ -238,12 +238,17 @@
                 indEtat = -3;
             else if (e.key == "5")
                 indEtat = -4;
-            if (dataHypno[iDataRange] == null)//On ajoute s'il n' y a pas de valeur
+            if (dataHypno[iDataRange * 2] == null)//On ajoute s'il n' y a pas de valeur, comme on ajoute 2 valeurs on fait *2
+            {
                 dataHypno.push([iDataRange, indEtat]);
+                dataHypno.push([iDataRange + 1, indEtat]);
+            }
             else//Sinon on remplace
-                dataHypno.splice(iDataRange, 1, [iDataRange, indEtat]);
+            {
+                dataHypno.splice(iDataRange * 2, 1, [iDataRange, indEtat]);
+                dataHypno.splice(iDataRange * 2 + 1, 1, [iDataRange + 1, indEtat]);
+            }
             h.updateOptions({ 'file': dataHypno });
-            //}
         }
 
         function Undo(divGraph) {
@@ -880,8 +885,13 @@
                 axes: {
                     y: {
                         ticker: function (min, max, pixels, opts, graph, val) {
-                            return [{ v: 0, label: "" }, { v: -1, label: "SP" }, { v: -2, label: "N1" }, { v: -3, label: "N2" }, { v: -4, label: "N3" }];
+                            return [{ v: 0, label: "Aw" }, { v: -1, label: "SP" }, { v: -2, label: "N1" }, { v: -3, label: "N2" }, { v: -4, label: "N3" }];
                         },
+                    },
+                    x: {
+                        axisLabelFormatter: function (v) {
+                            return v * dataRange / 60000 + ' mn';
+                        }
                     }
                 },
             });
