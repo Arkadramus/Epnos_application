@@ -12,7 +12,7 @@ using EDF = SharpLib.EuropeanDataFormat;
 
 namespace Epnos_application
 {
- 
+
     public partial class Bibliotèque : System.Web.UI.Page
     {
         /// <summary>
@@ -29,18 +29,18 @@ namespace Epnos_application
                 {
                     try
                     {
-                        
+
                         Fill_Table();
-            i = Parametres.BoucleLoad;
+                        i = Parametres.BoucleLoad;
                     }
                     catch (Exception ex)
                     {
                         i++;
-                        if (i >= Parametres.BoucleLoad)
-                            Response.Redirect("https://www.youtube.com/watch?v=4N3N1MlvVc4");
+                        //if (i >= Parametres.BoucleLoad)
+                            //Response.Redirect("https://www.youtube.com/watch?v=4N3N1MlvVc4");
                     }
                 }
-                
+
             }
 
         }
@@ -50,30 +50,30 @@ namespace Epnos_application
         /// </summary>
         protected void Fill_Table()
         {
-            
-                ArrayList values = new ArrayList();
 
-                List<string> dirs = new List<string>(Directory.EnumerateFiles("C:\\Users\\Alexis_portable\\Documents\\Projet_S10\\EDF file\\"));
-                hiddenField_paths.Value = "";
-                foreach (var file in dirs)
-                {
-                    hiddenField_paths.Value = hiddenField_paths.Value + " "+ file ;
-                    var edfFile = new EDF.File(file);
-                    var edfHeader = edfFile.Header;
-                    var idPatient = edfHeader.PatientID;
-                    var dateRecord = edfHeader.RecordingStartDate;
-                    var timeRecord = edfHeader.RecordingStartTime;
-                    var durationRecord = edfHeader.RecordDurationInSeconds;
-                    var numberOfDataRecord = edfHeader.RecordCount;
+            ArrayList values = new ArrayList();
 
-                    values.Add(new PositionData(idPatient.Value, dateRecord.Value + " | " + timeRecord.Value, (durationRecord.Value * numberOfDataRecord.Value / 3600).ToString(), "", "", ""));
+            List<string> dirs = new List<string>(Directory.EnumerateFiles("C:\\Users\\Alexis_portable\\Documents\\Projet_S10\\EDF file\\"));
+            hiddenField_paths.Value = "";
+            foreach (var file in dirs)
+            {
+                hiddenField_paths.Value = hiddenField_paths.Value + " " + file;
+                var edfFile = new EDF.File(file);
+                var edfHeader = edfFile.Header;
+                var idPatient = edfHeader.PatientID;
+                var dateRecord = edfHeader.RecordingStartDate;
+                var timeRecord = edfHeader.RecordingStartTime;
+                var durationRecord = edfHeader.RecordDurationInSeconds;
+                var numberOfDataRecord = edfHeader.RecordCount;
+
+                values.Add(new PositionData(idPatient.Value, dateRecord.Value + " | " + timeRecord.Value, (durationRecord.Value * numberOfDataRecord.Value / 3600).ToString(), "", "", ""));
 
 
-                    Repeater1.DataSource = values;
-                    Repeater1.DataBind();
-                }
+                Repeater1.DataSource = values;
+                Repeater1.DataBind();
+            }
 
-            
+
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Epnos_application
         /// <param name="e"></param>
         protected void Repeater1_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-         
+
             int ind = 0;
             foreach (RepeaterItem item2 in Repeater1.Items)
             {
@@ -91,7 +91,7 @@ namespace Epnos_application
                 LinkButton linkbutton = (LinkButton)item2.FindControl("LinkButton1");
                 if (ind == Repeater1.Items[e.Item.ItemIndex].ItemIndex)
                 {
-                    
+
                     tr.Attributes.Add("style", "background-color:grey; color:white;");
                     linkbutton.ForeColor = System.Drawing.Color.White;
                     hiddenField_ind.Value = Repeater1.Items[e.Item.ItemIndex].ItemIndex.ToString();
@@ -100,10 +100,10 @@ namespace Epnos_application
                 {
                     tr.Attributes.Add("style", "background-color:White;");
                     linkbutton.ForeColor = System.Drawing.Color.Black;
-                    
+
                 }
                 ind++;
-                
+
             }
         }
 
@@ -164,14 +164,14 @@ namespace Epnos_application
             int ind = 0;
 
             foreach (RepeaterItem item2 in Repeater1.Items)
-            {         
+            {
                 LinkButton linkbutton = (LinkButton)item2.FindControl("LinkButton1");
-               
+
                 if (linkbutton.Text.ToLower().Contains(searchText.ToLower()))
-                {                   
-                    dirs.Add(listPaths[ind+1]);                   
+                {
+                    dirs.Add(listPaths[ind + 1]);
                 }
-                ind++;              
+                ind++;
             }
 
             hiddenField_paths.Value = "";
@@ -195,7 +195,7 @@ namespace Epnos_application
 
         }
 
-        
+
     }
 
     /// <summary>
@@ -270,5 +270,5 @@ namespace Epnos_application
         }
     }
 
-    
+
 }

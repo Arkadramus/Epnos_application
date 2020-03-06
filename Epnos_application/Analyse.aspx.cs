@@ -95,12 +95,6 @@ namespace Epnos_application
 
         private void InitSignal()
         {
-            String[] Group1 = { "F4-M1", "F3-M2", "C4-M1", "C3-M2", "O2-M1", "O1-M2" };
-            GroupSignals(Group1, "Group1");
-
-            String[] Group2 = { "1-2", "1-F" };
-            GroupSignals(Group2, "Group2");
-
             int i = 0;
             while (i < Parametres.BoucleLoad) //On tente l'ouverture plusieurs fois jusqu'à ce qu'il n'y ait plus de OOM
             {
@@ -114,7 +108,7 @@ namespace Epnos_application
                     //ReadSignal("F3-M2");
                     //ReadSignal("C4-M1");
                     //ReadSignal("C3-M2");
-                    //ReadSignal("O2-M1");
+                    //ReadSignal("O2-M1");    
                     //ReadSignal("O1-M2");
                     //ReadSignal("1-2");
                     //ReadSignal("1-F");
@@ -128,6 +122,12 @@ namespace Epnos_application
                     //ReadSignal("spO2B-B");
                     //ReadSignal("InductanceThora");
                     //ReadSignal("InductanceAbdom");
+
+                    //String[] Group1 = { "F4-M1", "F3-M2", "C4-M1", "C3-M2", "O2-M1", "O1-M2" };
+                    //GroupSignals(Group1, "Group1");
+
+                    //String[] Group2 = { "1-2", "1-F" };
+                    //GroupSignals(Group2, "Group2");
                 }
                 catch (Exception e)
                 {
@@ -518,6 +518,7 @@ namespace Epnos_application
             for (int i = 1; i < 13; i++) { hdnFiltre.Value += ";" + tab[i]; }
             traceGraph();
         }
+
         protected void filter(String file, String filter, int fc)
         {
             String pathFile = Parametres.pathCSV + file + ".csv";
