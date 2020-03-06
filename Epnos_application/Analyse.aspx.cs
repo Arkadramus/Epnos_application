@@ -325,21 +325,21 @@ namespace Epnos_application
           
             for (int i = 0; i < ListData[0].Count(); i++)
             {
-                int offset = 0;
+                int offset = 1;
                 String ligne = "";
                 bool condFirst = true;
                 for (int j = 0; j< ListData.Count(); j++)
                 {
                     if(condFirst)
                     {
-                        ligne += (ListData[j][i]+offset).ToString();
+                        ligne += (ListData[j][i]).ToString();
                         condFirst = false;
                     }
                     else
                     {
-                        ligne += "," + (ListData[j][i] + offset).ToString();
+                        ligne += "," + (ListData[j][i]+ offset).ToString();
                     }
-                    offset += 100000;
+                    offset += 4000;
                 }
                 ligne += "\n";    
                 csv.Append(ligne);               
@@ -382,6 +382,21 @@ namespace Epnos_application
             btnSono.BackColor = ColorTranslator.FromHtml("#00456f");
             btnSono.ForeColor = Color.White;
             InitDDLNeuro();
+            lblScoreColor.Visible = false;
+            DDLScoring.Visible = false;
+            DDLHypno.Visible = false;
+            DDLColor.Visible = true;
+            lblGraphColor.Visible = true;
+            DDLType.Visible = true;
+            DDLGraphNameColor.Visible = true;
+            btnApplyChange.Visible = true;
+            lblHypno.Visible = true;
+            foreach (RepeaterItem item in rptNeuro.Items)
+            {
+                ImageButton btn = (ImageButton)item.FindControl("btnUndo");
+                btn.Visible = false;
+            }
+
         }
 
         protected void btnSono_Click(object sender, EventArgs e)
@@ -393,6 +408,20 @@ namespace Epnos_application
             btnSono.BackColor = Color.White;
             btnSono.ForeColor = ColorTranslator.FromHtml("#00456f");
             InitDDLRespi();
+            lblScoreColor.Visible = true;
+            DDLScoring.Visible = true;
+            DDLHypno.Visible = false;
+            DDLColor.Visible = true;
+            lblGraphColor.Visible = true;
+            DDLType.Visible = true;
+            DDLGraphNameColor.Visible = true;
+            btnApplyChange.Visible = true;
+            lblHypno.Visible = false ;
+            foreach (RepeaterItem item in rptNeuro.Items)
+            {
+                ImageButton btn = (ImageButton)item.FindControl("btnUndo");
+                btn.Visible = true;
+            }
         }
 
         protected void rptNeuro_ItemCommand(object source, RepeaterCommandEventArgs e)

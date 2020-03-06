@@ -59,8 +59,8 @@
             var CanvS5 = new Canva();
             var CanvS6 = new Canva();
             var CanvS7 = new Canva();
-           
-            var canvasS1, canvasS2, canvasS3, canvasS4, canvasS5, canvasS6, canvasS7= 1;
+
+            var canvasS1, canvasS2, canvasS3, canvasS4, canvasS5, canvasS6, canvasS7 = 1;
         }
 
         function GetCanva() {
@@ -68,8 +68,8 @@
             var hfValue = document.getElementById("hfCanva").value;
 
             if (!(hfValue === "") && hfValue)
-                res = hfValue;       
-            if (document.getElementById("btnNeuro").style.backgroundColor == "white") {             
+                res = hfValue;
+            if (document.getElementById("btnNeuro").style.backgroundColor == "white") {
             } else {
                 if (!CanvS1.IsEmpty())
                     res += "s01" + CanvS1.min + "/" + CanvS1.max + "/" + CanvS1.color + ";";
@@ -85,7 +85,7 @@
                     res += "s06" + CanvS6.min + "/" + CanvS6.max + "/" + CanvS6.color + ";";
                 if (!CanvS7.IsEmpty())
                     res += "s07" + CanvS7.min + "/" + CanvS7.max + "/" + CanvS7.color + ";";
-               
+
             }
             document.getElementById("hfCanva").value = res;
         }
@@ -100,7 +100,7 @@
                             var min = element.substring(3).split('/')[0].split(',');
                             var max = element.substring(3).split('/')[1].split(',');
                             var color = element.substring(3).split('/')[2].split(',');
-                            switch (element.substring(0, 3)) {                            
+                            switch (element.substring(0, 3)) {
                                 case "s01":
                                     CanvS1.min = min;
                                     CanvS1.max = max;
@@ -170,7 +170,7 @@
             n04.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
             n05.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
             n06.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
-            n07.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
+
 
             return false;
         }
@@ -223,10 +223,25 @@
             return color;
         }
 
-        function AddDataHypno() {
-            var indEtat = parseInt(document.getElementById("DDLHypno").options[document.getElementById("DDLHypno").selectedIndex].value);
-            //if (dataHypno.length == iDataRange) {
-            dataHypno.push([iDataRange, indEtat]);
+        document.addEventListener('keypress', AddDataHypno);
+
+        function AddDataHypno(e) {
+            var indEtat = 0;
+            // indEtat = parseInt(document.getElementById("DDLHypno").options[document.getElementById("DDLHypno").selectedIndex].value);
+            if (e.key == "1")
+                indEtat = 0;
+            else if (e.key == "2")
+                indEtat = -1;
+            else if (e.key == "3")
+                indEtat = -2;
+            else if (e.key == "4")
+                indEtat = -3;
+            else if (e.key == "5")
+                indEtat = -4;
+            if (dataHypno[iDataRange] == null)//On ajoute s'il n' y a pas de valeur
+                dataHypno.push([iDataRange, indEtat]);
+            else//Sinon on remplace
+                dataHypno.splice(iDataRange, 1, [iDataRange, indEtat]);
             h.updateOptions({ 'file': dataHypno });
             //}
         }
@@ -446,7 +461,7 @@
                             },
                         },
                         y: {
-                            
+
                         }
                     },
                     showRangeSelector: true,
@@ -466,7 +481,6 @@
                             this.updateOptions({
                                 underlayCallback: function (canvas, area, g) {
                                     canvasS1 = canvas;
-                                    highlight(canvasS1, area, g, CanvS1)
                                     Highlight(canvasS1, area, g, CanvS1);
                                 }
                             });
@@ -475,7 +489,7 @@
                     colors: [colorSets[12]],
                     fillGraph: parseInt(colorSets[31])
                 });
-            
+
 
             s2 = new Dygraph(
                 document.getElementById("SnoringS"),
@@ -488,7 +502,7 @@
                             },
                         },
                         y: {
-                           
+
                         }
                     },
                     showRangeSelector: true,
@@ -528,7 +542,7 @@
                             },
                         },
                         y: {
-                          
+
                         }
                     },
                     showRangeSelector: true,
@@ -608,7 +622,7 @@
                             },
                         },
                         y: {
-                           
+
                         }
                     },
                     showRangeSelector: true,
@@ -648,7 +662,7 @@
                             },
                         },
                         y: {
-                          
+
                         }
                     },
                     showRangeSelector: true,
@@ -688,7 +702,7 @@
                             },
                         },
                         y: {
-                            
+
                         }
                     },
                     showRangeSelector: true,
@@ -715,7 +729,7 @@
                     },
                     colors: [colorSets[18]],
                     fillGraph: parseInt(colorSets[37])
-                });          
+                });
         }
 
         function ChangeColor() {
@@ -734,18 +748,16 @@
             var tab = window.name;
             tab = tab.split(",");
 
-            for (var i = 0; i < 38; i++)
-            {
-                if (tab[i] != "")
-                {
+            for (var i = 0; i < 38; i++) {
+                if (tab[i] != "") {
                     colorSets[i] = tab[i]
                 }
             }
-            
+
             switch (graphName) {
-                case "E1-M1":   
+                case "E1-M1":
                     colorSets[0] = colorAvailable[indColor];
-                    if (type == "1") { colorSets[19] = ['1'];}
+                    if (type == "1") { colorSets[19] = ['1']; }
                     window.name = colorSets;
                     n01.updateOptions({ colors: [colorAvailable[indColor]], fillGraph: parseInt(colorSets[19]) });
                     break;
@@ -822,8 +834,7 @@
                     break;
                 case "Snoring":
                     colorSets[13] = colorAvailable[indColor];
-                    colorSets[0] = colorAvailable[indColor];
-                    if (type == "1") { colorSets[32] = ['1']; colorSets[18] = ['1']; }
+                    if (type == "1") { colorSets[32] = ['1'];  }
                     s2.updateOptions({ colors: [colorAvailable[indColor]], fillGraph: parseInt(colorSets[32]) });
                     window.name = colorSets;
                     break;
@@ -843,35 +854,37 @@
                     colorSets[16] = colorAvailable[indColor];
                     if (type == "1") { colorSets[35] = ['1']; }
                     window.name = colorSets;
-                    s2.updateOptions({ colors: [colorAvailable[indColor]], fillGraph: parseInt(colorSets[35]) });
+                    s5.updateOptions({ colors: [colorAvailable[indColor]], fillGraph: parseInt(colorSets[35]) });
                     break;
                 case "InductanceThora":
                     colorSets[17] = colorAvailable[indColor];
                     if (type == "1") { colorSets[36] = ['1']; }
                     window.name = colorSets;
-                    s2.updateOptions({ colors: [colorAvailable[indColor]], fillGraph: parseInt(colorSets[36]) });
+                    s6.updateOptions({ colors: [colorAvailable[indColor]], fillGraph: parseInt(colorSets[36]) });
                     break;
                 case "InductanceAbdom":
                     colorSets[18] = colorAvailable[indColor];
                     if (type == "1") { colorSets[37] = ['1']; }
                     window.name = colorSets;
-                    s2.updateOptions({ colors: [colorAvailable[indColor]], fillGraph: parseInt(colorSets[37]) });
+                    s7.updateOptions({ colors: [colorAvailable[indColor]], fillGraph: parseInt(colorSets[37]) });
                     break;
             }
             return false;
         }
 
         function Neuro() {
-             h = new Dygraph(document.getElementById("graphHypno"), dataHypno, {
+            h = new Dygraph(document.getElementById("graphHypno"), dataHypno, {
                 showLabelsOnHighlight: false,
                 drawPoints: true,
-                axes: {              
-                        y: {
-                            ticker: function (mimn, max, pixels, opts, grpah, val) {
-                                return [{ v: 0, label: "Aw" }, { v: -1, label: "SP" }, { v: -2, label: "N1" }, { v: -3, label: "N2" }, { v: -4, label: "N3" }];
-                            },
-                        }
-                    }, });
+                dateWindow: [0, 50],
+                axes: {
+                    y: {
+                        ticker: function (min, max, pixels, opts, graph, val) {
+                            return [{ v: 0, label: "" }, { v: -1, label: "SP" }, { v: -2, label: "N1" }, { v: -3, label: "N2" }, { v: -4, label: "N3" }];
+                        },
+                    }
+                },
+            });
             var colorSets = [['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0']];
             var tab = window.name;
 
@@ -900,14 +913,14 @@
                             },
                         },
                         y: {
-                           
+
                         },
                     },
                     showRangeSelector: false,
                     rangeSelectorHeight: rangeHeight,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
-                    zoomCallback: function (minTime, maxTime, yRanges) {            
+                    zoomCallback: function (minTime, maxTime, yRanges) {
                         this.updateOptions({ dateWindow: [0, dataRange], });
                     },
                     colors: [colorSets[0]],
@@ -925,7 +938,7 @@
                             },
                         },
                         y: {
-                           
+
 
                         },
                     },
@@ -982,7 +995,7 @@
                             },
                         },
                         y: {
-                           
+
                         },
                     },
                     showRangeSelector: false,
@@ -1048,10 +1061,10 @@
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
-                         this.updateOptions({ dateWindow: [0, dataRange], });
+                        this.updateOptions({ dateWindow: [0, dataRange], });
                     },
                 });
-            
+
             n05 = new Dygraph(
                 document.getElementById("ECG"),
                 tabCSV[4], {
@@ -1063,7 +1076,7 @@
                             },
                         },
                         y: {
-                           
+
                         },
                     },
                     showRangeSelector: false,
@@ -1088,7 +1101,7 @@
                             },
                         },
                         y: {
-                            
+
                         },
                     },
                     showRangeSelector: false,
@@ -1100,9 +1113,9 @@
                     },
                     colors: [colorSets[11]],
                     fillGraph: parseInt(colorSets[30])
-                });                
+                });
         }
-   </script>
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -1111,125 +1124,141 @@
         </header>
         <section class="Fond_page">
             <div class="Head_option">
-                <div style="height: 28vh; width: 40%; margin-left: 3%; margin-bottom: 1%; display: inline-block">
-                    <div class="Div_Info">
-                        <asp:ImageButton runat="server" ID="imgPedro" ImageUrl="img/alpaga.jpg" Height="75px" Width="150px" Visible="false" OnClick="imgPedro_Click" />
-                        <asp:Label runat="server" ID="lbl_pedro" Text="Pedro" Font-Size="12px" Visible="false"></asp:Label>
-                        <asp:Label runat="server" ID="lblInfo" Font-Bold="true" Text="Information du patient" Style=" color: black; font-size: 20px;"></asp:Label>
-                        <br /> <br /> 
-                        <asp:Label runat="server" ID="lblDoctorIdentity" Text="Médecin :" Style="color:black;font-size:15px;"></asp:Label>
-                        <br /> <br /> 
-                        <asp:Label runat="server" ID="lblDoctorCoord" Text="Coordonnées :" Style="color:black;font-size:15px;"></asp:Label>
-                        <br /> <br /> 
-                        <asp:Label runat="server" ID="lblNumPatient" Text="Numéro du patient : "  Style="color:black;font-size:15px;"></asp:Label>
-                        <br /> <br /> 
-                        <asp:Label runat="server" ID="lblTaille" Text="Taille :" Style="color:black;font-size:15px;"></asp:Label>
-                        <br /><br /> 
-                        <asp:Label runat="server" ID="lblPoids" Text="Poids :" Style="color:black;font-size:15px;"></asp:Label>
-                        <br /><br /> 
-                        <asp:Label runat="server" ID="lblAge" Text="Âge :" Style="color:black;font-size:15px;"></asp:Label>
-                        <br /><br /> 
-                        <asp:Label runat="server" ID="lblNote" Text="Note :" Style="color:black;font-size:15px;"></asp:Label>
-                        <br /><br /> 
-                        <%--<asp:Button runat="server" ID="btnTest" Text="Fin de projet" OnClick="btnTest_Click" />--%>
-                    </div>
-                    <div class="Div_param">
-                         <asp:ScriptManager ID="ScriptManager2" runat="server" />
-                        <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
-                            <ContentTemplate>
-                        <asp:Label runat="server" Text="Couleur des graphes" Style="margin-left: 5%;"></asp:Label>
-                        <br />
-                        <asp:Label runat="server" Text="" Style="margin-left: 5%;"></asp:Label>
-                        <asp:DropDownList ID="DDLColor" AutoPostBack="True" runat="server" >
-                            <asp:ListItem id="selected" Selected="True" Value="0" style="background-color: #000000; color: white;"> Noir </asp:ListItem>
-                            <asp:ListItem Value="1" style="background-color: #FF0000;"> Rouge </asp:ListItem>
-                            <asp:ListItem Value="2" style="background-color: #FFA500;"> Orange </asp:ListItem>
-                            <asp:ListItem Value="3" style="background-color: #FFFF00;"> Jaune </asp:ListItem>
-                            <asp:ListItem Value="4" style="background-color: #00FF00;"> Vert </asp:ListItem>
-                            <asp:ListItem Value="5" style="background-color: #00008B;"> Bleu </asp:ListItem>
-                            <asp:ListItem Value="6" style="background-color: #00BFFF;"> Cyan </asp:ListItem>
-                            <asp:ListItem Value="7" style="background-color: #9400D3;"> Violet </asp:ListItem>
-                            <asp:ListItem Value="8" style="background-color: #FF1493;"> Rose </asp:ListItem>
-                            <asp:ListItem Value="9" style="background-color: #8B4513;"> Marron </asp:ListItem>
-                        </asp:DropDownList>
-                        <asp:DropDownList ID="DDLType" AutoPostBack="True" runat="server" >
-                            <asp:ListItem Selected="True" Value="0"> Vide </asp:ListItem>
-                            <asp:ListItem Value="1"> Plein </asp:ListItem>                      
-                        </asp:DropDownList>
-                        <asp:DropDownList ID="DDLGraphNameColor" AutoPostBack="True" runat="server" >
-                        </asp:DropDownList>
-                        <asp:Button runat="server" Text="Appliquer" ID="btnApplyChange" OnClientClick=" return ChangeColor()" />
-                                <br /><br />
-                                <asp:Label runat="server" Text="Couleur des scoring" Style="margin-left: 5%;"></asp:Label>
-                                <br />
-                                <asp:Label runat="server" Text="" Style="margin-left: 5%;"></asp:Label>
-                                <asp:DropDownList ID="DDLScoring" AutoPostBack="True" runat="server">
-                                    <asp:ListItem Selected="True" Value="0" style="background-color: #000000; color: white;"> Noir </asp:ListItem>
-                                    <asp:ListItem Value="1" style="background-color: #FF0000;"> Rouge </asp:ListItem>
-                                    <asp:ListItem Value="2" style="background-color: #FFA500;"> Orange </asp:ListItem>
-                                    <asp:ListItem Value="3" style="background-color: #FFFF00;"> Jaune </asp:ListItem>
-                                    <asp:ListItem Value="4" style="background-color: #00FF00;"> Vert </asp:ListItem>
-                                    <asp:ListItem Value="5" style="background-color: #00008B; color: white;"> Bleu </asp:ListItem>
-                                    <asp:ListItem Value="6" style="background-color: #00BFFF;"> Cyan </asp:ListItem>
-                                    <asp:ListItem Value="7" style="background-color: #9400D3;"> Violet </asp:ListItem>
-                                    <asp:ListItem Value="8" style="background-color: #FF1493;"> Rose </asp:ListItem>
-                                    <asp:ListItem Value="9" style="background-color: #8B4513;"> Marron </asp:ListItem>
-                                </asp:DropDownList>
-                                <br /><br />
-                        <asp:Label runat="server" Text="Filtrage" Style="margin-left:5%;"></asp:Label>
-                        <br />
-                         <asp:Label runat="server" Text="" Style="margin-left: 5%;"></asp:Label>
-                        <asp:DropDownList ID="DDLFiltre" AutoPostBack="True" runat="server">
-                            <asp:ListItem Selected="True" Value="Low" > Passe-bas </asp:ListItem>
-                            <asp:ListItem Value="High"> Passe-haut </asp:ListItem>                      
-                        </asp:DropDownList>
-                        <asp:DropDownList ID="DDLGraphNameFilter" AutoPostBack="True" runat="server" >
-                        </asp:DropDownList>
-                        <asp:TextBox ID="txtboxFiltre" runat="server" Text="Fc" Width="30px"></asp:TextBox>
-                        <asp:Button runat="server" Text="Appliquer" ID="btnFilt" OnClick="btnFilt_Click" />
-                        <asp:HiddenField runat="server" Value="" ID="hdnFiltre"  />
-                                <br />
-                                <asp:Label runat="server" Text="Hypnographe" Style="margin-left: 5%;"></asp:Label>
-                                <br />
-                                <asp:Label runat="server" Text="" Style="margin-left: 5%;"></asp:Label>
-                                <asp:DropDownList ID="DDLHypno" AutoPostBack="True" runat="server">
-                                    <asp:ListItem Selected="True" Value="0"> Eveil </asp:ListItem>
-                                    <asp:ListItem Value="-1"> Paradox </asp:ListItem>
-                                    <asp:ListItem Value="-2"> N1 </asp:ListItem>
-                                    <asp:ListItem Value="-3"> N2 </asp:ListItem>
-                                    <asp:ListItem Value="-4"> N3 </asp:ListItem>
-                                </asp:DropDownList>
-                                <asp:Button runat="server" Text="Appliquer" ID="btnHypno" OnClientClick=" return AddDataHypno()" />
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
-                    </div>
+                <div class="Div_Info">
+                    <asp:ImageButton runat="server" ID="imgPedro" ImageUrl="img/alpaga.jpg" Height="75px" Width="150px" Visible="false" OnClick="imgPedro_Click" />
+                    <asp:Label runat="server" ID="lbl_pedro" Text="Pedro" Font-Size="12px" Visible="false"></asp:Label>
+                    <asp:Label runat="server" ID="lblInfo" Font-Bold="true" Text="Information du patient" Style="color: black; font-size: 20px;"></asp:Label>
+                    <br />
+                    <br />
+                    <asp:Label runat="server" ID="lblDoctorIdentity" Text="Médecin :" Style="color: black; font-size: 15px;"></asp:Label>
+                    <br />
+                    <br />
+                    <asp:Label runat="server" ID="lblDoctorCoord" Text="Coordonnées :" Style="color: black; font-size: 15px;"></asp:Label>
+                    <br />
+                    <br />
+                    <asp:Label runat="server" ID="lblNumPatient" Text="Numéro du patient : " Style="color: black; font-size: 15px;"></asp:Label>
+                    <br />
+                    <br />
+                    <asp:Label runat="server" ID="lblTaille" Text="Taille :" Style="color: black; font-size: 15px;"></asp:Label>
+                    <br />
+                    <br />
+                    <asp:Label runat="server" ID="lblPoids" Text="Poids :" Style="color: black; font-size: 15px;"></asp:Label>
+                    <br />
+                    <br />
+                    <asp:Label runat="server" ID="lblAge" Text="Âge :" Style="color: black; font-size: 15px;"></asp:Label>
+                    <br />
+                    <br />
+                    <asp:Label runat="server" ID="lblNote" Text="Note :" Style="color: black; font-size: 15px;"></asp:Label>
+                    <br />
+                    <br />
+                    <%--<asp:Button runat="server" ID="btnTest" Text="Fin de projet" OnClick="btnTest_Click" />--%>
                 </div>
-                
-                <div class="Div_Hypno">                  
-                    <asp:Label runat="server" Text="bite" Style="  padding-top:7.5%;"></asp:Label>
-                    <div id="graphHypno" Style="display:inline-block; height: 15vh; width: 100%; margin-bottom: 1%;"></div>
+                <div class="Div_param">
+                    <asp:ScriptManager ID="ScriptManager2" runat="server" />
+                    <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <asp:Label runat="server" Text="Options graphiques" Font-Bold="true" Style="color: black; font-size: 20px; margin-left: 5%;"></asp:Label>
+                            <br />
+                            <br />
+                            <asp:Label ID="lblGraphColor" runat="server" Text="Couleur des graphes" Style="margin-left: 5%;" Visible="false"></asp:Label>
+                            <br />
+                            <asp:Label runat="server" Text="" Style="margin-left: 5%;"></asp:Label>
+                            <asp:DropDownList ID="DDLColor" AutoPostBack="True" runat="server" Visible="false">
+                                <asp:ListItem id="selected" Selected="True" Value="0" style="background-color: #000000; color: white;"> Noir </asp:ListItem>
+                                <asp:ListItem Value="1" style="background-color: #FF0000;"> Rouge </asp:ListItem>
+                                <asp:ListItem Value="2" style="background-color: #FFA500;"> Orange </asp:ListItem>
+                                <asp:ListItem Value="3" style="background-color: #FFFF00;"> Jaune </asp:ListItem>
+                                <asp:ListItem Value="4" style="background-color: #00FF00;"> Vert </asp:ListItem>
+                                <asp:ListItem Value="5" style="background-color: #00008B;"> Bleu </asp:ListItem>
+                                <asp:ListItem Value="6" style="background-color: #00BFFF;"> Cyan </asp:ListItem>
+                                <asp:ListItem Value="7" style="background-color: #9400D3;"> Violet </asp:ListItem>
+                                <asp:ListItem Value="8" style="background-color: #FF1493;"> Rose </asp:ListItem>
+                                <asp:ListItem Value="9" style="background-color: #8B4513;"> Marron </asp:ListItem>
+                            </asp:DropDownList>
+                            <asp:DropDownList ID="DDLType" AutoPostBack="True" runat="server" Visible="false">
+                                <asp:ListItem Selected="True" Value="0"> Vide </asp:ListItem>
+                                <asp:ListItem Value="1"> Plein </asp:ListItem>
+                            </asp:DropDownList>
+                            <asp:DropDownList ID="DDLGraphNameColor" AutoPostBack="True" runat="server" Visible="false">
+                            </asp:DropDownList>
+                            <asp:Button runat="server" Text="Appliquer" ID="btnApplyChange" OnClientClick=" return ChangeColor()" Visible="false" />
+                            <br />
+                            <br />
+                            <asp:Label ID="lblScoreColor" runat="server" Text="Couleur des scoring" Style="margin-left: 5%;" Visible="false"></asp:Label>
+                            <br />
+                            <asp:Label runat="server" Text="" Style="margin-left: 5%;"></asp:Label>
+                            <asp:DropDownList ID="DDLScoring" AutoPostBack="True" runat="server" Visible="false">
+                                <asp:ListItem Selected="True" Value="0" style="background-color: #000000; color: white;"> Noir </asp:ListItem>
+                                <asp:ListItem Value="1" style="background-color: #FF0000;"> Rouge </asp:ListItem>
+                                <asp:ListItem Value="2" style="background-color: #FFA500;"> Orange </asp:ListItem>
+                                <asp:ListItem Value="3" style="background-color: #FFFF00;"> Jaune </asp:ListItem>
+                                <asp:ListItem Value="4" style="background-color: #00FF00;"> Vert </asp:ListItem>
+                                <asp:ListItem Value="5" style="background-color: #00008B; color: white;"> Bleu </asp:ListItem>
+                                <asp:ListItem Value="6" style="background-color: #00BFFF;"> Cyan </asp:ListItem>
+                                <asp:ListItem Value="7" style="background-color: #9400D3;"> Violet </asp:ListItem>
+                                <asp:ListItem Value="8" style="background-color: #FF1493;"> Rose </asp:ListItem>
+                                <asp:ListItem Value="9" style="background-color: #8B4513;"> Marron </asp:ListItem>
+                            </asp:DropDownList>
+                            <br />
+                            <br />
+                            <asp:Label runat="server" Text="Filtrage" Style="margin-left: 5%;" Visible="false"></asp:Label>
+                            <br />
+                            <asp:Label runat="server" Text="" Style="margin-left: 5%;" Visible="false"></asp:Label>
+                            <asp:DropDownList ID="DDLFiltre" AutoPostBack="True" runat="server" Visible="false">
+                                <asp:ListItem Selected="True" Value="Low"> Passe-bas </asp:ListItem>
+                                <asp:ListItem Value="High"> Passe-haut </asp:ListItem>
+                            </asp:DropDownList>
+                            <asp:DropDownList ID="DDLGraphNameFilter" AutoPostBack="True" runat="server" Visible="false">
+                            </asp:DropDownList>
+                            <asp:TextBox ID="txtboxFiltre" runat="server" Text="Fc" Width="30px" Visible="false"></asp:TextBox>
+                            <asp:Button runat="server" Text="Appliquer" ID="btnFilt" OnClick="btnFilt_Click" Visible="false" />
+                            <asp:HiddenField runat="server" Value="" ID="hdnFiltre" />
+                            <br />
+                            <br />
+                            <asp:Label runat="server" Text="Hypnographe" Style="margin-left: 5%;" Visible="false"></asp:Label>
+                            <br />
+                            <asp:Label runat="server" Text="" Style="margin-left: 5%;" Visible="false"></asp:Label>
+                            <asp:DropDownList ID="DDLHypno" AutoPostBack="True" runat="server" Visible="false">
+                                <asp:ListItem Selected="True" Value="0"> Eveil </asp:ListItem>
+                                <asp:ListItem Value="-1"> Paradox </asp:ListItem>
+                                <asp:ListItem Value="-2"> N1 </asp:ListItem>
+                                <asp:ListItem Value="-3"> N2 </asp:ListItem>
+                                <asp:ListItem Value="-4"> N3 </asp:ListItem>
+                            </asp:DropDownList>
+                            <asp:Button runat="server" Text="Appliquer" ID="btnHypno" OnClientClick=" return AddDataHypno()" Visible="false" />
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
                 </div>
-               
-                <div style="margin-right: 3%; height: 15vh; width: 20%; display: inline-block; float: right;">
-                    <div style="display: flex; height: 50%;">
-                        <asp:Button class="btns" runat="server" Text="Capturer l'écran" ID="btn_CaptEcran" Style="margin-left: 1%; margin-bottom: 10%; width: 50%" OnClick="btn_CaptEcran_Click" />
-                        <asp:Button class="btns" runat="server" Text="Voir les captures" ID="btn_VoirCapt" Style="margin-left: 1%; margin-bottom: 10%; width: 50%" OnClick="btn_VoirCapt_Click" />
+
+                <div class="Div_Hypno">
+
+                    <asp:Label ID="lblHypno" runat="server" Text="Hypnogramme" Font-Bold="true" Style="color: black; font-size: 20px; margin-left: 5%; padding-top: 7.5%;" Visible="false"></asp:Label>
+                    <div id="graphHypno" style="display: inline-block; height: 20vh; width: 100%; margin-bottom: 1%; margin-top: 5%;"></div>
+                </div>
+                <div style="margin-right: 3%; height: 28vh; width: 20%; display: inline-block; float: right; padding-top: 2%;">
+                    <div style="display: flex;">
+                        <asp:Button class="btns" runat="server" Text="Capturer l'écran" ID="btn_CaptEcran" Style="margin-left: 1%; margin-bottom: 68%; width: 50%" OnClick="btn_CaptEcran_Click" />
+                        <asp:Button class="btns" runat="server" Text="Voir les captures" ID="btn_VoirCapt" Style="margin-left: 1%; margin-bottom: 68%; width: 50%" OnClick="btn_VoirCapt_Click" />
                     </div>
-                    <div style="display: flex; height: 65%;">
-                        <asp:Button class="btn_sono" runat="server" Text="Neurologie" ID="btnNeuro" Style="margin-left: 1%; margin-top: 20%; width: 50%" OnClientClick="GetCanva();" OnClick="btnNeuro_Click" />
-                        <asp:Button class="btn_sono" runat="server" Text="Respiratoire" ID="btnSono" Style="margin-left: 1%; margin-top: 20%; width: 50%" OnClientClick="GetCanva();" OnClick="btnSono_Click" />
+                    <div style="display: flex;">
+                        <asp:Button class="btn_sono" runat="server" Text="Neurologie" ID="btnNeuro" Style="margin-left: 1%; margin-bottom: 0%; width: 50%" OnClientClick="GetCanva();" OnClick="btnNeuro_Click" />
+                        <asp:Button class="btn_sono" runat="server" Text="Respiratoire" ID="btnSono" Style="margin-left: 1%; margin-bottom: 0%; width: 50%" OnClientClick="GetCanva();" OnClick="btnSono_Click" />
                     </div>
                 </div>
             </div>
             <asp:HiddenField runat="server" ID="hfCanva" />
-            <div class="Div_Graphe" style="padding-top: 2%">
+            <div class="Div_Graphe" style="padding-top: 0.5%">
                 <asp:Repeater ID="rptNeuro" OnItemCommand="rptNeuro_ItemCommand" runat="server">
                     <ItemTemplate>
                         <td>
                             <div class="labelRepeater">
-                                <asp:LinkButton ID="lbRepeater" runat="server" Style="padding-top: 5px; padding-right: 10px;" Text='<%# DataBinder.Eval(Container.DataItem,"Nom")%>'></asp:LinkButton>
-                                <asp:ImageButton runat="server" ImageUrl="img/undo32.png" Width="16px" Height="16px" ID="btnUndo" Text="Undo" Style="float: left; margin: 5px; padding-top: 15px;"
-                                    CommandArgument='<%# DataBinder.Eval(Container.DataItem,"divID")%>' OnClientClick='<%# " return Undo("+Eval("divID")+")"%>' />
+                                <div style="height: 50%; align-items: center; justify-content: center; text-align: center; vertical-align: middle; display: flex;">
+                                    <asp:Label ID="lbRepeater" runat="server" Style="color: black; padding-top: 5px; padding-right: 10px;" Text='<%# DataBinder.Eval(Container.DataItem,"Nom")%>'></asp:Label>
+                                </div>
+                                <div style="height: 50%; align-items: center; justify-content: center; text-align: center; vertical-align: middle; display: flex;">
+                                    <asp:ImageButton runat="server" ImageUrl="img/undo32.png" Width="16px" Height="16px" ID="btnUndo" Text="Undo" Style="float: left; margin: 2px; padding-top: 20px;"
+                                        CommandArgument='<%# DataBinder.Eval(Container.DataItem,"divID")%>' OnClientClick='<%# " return Undo("+Eval("divID")+")"%>' />
+                                </div>
                             </div>
                         </td>
                         <td>

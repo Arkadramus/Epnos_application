@@ -130,6 +130,15 @@ namespace Epnos_application {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
+        /// Contrôle lblGraphColor.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGraphColor;
+        
+        /// <summary>
         /// Contrôle DDLColor.
         /// </summary>
         /// <remarks>
@@ -173,6 +182,15 @@ namespace Epnos_application {
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnApplyChange;
+        
+        /// <summary>
+        /// Contrôle lblScoreColor.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblScoreColor;
         
         /// <summary>
         /// Contrôle DDLScoring.
@@ -245,6 +263,15 @@ namespace Epnos_application {
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnHypno;
+        
+        /// <summary>
+        /// Contrôle lblHypno.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblHypno;
         
         /// <summary>
         /// Contrôle btn_CaptEcran.
