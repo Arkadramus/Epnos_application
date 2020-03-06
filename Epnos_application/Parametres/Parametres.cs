@@ -38,6 +38,15 @@ namespace Epnos_application
 
         }
 
+        public static string pathScreenShot
+        {
+            get
+            {
+                return (Read("pathScreenShot", "Path"));
+            }
+
+        }
+
         public static string Temps
         {
             get

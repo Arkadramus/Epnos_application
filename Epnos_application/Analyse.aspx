@@ -171,7 +171,6 @@
             n04.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
             n05.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
             n06.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
-            n07.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange] });
 
             return false;
         }
@@ -194,10 +193,16 @@
             else if (e.key == "5")
                 indEtat = -4;
 
-            if (dataHypno[iDataRange] == null)//On ajoute s'il n' y a pas de valeur
+            if (dataHypno[iDataRange * 2] == null)//On ajoute s'il n' y a pas de valeur, comme on ajoute 2 valeurs on fait *2
+            {
                 dataHypno.push([iDataRange, indEtat]);
+                dataHypno.push([iDataRange + 1, indEtat]);
+            }
             else//Sinon on remplace
-                dataHypno.splice(iDataRange, 1, [iDataRange, indEtat]);
+            {
+                dataHypno.splice(iDataRange * 2, 1, [iDataRange, indEtat]);
+                dataHypno.splice(iDataRange * 2 + 1, 1, [iDataRange + 1, indEtat]);
+            }
             h.updateOptions({ 'file': dataHypno });
         }
 
@@ -328,106 +333,6 @@
                         underlayCallback: function (canvas, area, g) {
                             canvasS8 = canvas;
                             Highlight(canvasS8, area, g, CanvS8)
-                        }
-                    });
-                    break;
-
-                case "SnoringN":
-                    CanvS2.Pop();
-                    n01.updateOptions({
-                        underlayCallback: function (canvas, area, g) {
-                            canvasN01 = canvas;
-                            Highlight(canvasN01, area, g, CanvS2)
-                        }
-                    });
-                    break;
-
-                case "E2M1":
-                    CanvN2.Pop();
-                    n02.updateOptions({
-                        underlayCallback: function (canvas, area, g) {
-                            canvasN02 = canvas;
-                            Highlight(canvasN02, area, g, CanvN2)
-                        }
-                    });
-                    break;
-
-                case "E1M1":
-                    CanvN3.Pop();
-                    n03.updateOptions({
-                        underlayCallback: function (canvas, area, g) {
-                            canvasN03 = canvas;
-                            Highlight(canvasN03, area, g, CanvN3)
-                        }
-                    });
-                    break;
-
-                case "C3M2":
-                    CanvN4.Pop();
-                    n04.updateOptions({
-                        underlayCallback: function (canvas, area, g) {
-                            canvasN04 = canvas;
-                            Highlight(canvasN04, area, g, CanvN4)
-                        }
-                    });
-                    break;
-
-                case "F3M2":
-                    CanvN5.Pop();
-                    n05.updateOptions({
-                        underlayCallback: function (canvas, area, g) {
-                            canvasN05 = canvas;
-                            Highlight(canvasN05, area, g, CanvN5)
-                        }
-                    });
-                    break;
-
-                case "O1M2":
-                    CanvN6.Pop();
-                    n06.updateOptions({
-                        underlayCallback: function (canvas, area, g) {
-                            canvasN06 = canvas;
-                            Highlight(canvasN06, area, g, CanvN6)
-                        }
-                    });
-                    break;
-
-                case "1F":
-                    CanvN7.Pop();
-                    n07.updateOptions({
-                        underlayCallback: function (canvas, area, g) {
-                            canvasN07 = canvas;
-                            Highlight(canvasN07, area, g, CanvN7)
-                        }
-                    });
-                    break;
-
-                case "12":
-                    CanvN8.Pop();
-                    n08.updateOptions({
-                        underlayCallback: function (canvas, area, g) {
-                            canvasN08 = canvas;
-                            Highlight(canvasN08, area, g, CanvN8)
-                        }
-                    });
-                    break;
-
-                case "ECG":
-                    CanvN9.Pop();
-                    n09.updateOptions({
-                        underlayCallback: function (canvas, area, g) {
-                            canvasN09 = canvas;
-                            Highlight(canvasN09, area, g, CanvN9)
-                        }
-                    });
-                    break;
-
-                case "HeartRate":
-                    CanvN10.Pop();
-                    n10.updateOptions({
-                        underlayCallback: function (canvas, area, g) {
-                            canvasN10 = canvas;
-                            Highlight(canvasN10, area, g, CanvN10)
                         }
                     });
                     break;
@@ -863,6 +768,11 @@
                         ticker: function (min, max, pixels, opts, graph, val) {
                             return [{ v: 0, label: "Aw" }, { v: -1, label: "SP" }, { v: -2, label: "N1" }, { v: -3, label: "N2" }, { v: -4, label: "N3" }];
                         },
+                    },
+                    x: {
+                        axisLabelFormatter: function (v) {
+                            return v * dataRange / 60000 + ' mn';
+                        }
                     }
                 },
             });

@@ -205,7 +205,7 @@ namespace Epnos_application
                     valueNeuro.Add(new PositionData("E1-M1", "E1M1"));
                     valueNeuro.Add(new PositionData("E2-M1", "E2M1"));
                     valueNeuro.Add(new PositionData("F4-M1 F3-M2 \r\n C4-M1 \r\n C3-M2 \r\n O2-M1 \r\n O1-M2", "Group1"));//On ne met pas de "-" pour les div car sinon le JS n'aime pas                
-                    valueNeuro.Add(new PositionData("1-2 1-F", "Group2"));             
+                    valueNeuro.Add(new PositionData("1-2 1-F", "Group2"));
                     valueNeuro.Add(new PositionData("ECG"));
                     valueNeuro.Add(new PositionData("HeartRate"));
 
@@ -221,7 +221,7 @@ namespace Epnos_application
                     valueNeuro.Add(new PositionData("spO2B-B", "spO2BB"));
                     valueNeuro.Add(new PositionData("InductanceThora"));
                     valueNeuro.Add(new PositionData("InductanceAbdom"));
-                 
+
 
                     rptNeuro.DataSource = valueNeuro;
                     rptNeuro.DataBind();
@@ -247,7 +247,7 @@ namespace Epnos_application
                             var csv = new StringBuilder();
                             csv.Append("Time,Signal\n");
 
-                            for (int i = 0; i < nbRecord * signal1.SampleCountPerRecord.Value; i ++)
+                            for (int i = 0; i < nbRecord * signal1.SampleCountPerRecord.Value; i++)
                                 csv.Append((i * durationMS).ToString() + "," + (samples1[i] - samples2[i]).ToString() + "\n");
                             csv.Append("\n");
                             File.WriteAllText(Parametres.pathCSV + labelSignal1 + "-" + labelSignal2 + ".csv", csv.ToString());
@@ -267,7 +267,7 @@ namespace Epnos_application
                         var csv = new StringBuilder();
                         csv.Append("Time,Signal\n");
 
-                        for (int i = 0; i < nbRecord * signal.SampleCountPerRecord.Value; i ++)
+                        for (int i = 0; i < nbRecord * signal.SampleCountPerRecord.Value; i++)
                             csv.Append((i * durationMS).ToString() + "," + samples[i].ToString() + "\n");
                         csv.Append("\n");
                         File.WriteAllText(Parametres.pathCSV + labelSignal1 + ".csv", csv.ToString());
@@ -275,23 +275,23 @@ namespace Epnos_application
                 }
             }
         }
-        
+
         protected void GroupSignals(String[] labelSignals, String groupName)
         {
             bool condX = true;
             var ListData = new List<List<int>>();
-            foreach(var nameSignal in labelSignals)
+            foreach (var nameSignal in labelSignals)
             {
                 var points = new List<string>();
                 var columnX = new List<int>();
                 var columnY = new List<int>();
-                var rd = new StreamReader(Parametres.pathCSV+nameSignal +".csv");              
+                var rd = new StreamReader(Parametres.pathCSV + nameSignal + ".csv");
                 while (!rd.EndOfStream)
                 {
                     var splits = rd.ReadLine().Split('\n');
                     points.Add(splits[0]);
                 }
-               
+
                 foreach (var element in points)
                 {
                     if (!string.IsNullOrEmpty(element))
@@ -305,7 +305,7 @@ namespace Epnos_application
                         }
                     }
                 }
-                if(condX)
+                if (condX)
                 {
                     ListData.Add(columnX);
                     condX = false;
@@ -315,24 +315,24 @@ namespace Epnos_application
 
             var csv = new StringBuilder();
             String entete = "Time";
-            for(int i = 0;i<ListData.Count()-1;i++)
+            for (int i = 0; i < ListData.Count() - 1; i++)
             {
                 entete += ",Signal" + (i + 1).ToString();
             }
             entete += '\n';
             csv.Append(entete);
 
-          
+
             for (int i = 0; i < ListData[0].Count(); i++)
             {
                 int offset = 0;
                 String ligne = "";
                 bool condFirst = true;
-                for (int j = 0; j< ListData.Count(); j++)
+                for (int j = 0; j < ListData.Count(); j++)
                 {
-                    if(condFirst)
+                    if (condFirst)
                     {
-                        ligne += (ListData[j][i]+offset).ToString();
+                        ligne += (ListData[j][i] + offset).ToString();
                         condFirst = false;
                     }
                     else
@@ -341,12 +341,12 @@ namespace Epnos_application
                     }
                     offset += 100000;
                 }
-                ligne += "\n";    
-                csv.Append(ligne);               
-               
+                ligne += "\n";
+                csv.Append(ligne);
+
             }
-            File.WriteAllText(Parametres.pathCSV  + groupName + ".csv", csv.ToString());
-           
+            File.WriteAllText(Parametres.pathCSV + groupName + ".csv", csv.ToString());
+
 
 
         }
@@ -355,13 +355,16 @@ namespace Epnos_application
         #region Button
         protected void btn_CaptEcran_Click(object sender, EventArgs e)
         {
+            Screen screen = Screen.PrimaryScreen;
+            if (Screen.AllScreens.Length >= 2)
+                screen = Screen.AllScreens[Screen.AllScreens.Length - 1];
 
-            Bitmap bmp = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            Bitmap bmp = new Bitmap(screen.Bounds.Width, screen.Bounds.Height);
             using (Graphics g = Graphics.FromImage(bmp))
             {
-                g.CopyFromScreen(0, 0, 0, 0, Screen.PrimaryScreen.Bounds.Size);
+                g.CopyFromScreen(0, 0, 0, 0, screen.Bounds.Size);
                 String nameDate = DateTime.Now.Ticks.ToString();
-                bmp.Save("C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Epnos_application\\Epnos_application\\Server\\screen\\" + nameDate + "+.png");  // saves the image
+                bmp.Save(Parametres.pathScreenShot + nameDate + ".png");  // saves the image
             }
 
             traceGraph();
@@ -369,7 +372,7 @@ namespace Epnos_application
 
         protected void btn_VoirCapt_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(@"C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Epnos_application\\Epnos_application\\Server\\screen");
+            System.Diagnostics.Process.Start(Parametres.pathScreenShot);
             traceGraph();
         }
 
@@ -515,9 +518,9 @@ namespace Epnos_application
             for (int i = 1; i < 13; i++) { hdnFiltre.Value += ";" + tab[i]; }
             traceGraph();
         }
-        protected void filter(String file,String filter,int fc)
+        protected void filter(String file, String filter, int fc)
         {
-            String pathFile = Parametres.pathCSV  + file + ".csv";
+            String pathFile = Parametres.pathCSV + file + ".csv";
             // Définition des variables
             var points = new List<string>();
             var columnX = new List<int>();
@@ -563,24 +566,24 @@ namespace Epnos_application
             for (int i = 0; i < filteredPoints.Count(); i++)
                 csv.Append(columnX[i].ToString() + "," + filteredPoints[i].ToString() + "\n");
             csv.Append("\n");
-            File.WriteAllText(Parametres.pathCSV  + "Filt_" +filter+"_"+file+".csv", csv.ToString());
-            
+            File.WriteAllText(Parametres.pathCSV + "Filt_" + filter + "_" + file + ".csv", csv.ToString());
+
 
         }
 
-        protected List<int> LowPass(List<int> x, int dt , int fc)
+        protected List<int> LowPass(List<int> x, int dt, int fc)
         {
             var y = new List<int>();
             var a = dt / ((1 / (2 * Math.PI * fc)) + dt);
             y.Add((int)(a * x[0]));
-            for(int i=1;i<x.Count();i++)
+            for (int i = 1; i < x.Count(); i++)
             {
                 y.Add((int)(a * x[i] + (1 - a) * y[i - 1]));
             }
             return y;
         }
 
-        protected List<int> HighPass(List<int> x,int dt , int fc)
+        protected List<int> HighPass(List<int> x, int dt, int fc)
         {
             var y = new List<int>();
             var a = (1 / (2 * Math.PI * fc)) / ((1 / (2 * Math.PI * fc)) + dt);
