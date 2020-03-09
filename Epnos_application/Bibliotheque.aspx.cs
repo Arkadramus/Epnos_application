@@ -118,6 +118,7 @@ namespace Epnos_application
             string url;
             if (!string.IsNullOrEmpty(hiddenField_paths.Value))
             {
+                //Retire l'espace qui est devant le nom du fichier (il faut que les dossiers n'aient pas d'espace)
                 String paths = hiddenField_paths.Value;
                 String[] listPaths = paths.Split(' ');
                 url = "~/Analyse.aspx?path=" + listPaths[Int16.Parse(hiddenField_ind.Value) + 1];
