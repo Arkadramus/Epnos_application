@@ -19,18 +19,21 @@
                 this.color = (Color != null) ? Color : [];
             }
 
+            //Ajoute un élément au tableau
             Push(Min, Max, Color) {
                 this.min.push(Min);
                 this.max.push(Max);
                 this.color.push(Color);
             }
 
+            //Supprime le dernier élément du tableau
             Pop() {
                 this.min.pop();
                 this.max.pop();
                 this.color.pop();
             }
 
+            //Permet de check si l'objet est vide
             IsEmpty() {
                 var res = true;
                 if (this.min.length > 0)
@@ -46,11 +49,11 @@
 
         //Variables
         {
-            var dataRange = 60000; //en ms
+            var dataRange = 30000; //durée à afficher sur les graphs en ms
             var rangeHeight = 10;//taille du range selector
             var iDataRange = 0; //Pour savoir de combien on est décalé
-            var dataHypno = [];
-            dataHypno.push([0, 0]);
+            var dataHypno = [];//Données du graph hypno
+            dataHypno.push([0, 0]); //Pour ne pas avoir un tableau vide
 
             var CanvS1 = new Canva();
             var CanvS2 = new Canva();
@@ -63,6 +66,7 @@
             var canvasS1, canvasS2, canvasS3, canvasS4, canvasS5, canvasS6, canvasS7 = 1;
         }
 
+        //Permet de retrouver les canvas dans un hiddenfield et les garder même si on change de type de graph
         function GetCanva() {
             var res = "";
             var hfValue = document.getElementById("hfCanva").value;
@@ -90,6 +94,7 @@
             document.getElementById("hfCanva").value = res;
         }
 
+        //Permet de sauvegarder les canvas dans un hiddenfield
         function SetCanva() {
             var hfValue = document.getElementById("hfCanva").value;
             if (!(hfValue === "") && hfValue) {
@@ -148,6 +153,7 @@
             }
         }
 
+        //Méthode pour surligner un graph
         function Highlight(canvasName, area, g, Canv) {
             for (var i = 0; i < Canv.min.length; i++) {
                 canvasName.fillStyle = Canv.color[i];
@@ -158,6 +164,7 @@
 
         document.addEventListener('keydown', MoveDiagraph);
 
+        //Déplace le graph en fonction de la touche fléchée appuyée pour la partie neurologique
         function MoveDiagraph(e) {
             if (e.key === "ArrowRight")//Aller à droite
                 iDataRange++;
@@ -251,6 +258,7 @@
             h.updateOptions({ 'file': dataHypno });
         }
 
+        //Supprime la derniere donnée d'un canva d'un graph et les retrace
         function Undo(divGraph) {
             console.log(divGraph.id);
             switch (divGraph.id) {
@@ -437,9 +445,8 @@
             return false;
         }
 
+        //Affiche tous les graphs de la partie respiratoire
         function Sono() {
-            var tabminS1 = [];
-            var tabmaxS1 = [];
             var canvasS1 = 1;
             var colorSets = [['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['#000000'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0'], ['0']];
             var tab = window.name;
@@ -737,6 +744,7 @@
                 });
         }
 
+        //Modifie la couleur des graphs de la partie respiratoire
         function ChangeColor() {
 
             var colorAvailable = [['#000000'], ['#FF0000'], ['#FFA500'], ['#FFFF00'], ['#00FF00'], ['#00008B'], ['#00BFFF'], ['#9400D3'], ['#FF1493'], ['#8B4513']];
@@ -877,11 +885,12 @@
             return false;
         }
 
+        //Affiche tous les graphs de la partie neurologique et de l'hypnogramme
         function Neuro() {
             h = new Dygraph(document.getElementById("graphHypno"), dataHypno, {
                 showLabelsOnHighlight: false,
                 drawPoints: true,
-                dateWindow: [0, 50],
+                dateWindow: [0, 50], //Fenetre de l'hypno, a changer pour le rendre dynamique
                 axes: {
                     y: {
                         ticker: function (min, max, pixels, opts, graph, val) {
@@ -922,9 +931,6 @@
                                 return v + ' ms';  // controls formatting of the x-axis labels
                             },
                         },
-                        y: {
-
-                        },
                     },
                     showRangeSelector: false,
                     rangeSelectorHeight: rangeHeight,
@@ -946,10 +952,6 @@
                             axisLabelFormatter: function (v) {
                                 return v + ' ms';  // controls formatting of the x-axis labels
                             },
-                        },
-                        y: {
-
-
                         },
                     },
                     showRangeSelector: false,
@@ -1004,39 +1006,13 @@
                                 return v + ' ms';  // controls formatting of the x-axis labels
                             },
                         },
-                        y: {
-
-                        },
                     },
                     showRangeSelector: false,
                     dateWindow: [0, dataRange],
                     interactionModel: Dygraph.defaultInteractionModel,
                     zoomCallback: function (minTime, maxTime, yRanges) {
                         this.updateOptions({ dateWindow: [0, dataRange], });
-                    },
-
-                    //showLabelsOnHighlight: false,
-                    //dateWindow: [0, dataRange],
-                    //interactionModel: Dygraph.defaultInteractionModel,
-                    //zoomCallback: function (minTime, maxTime, yRanges) {
-                    //    if (CanvN3.min[CanvN3.length - 1] != minTime && CanvN3.max[CanvN3.length - 1] != maxTime
-                    //        && (maxTime - minTime) <= (dataRange + 50)) {
-                    //        CanvN3.Push(minTime, maxTime, ColorFromDDL());
-                    //        canvasN03 = null;
-                    //    }
-                    //    this.updateOptions({ dateWindow: [iDataRange * dataRange, (iDataRange + 1) * dataRange], });
-                    //},
-                    //drawCallback: function (graph, is_initial) {
-                    //    if (CanvN3.min.length > 0 && canvasN03 == null) { //Drawcallbak est appelé à chaque fois que canvas est utilisé, on attend donc qu'il soit à null
-                    //        this.updateOptions({
-                    //            underlayCallback: function (canvas, area, g) {
-                    //                canvasN03 = canvas;
-                    //                Highlight(canvasN03, area, g, CanvN3)
-                    //            }
-                    //        });
-                    //    }
-                    //},
-                    //colors: [colorSets[2]]
+                    },                   
                 });
 
             n04 = new Dygraph(
@@ -1062,9 +1038,6 @@
                                 return v + ' ms';  // controls formatting of the x-axis labels
                             },
                         },
-                        y: {
-
-                        },
                     },
                     showRangeSelector: false,
                     rangeSelectorHeight: rangeHeight,
@@ -1084,9 +1057,6 @@
                             axisLabelFormatter: function (v) {
                                 return v + ' ms';  // controls formatting of the x-axis labels
                             },
-                        },
-                        y: {
-
                         },
                     },
                     showRangeSelector: false,
@@ -1109,9 +1079,6 @@
                             axisLabelFormatter: function (v) {
                                 return v + ' ms';  // controls formatting of the x-axis labels
                             },
-                        },
-                        y: {
-
                         },
                     },
                     showRangeSelector: false,
@@ -1142,26 +1109,17 @@
                     <br />
                     <asp:Label runat="server" ID="lblDoctorIdentity" Text="Médecin :" Style="color: black; font-size: 15px;"></asp:Label>
                     <br />
-                    <br />
                     <asp:Label runat="server" ID="lblDoctorCoord" Text="Coordonnées :" Style="color: black; font-size: 15px;"></asp:Label>
-                    <br />
                     <br />
                     <asp:Label runat="server" ID="lblNumPatient" Text="Numéro du patient : " Style="color: black; font-size: 15px;"></asp:Label>
                     <br />
-                    <br />
                     <asp:Label runat="server" ID="lblTaille" Text="Taille :" Style="color: black; font-size: 15px;"></asp:Label>
-                    <br />
                     <br />
                     <asp:Label runat="server" ID="lblPoids" Text="Poids :" Style="color: black; font-size: 15px;"></asp:Label>
                     <br />
-                    <br />
                     <asp:Label runat="server" ID="lblAge" Text="Âge :" Style="color: black; font-size: 15px;"></asp:Label>
                     <br />
-                    <br />
                     <asp:Label runat="server" ID="lblNote" Text="Note :" Style="color: black; font-size: 15px;"></asp:Label>
-                    <br />
-                    <br />
-                    <%--<asp:Button runat="server" ID="btnTest" Text="Fin de projet" OnClick="btnTest_Click" />--%>
                 </div>
                 <div class="Div_param">
                     <asp:ScriptManager ID="ScriptManager2" runat="server" />
@@ -1179,7 +1137,7 @@
                                 <asp:ListItem Value="2" style="background-color: #FFA500;"> Orange </asp:ListItem>
                                 <asp:ListItem Value="3" style="background-color: #FFFF00;"> Jaune </asp:ListItem>
                                 <asp:ListItem Value="4" style="background-color: #00FF00;"> Vert </asp:ListItem>
-                                <asp:ListItem Value="5" style="background-color: #00008B;"> Bleu </asp:ListItem>
+                                <asp:ListItem Value="5" style="background-color: #00008B; color: white"> Bleu </asp:ListItem>
                                 <asp:ListItem Value="6" style="background-color: #00BFFF;"> Cyan </asp:ListItem>
                                 <asp:ListItem Value="7" style="background-color: #9400D3;"> Violet </asp:ListItem>
                                 <asp:ListItem Value="8" style="background-color: #FF1493;"> Rose </asp:ListItem>
@@ -1241,7 +1199,6 @@
                 </div>
 
                 <div class="Div_Hypno">
-
                     <asp:Label ID="lblHypno" runat="server" Text="Hypnogramme" Font-Bold="true" Style="color: black; font-size: 20px; margin-left: 5%; padding-top: 7.5%;" Visible="false"></asp:Label>
                     <div id="graphHypno" style="display: inline-block; height: 20vh; width: 100%; margin-bottom: 1%; margin-top: 5%;"></div>
                 </div>
@@ -1278,7 +1235,6 @@
                 </asp:Repeater>
             </div>
         </section>
-
     </form>
 </body>
 </html>

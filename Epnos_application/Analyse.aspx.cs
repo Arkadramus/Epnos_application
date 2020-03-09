@@ -12,7 +12,6 @@ using System.Windows.Forms;
 using System.Collections;
 using System.Web.UI.HtmlControls;
 
-
 using EDF = SharpLib.EuropeanDataFormat;
 
 
@@ -22,20 +21,30 @@ namespace Epnos_application
     {
         private EDF.File edfFile;
 
+        #region Initialisation
         protected void Page_Load(object sender, EventArgs e)
         {
-
             // Récupération du path du fichier que l'on souhaite ouvrir 
-            String SelectedFile = Request.QueryString["path"];
+            String selectedFile = Request.QueryString["path"];
             if (!IsPostBack)
             {
-                InitSignal();
+                if (!string.IsNullOrEmpty(selectedFile))
+                {
+                    edfFile = new EDF.File(selectedFile);
+                    //InitSignal();
+                }
+
                 if (Parametres.Pedro)
                 {
                     imgPedro.Visible = true;
                     lbl_pedro.Visible = true;
                 }
-                hdnFiltre.Value = "EDF/E1-M1.csv;EDF/E2-M1.csv;EDF/Group1.csv;EDF/Group2.csv;EDF/ECG.csv;EDF/HeartRate.csv;EDF/AudioVolumeDB.csv;EDF/Snoring.csv;EDF/AirFlow.csv;EDF/RIPFlow.csv;EDF/spO2B-B.csv;EDF/InductanceThora.csv;EDF/InductanceAbdom.csv";
+
+                hdnFiltre.Value = "EDF/E1-M1.csv;EDF/E2-M1.csv;" +
+                "EDF/Group1.csv;EDF/Group2.csv;EDF/ECG.csv;" +
+                "EDF/HeartRate.csv;EDF/AudioVolumeDB.csv;" +
+                "EDF/Snoring.csv;EDF/AirFlow.csv;EDF/RIPFlow.csv;" +
+                "EDF/spO2B-B.csv;EDF/InductanceThora.csv;EDF/InductanceAbdom.csv";
             }
         }
 
@@ -93,52 +102,48 @@ namespace Epnos_application
             DDLGraphNameFilter.DataBind();
         }
 
+        /// <summary>
+        /// Création de tous les .csv à l'aide d'un edf
+        /// </summary>
         private void InitSignal()
         {
-            String[] Group1 = { "F4-M1", "F3-M2", "C4-M1", "C3-M2", "O2-M1", "O1-M2" };
-            GroupSignals(Group1, "Group1");
-
-            String[] Group2 = { "1-2", "1-F" };
-            GroupSignals(Group2, "Group2");
-
-            int i = 0;
-            while (i < Parametres.BoucleLoad) //On tente l'ouverture plusieurs fois jusqu'à ce qu'il n'y ait plus de OOM
+            try
             {
-                try
-                {
-                    //edfFile = new EDF.File(Parametres.pathEDF);
-                    i = Parametres.BoucleLoad;
-                    //ReadSignal("E2-M1");
-                    //ReadSignal("E1", "M1");
-                    //ReadSignal("F4-M1");
-                    //ReadSignal("F3-M2");
-                    //ReadSignal("C4-M1");
-                    //ReadSignal("C3-M2");
-                    //ReadSignal("O2-M1");
-                    //ReadSignal("O1-M2");
-                    //ReadSignal("1-2");
-                    //ReadSignal("1-F");
-                    //ReadSignal("ECG");
-                    //ReadSignal("HeartRate");
+                //edfFile = new EDF.File(Parametres.pathEDF); Lecture d'un fichier .edf ; utilisé pour les tests
+                ReadSignal("E2-M1");
+                ReadSignal("E1", "M1");
+                ReadSignal("F4-M1");
+                ReadSignal("F3-M2");
+                ReadSignal("C4-M1");
+                ReadSignal("C3-M2");
+                ReadSignal("O2-M1");
+                ReadSignal("O1-M2");
+                ReadSignal("1-2");
+                ReadSignal("1-F");
+                ReadSignal("ECG");
+                ReadSignal("HeartRate");
 
-                    //ReadSignal("AudioVolumeDB");
-                    //ReadSignal("Snoring");
-                    //ReadSignal("AirFlow");
-                    //ReadSignal("RIPFlow");
-                    //ReadSignal("spO2B-B");
-                    //ReadSignal("InductanceThora");
-                    //ReadSignal("InductanceAbdom");
-                }
-                catch (Exception e)
-                {
-                    if (i != Parametres.BoucleLoad)
-                        Response.Redirect("https://www.youtube.com/watch?v=4N3N1MlvVc4");
-                    i++;
+                ReadSignal("AudioVolumeDB");
+                ReadSignal("Snoring");
+                ReadSignal("AirFlow");
+                ReadSignal("RIPFlow");
+                ReadSignal("spO2B-B");
+                ReadSignal("InductanceThora");
+                ReadSignal("InductanceAbdom");
 
-                }
+                String[] Group1 = { "F4-M1", "F3-M2", "C4-M1", "C3-M2", "O2-M1", "O1-M2" };
+                GroupSignals(Group1, "Group1");
+
+                String[] Group2 = { "1-2", "1-F" };
+                GroupSignals(Group2, "Group2");
+            }
+            catch (Exception e)
+            {
+                //Response.Redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
             }
 
         }
+        #endregion
 
         #region Graphique
         private class Canva
@@ -162,6 +167,9 @@ namespace Epnos_application
 
         }
 
+        /// <summary>
+        /// Structure pour afficher dans le repeater
+        /// </summary>
         struct PositionData
         {
             private string nom;
@@ -205,7 +213,7 @@ namespace Epnos_application
                     valueNeuro.Add(new PositionData("E1-M1", "E1M1"));
                     valueNeuro.Add(new PositionData("E2-M1", "E2M1"));
                     valueNeuro.Add(new PositionData("F4-M1 F3-M2 \r\n C4-M1 \r\n C3-M2 \r\n O2-M1 \r\n O1-M2", "Group1"));//On ne met pas de "-" pour les div car sinon le JS n'aime pas                
-                    valueNeuro.Add(new PositionData("1-2 1-F", "Group2"));             
+                    valueNeuro.Add(new PositionData("1-2 1-F", "Group2"));
                     valueNeuro.Add(new PositionData("ECG"));
                     valueNeuro.Add(new PositionData("HeartRate"));
 
@@ -221,7 +229,7 @@ namespace Epnos_application
                     valueNeuro.Add(new PositionData("spO2B-B", "spO2BB"));
                     valueNeuro.Add(new PositionData("InductanceThora"));
                     valueNeuro.Add(new PositionData("InductanceAbdom"));
-                 
+
 
                     rptNeuro.DataSource = valueNeuro;
                     rptNeuro.DataBind();
@@ -229,6 +237,11 @@ namespace Epnos_application
             }
         }
 
+        /// <summary>
+        /// Lit le fichier .edf, et en fonction du label passé en param créer un .cdv pour celui-ci
+        /// </summary>
+        /// <param name="labelSignal1">Lit le signal correspondant au label</param>
+        /// <param name="labelSignal2">Lit le signal correspondant au label et fait la différence avec le premier</param>
         private void ReadSignal(string labelSignal1, string labelSignal2 = null)
         {
             if (labelSignal1 != null && labelSignal2 != null)//On regarde si y'a 2 label en para. Si oui, on va faire la diff
@@ -247,7 +260,7 @@ namespace Epnos_application
                             var csv = new StringBuilder();
                             csv.Append("Time,Signal\n");
 
-                            for (int i = 0; i < nbRecord * signal1.SampleCountPerRecord.Value; i ++)
+                            for (int i = 0; i < nbRecord * signal1.SampleCountPerRecord.Value; i++)
                                 csv.Append((i * durationMS).ToString() + "," + (samples1[i] - samples2[i]).ToString() + "\n");
                             csv.Append("\n");
                             File.WriteAllText(Parametres.pathCSV + labelSignal1 + "-" + labelSignal2 + ".csv", csv.ToString());
@@ -267,7 +280,7 @@ namespace Epnos_application
                         var csv = new StringBuilder();
                         csv.Append("Time,Signal\n");
 
-                        for (int i = 0; i < nbRecord * signal.SampleCountPerRecord.Value; i ++)
+                        for (int i = 0; i < nbRecord * signal.SampleCountPerRecord.Value; i++)
                             csv.Append((i * durationMS).ToString() + "," + samples[i].ToString() + "\n");
                         csv.Append("\n");
                         File.WriteAllText(Parametres.pathCSV + labelSignal1 + ".csv", csv.ToString());
@@ -275,23 +288,28 @@ namespace Epnos_application
                 }
             }
         }
-        
+
+        /// <summary>
+        /// Permet de créer un .csv groupant plusieurs signaux de .csv pour les afficher sur un graph
+        /// </summary>
+        /// <param name="labelSignals"></param>
+        /// <param name="groupName"></param>
         protected void GroupSignals(String[] labelSignals, String groupName)
         {
             bool condX = true;
             var ListData = new List<List<int>>();
-            foreach(var nameSignal in labelSignals)
+            foreach (var nameSignal in labelSignals)
             {
                 var points = new List<string>();
                 var columnX = new List<int>();
                 var columnY = new List<int>();
-                var rd = new StreamReader(Parametres.pathCSV+nameSignal +".csv");              
+                var rd = new StreamReader(Parametres.pathCSV + nameSignal + ".csv");
                 while (!rd.EndOfStream)
                 {
                     var splits = rd.ReadLine().Split('\n');
                     points.Add(splits[0]);
                 }
-               
+
                 foreach (var element in points)
                 {
                     if (!string.IsNullOrEmpty(element))
@@ -305,7 +323,7 @@ namespace Epnos_application
                         }
                     }
                 }
-                if(condX)
+                if (condX)
                 {
                     ListData.Add(columnX);
                     condX = false;
@@ -315,47 +333,47 @@ namespace Epnos_application
 
             var csv = new StringBuilder();
             String entete = "Time";
-            for(int i = 0;i<ListData.Count()-1;i++)
+            for (int i = 0; i < ListData.Count() - 1; i++)
             {
                 entete += ",Signal" + (i + 1).ToString();
             }
             entete += '\n';
             csv.Append(entete);
 
-          
             for (int i = 0; i < ListData[0].Count(); i++)
             {
                 int offset = 1;
                 String ligne = "";
                 bool condFirst = true;
-                for (int j = 0; j< ListData.Count(); j++)
+                for (int j = 0; j < ListData.Count(); j++)
                 {
-                    if(condFirst)
+                    if (condFirst)
                     {
                         ligne += (ListData[j][i]).ToString();
                         condFirst = false;
                     }
                     else
                     {
-                        ligne += "," + (ListData[j][i]+ offset).ToString();
+                        ligne += "," + (ListData[j][i] + offset).ToString();
                     }
                     offset += 4000;
                 }
-                ligne += "\n";    
-                csv.Append(ligne);               
-               
+                ligne += "\n";
+                csv.Append(ligne);
+
             }
-            File.WriteAllText(Parametres.pathCSV  + groupName + ".csv", csv.ToString());
-           
-
-
+            File.WriteAllText(Parametres.pathCSV + groupName + ".csv", csv.ToString());
         }
         #endregion
 
         #region Button
+        /// <summary>
+        /// Prend un screenshot, mais que du premier écran
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btn_CaptEcran_Click(object sender, EventArgs e)
         {
-
             Bitmap bmp = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
             using (Graphics g = Graphics.FromImage(bmp))
             {
@@ -364,13 +382,13 @@ namespace Epnos_application
                 bmp.Save("C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Epnos_application\\Epnos_application\\Server\\screen\\" + nameDate + "+.png");  // saves the image
             }
 
-            traceGraph();
+            TraceGraph();
         }
 
         protected void btn_VoirCapt_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(@"C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Epnos_application\\Epnos_application\\Server\\screen");
-            traceGraph();
+            TraceGraph();
         }
 
         protected void btnNeuro_Click(object sender, EventArgs e)
@@ -396,7 +414,6 @@ namespace Epnos_application
                 ImageButton btn = (ImageButton)item.FindControl("btnUndo");
                 btn.Visible = false;
             }
-
         }
 
         protected void btnSono_Click(object sender, EventArgs e)
@@ -416,7 +433,7 @@ namespace Epnos_application
             DDLType.Visible = true;
             DDLGraphNameColor.Visible = true;
             btnApplyChange.Visible = true;
-            lblHypno.Visible = false ;
+            lblHypno.Visible = false;
             foreach (RepeaterItem item in rptNeuro.Items)
             {
                 ImageButton btn = (ImageButton)item.FindControl("btnUndo");
@@ -446,17 +463,20 @@ namespace Epnos_application
             }
         }
 
+        /// <summary>
+        /// Méthode nécessaire au projet pour se donner force et courage
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>s
         protected void imgPedro_Click(object sender, ImageClickEventArgs e)
         {
             Response.Write("<script> window.open('" + "https://www.youtube.com/watch?v=FSKZ4IowkYU" + "','_blank'); </script>");
         }
-
-        protected void btnTest_Click(object sender, EventArgs e)
-        {
-            traceGraph();
-        }
-
-        protected void traceGraph()
+        
+        /// <summary>
+        /// Trace les graphiques en fonction de la couleur du bouton
+        /// </summary>
+        protected void TraceGraph()
         {
             if (btnNeuro.BackColor == Color.White)
             {
@@ -477,13 +497,13 @@ namespace Epnos_application
             int frqCpr = int.Parse(txtboxFiltre.Text);
             String[] tab = hdnFiltre.Value.Split(';');
 
-            filter(graphName, typeFiltre, frqCpr);
+            Filter(graphName, typeFiltre, frqCpr);
 
             switch (graphName)
             {
                 case "E1-M1":
-                    tab[0] = "EDF/Filt_"+typeFiltre+"_" + graphName + ".csv"; 
-                   break;
+                    tab[0] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
+                    break;
                 case "E2-M2":
                     tab[1] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
@@ -538,16 +558,18 @@ namespace Epnos_application
                 case "InductanceAbdom":
                     tab[12] = "EDF/Filt_" + typeFiltre + "_" + graphName + ".csv";
                     break;
-              
+
             }
             hdnFiltre.Value = tab[0];
-            for(int i = 1; i < 13; i++) { hdnFiltre.Value += ";"+tab[i]; }
-            traceGraph();
+            for (int i = 1; i < 13; i++) { hdnFiltre.Value += ";" + tab[i]; }
+            TraceGraph();
         }
+        #endregion
 
-        protected void filter(String file,String filter,int fc)
+        #region Filtrage
+        protected void Filter(String file, String filter, int fc)
         {
-            String pathFile = Parametres.pathCSV  + file + ".csv";
+            String pathFile = Parametres.pathCSV + file + ".csv";
             // Définition des variables
             var points = new List<string>();
             var columnX = new List<int>();
@@ -593,24 +615,24 @@ namespace Epnos_application
             for (int i = 0; i < filteredPoints.Count(); i++)
                 csv.Append(columnX[i].ToString() + "," + filteredPoints[i].ToString() + "\n");
             csv.Append("\n");
-            File.WriteAllText(Parametres.pathCSV  + "Filt_" +filter+"_"+file+".csv", csv.ToString());
-            
+            File.WriteAllText(Parametres.pathCSV + "Filt_" + filter + "_" + file + ".csv", csv.ToString());
+
 
         }
 
-        protected List<int> LowPass(List<int> x, int dt , int fc)
+        protected List<int> LowPass(List<int> x, int dt, int fc)
         {
             var y = new List<int>();
             var a = dt / ((1 / (2 * Math.PI * fc)) + dt);
             y.Add((int)(a * x[0]));
-            for(int i=1;i<x.Count();i++)
+            for (int i = 1; i < x.Count(); i++)
             {
                 y.Add((int)(a * x[i] + (1 - a) * y[i - 1]));
             }
             return y;
         }
 
-        protected List<int> HighPass(List<int> x,int dt , int fc)
+        protected List<int> HighPass(List<int> x, int dt, int fc)
         {
             var y = new List<int>();
             var a = (1 / (2 * Math.PI * fc)) / ((1 / (2 * Math.PI * fc)) + dt);
@@ -620,10 +642,7 @@ namespace Epnos_application
                 y.Add((int)(a * y[i - 1] + a * (x[i] - x[i - 1])));
             }
             return y;
-        }
-
-       
-
+        }   
         #endregion
     }
 }

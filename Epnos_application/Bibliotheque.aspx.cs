@@ -12,7 +12,7 @@ using EDF = SharpLib.EuropeanDataFormat;
 
 namespace Epnos_application
 {
- 
+
     public partial class Bibliotèque : System.Web.UI.Page
     {
         /// <summary>
@@ -24,25 +24,15 @@ namespace Epnos_application
         {
             if (!IsPostBack)
             {
-                int i = 0;
-                while (i < Parametres.BoucleLoad) //On tente l'ouverture plusieurs fois jusqu'à ce qu'il n'y ait plus de OOM
+                try
                 {
-                    try
-                    {
-                        
-                        //Fill_Table();
-            i = Parametres.BoucleLoad;
-                    }
-                    catch (Exception ex)
-                    {
-                        i++;
-                        if (i >= Parametres.BoucleLoad)
-                            Response.Redirect("https://www.youtube.com/watch?v=4N3N1MlvVc4");
-                    }
+                    Fill_Table();
                 }
-                
+                catch (Exception ex)
+                {
+                    Demo();
+                }
             }
-
         }
 
         /// <summary>
@@ -50,30 +40,31 @@ namespace Epnos_application
         /// </summary>
         protected void Fill_Table()
         {
-            
-                ArrayList values = new ArrayList();
 
-                List<string> dirs = new List<string>(Directory.EnumerateFiles("C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Edf"));
-                hiddenField_paths.Value = "";
-                foreach (var file in dirs)
-                {
-                    hiddenField_paths.Value = hiddenField_paths.Value + " "+ file ;
-                    var edfFile = new EDF.File(file);
-                    var edfHeader = edfFile.Header;
-                    var idPatient = edfHeader.PatientID;
-                    var dateRecord = edfHeader.RecordingStartDate;
-                    var timeRecord = edfHeader.RecordingStartTime;
-                    var durationRecord = edfHeader.RecordDurationInSeconds;
-                    var numberOfDataRecord = edfHeader.RecordCount;
+            ArrayList values = new ArrayList();
 
-                    values.Add(new PositionData(idPatient.Value, dateRecord.Value + " | " + timeRecord.Value, (durationRecord.Value * numberOfDataRecord.Value / 3600).ToString(), "", "", ""));
+            //Va lire tous les fichiers contenus dans le dossier mit paramètre
+            List<string> dirs = new List<string>(Directory.EnumerateFiles(Parametres.pathFileEDF));
+            hiddenField_paths.Value = "";
+            foreach (var file in dirs)
+            {
+                hiddenField_paths.Value = hiddenField_paths.Value + " " + file;
+                var edfFile = new EDF.File(file);
+                var edfHeader = edfFile.Header;
+                var idPatient = edfHeader.PatientID;
+                var dateRecord = edfHeader.RecordingStartDate;
+                var timeRecord = edfHeader.RecordingStartTime;
+                var durationRecord = edfHeader.RecordDurationInSeconds;
+                var numberOfDataRecord = edfHeader.RecordCount;
+
+                values.Add(new PositionData(idPatient.Value, dateRecord.Value + " | " + timeRecord.Value, (durationRecord.Value * numberOfDataRecord.Value / 3600).ToString(), "", "", ""));
 
 
-                    Repeater1.DataSource = values;
-                    Repeater1.DataBind();
-                }
+                Repeater1.DataSource = values;
+                Repeater1.DataBind();
+            }
 
-            
+
         }
 
         /// <summary>
@@ -83,7 +74,7 @@ namespace Epnos_application
         /// <param name="e"></param>
         protected void Repeater1_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-         
+
             int ind = 0;
             foreach (RepeaterItem item2 in Repeater1.Items)
             {
@@ -91,7 +82,7 @@ namespace Epnos_application
                 LinkButton linkbutton = (LinkButton)item2.FindControl("LinkButton1");
                 if (ind == Repeater1.Items[e.Item.ItemIndex].ItemIndex)
                 {
-                    
+
                     tr.Attributes.Add("style", "background-color:grey; color:white;");
                     linkbutton.ForeColor = System.Drawing.Color.White;
                     hiddenField_ind.Value = Repeater1.Items[e.Item.ItemIndex].ItemIndex.ToString();
@@ -100,10 +91,10 @@ namespace Epnos_application
                 {
                     tr.Attributes.Add("style", "background-color:White;");
                     linkbutton.ForeColor = System.Drawing.Color.Black;
-                    
+
                 }
                 ind++;
-                
+
             }
         }
 
@@ -125,9 +116,14 @@ namespace Epnos_application
         protected void btn_Ouvrir_Click(object sender, EventArgs e)
         {
             string url;
-            String paths = hiddenField_paths.Value;
-            String[] listPaths = paths.Split(' ');
-            url = "~/Analyse.aspx?path=" + listPaths[Int16.Parse(hiddenField_ind.Value) + 1];
+            if (!string.IsNullOrEmpty(hiddenField_paths.Value))
+            {
+                String paths = hiddenField_paths.Value;
+                String[] listPaths = paths.Split(' ');
+                url = "~/Analyse.aspx?path=" + listPaths[Int16.Parse(hiddenField_ind.Value) + 1];
+            }
+            else
+                url = "~/Analyse.aspx?path=128E4513ABD153";
             Response.Redirect(url);
         }
 
@@ -138,20 +134,13 @@ namespace Epnos_application
         /// <param name="e"></param>
         protected void btn_Recherche_Click(object sender, ImageClickEventArgs e)
         {
-            int i = 0;
-            while (i < Parametres.BoucleLoad) //On tente l'ouverture plusieurs fois jusqu'à ce qu'il n'y ait plus de OOM
+            try
             {
-                try
-                {
-                    i = Parametres.BoucleLoad;
-                    Fill_Table();
-                }
-                catch (Exception ex)
-                {
-                    i++;
-                    if (i >= Parametres.BoucleLoad)
-                        Response.Redirect("https://www.youtube.com/watch?v=4N3N1MlvVc4");
-                }
+                Fill_Table();
+            }
+            catch (Exception ex)
+            {
+                Demo();
             }
 
 
@@ -164,14 +153,14 @@ namespace Epnos_application
             int ind = 0;
 
             foreach (RepeaterItem item2 in Repeater1.Items)
-            {         
+            {
                 LinkButton linkbutton = (LinkButton)item2.FindControl("LinkButton1");
-               
+
                 if (linkbutton.Text.ToLower().Contains(searchText.ToLower()))
-                {                   
-                    dirs.Add(listPaths[ind+1]);                   
+                {
+                    dirs.Add(listPaths[ind + 1]);
                 }
-                ind++;              
+                ind++;
             }
 
             hiddenField_paths.Value = "";
@@ -192,10 +181,31 @@ namespace Epnos_application
                 Repeater1.DataSource = values;
                 Repeater1.DataBind();
             }
-
         }
 
-        
+        /// <summary>
+        /// Méthode pour faire une démonstration le jour de la soutenance sans charger de fichiers .edf qui est trop long
+        /// </summary>
+        protected void Demo()
+        {
+            ArrayList values = new ArrayList();
+            var idPatient1 = "LAUSEB69";
+            var timeRecord1 = new DateTime(2019, 11, 15, 23, 10, 05);
+            var durationRecord1 = 10;
+            var numberOfDataRecord1 = 2880;
+
+            var idPatient2 = "VUHA";
+            var timeRecord2 = new DateTime(2019, 11, 04, 20, 00, 08);
+            var durationRecord2 = 10;
+            var numberOfDataRecord2 = 3960;
+
+            values.Add(new PositionData(idPatient1, timeRecord1.ToString("dd.MM.yy") + " | " + timeRecord1.ToString("HH.mm.ss"), (durationRecord1 * numberOfDataRecord1 / 3600).ToString(), "", "", ""));
+            values.Add(new PositionData(idPatient2, timeRecord2.ToString("dd.MM.yy") + " | " + timeRecord2.ToString("HH.mm.ss"), (durationRecord2 * numberOfDataRecord2 / 3600).ToString(), "", "", ""));
+
+
+            Repeater1.DataSource = values;
+            Repeater1.DataBind();
+        }
     }
 
     /// <summary>
@@ -270,5 +280,5 @@ namespace Epnos_application
         }
     }
 
-    
+
 }

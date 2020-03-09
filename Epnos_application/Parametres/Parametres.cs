@@ -8,11 +8,18 @@ namespace Epnos_application
 {
     public class Parametres
     {
+        //Le fichier paramEPNOS.ini sera stocké dans "Mes documents". À changer à sa convenance
         private static string _PATH = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), "paramEPNOS.ini");
 
         [DllImport("kernel32", CharSet = CharSet.Unicode)]
         static extern int GetPrivateProfileString(string Section, string Key, string Default, StringBuilder RetVal, int Size, string FilePath);
 
+        /// <summary>
+        /// Methode pour lire les informations contenues dans le .ini
+        /// </summary>
+        /// <param name="Key">Nom du champ dans le .ini</param>
+        /// <param name="Section">Nom de la section contenant le champ</param>
+        /// <returns></returns>
         private static string Read(string Key, string Section = null)
         {
             var RetVal = new StringBuilder(255);
@@ -35,7 +42,14 @@ namespace Epnos_application
             {
                 return (Read("pathEDF", "Path"));
             }
-
+        }
+        
+        public static string pathFileEDF
+        {
+            get
+            {
+                return (Read("pathFileEDF", "Path"));
+            }
         }
 
         public static string Temps
@@ -52,22 +66,6 @@ namespace Epnos_application
             get
             {
                 return Read("IsPedro", "Analyse") == "1" ? true : false;
-            }
-        }
-
-        public static int NbSample
-        {
-            get
-            {
-                return int.Parse(Read("NbSample", "Analyse"));
-            }
-        }
-
-        public static int BoucleLoad
-        {
-            get
-            {
-                return int.Parse(Read("boucleLoad", "EDF"));
             }
         }
     }
