@@ -48,7 +48,7 @@ namespace Epnos_application
             hiddenField_paths.Value = "";
             foreach (var file in dirs)
             {
-                hiddenField_paths.Value = hiddenField_paths.Value + " " + file;
+                hiddenField_paths.Value = hiddenField_paths.Value + " " + file;       
                 var edfFile = new EDF.File(file);
                 var edfHeader = edfFile.Header;
                 var idPatient = edfHeader.PatientID;
@@ -189,6 +189,7 @@ namespace Epnos_application
         /// </summary>
         protected void Demo()
         {
+            hiddenField_paths.Value = ""+" " + "C:\\Users\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Edf\\LAUSEB69_EDF.edf" + " " + "C:\\Maurine\\Documents\\Cours_Polytech\\5A\\PFE_EPNOS\\Edf\\VUHA_PSG_EDF.edf";
             ArrayList values = new ArrayList();
             var idPatient1 = "LAUSEB69";
             var timeRecord1 = new DateTime(2019, 11, 15, 23, 10, 05);

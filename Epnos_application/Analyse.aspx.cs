@@ -30,7 +30,8 @@ namespace Epnos_application
             {
                 if (!string.IsNullOrEmpty(selectedFile))
                 {
-                    edfFile = new EDF.File(selectedFile);
+                    //edfFile = new EDF.File(selectedFile);
+                    edfFile = null;
                     //InitSignal();
                 }
 
